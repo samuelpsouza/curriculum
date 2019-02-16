@@ -21,6 +21,8 @@ public class MatrizCurricularApplicationTests {
     private MajorRepository majorRepository;
     @Autowired
     private SemesterRepository semesterRepository;
+    @Autowired
+    private CourseRepository courseRepository;
 
     private Major major;
     private Semester semester;
@@ -30,6 +32,7 @@ public class MatrizCurricularApplicationTests {
     public void contextLoads() {
         assertNotNull(majorRepository);
         assertNotNull(semesterRepository);
+        assertNotNull(courseRepository);
     }
 
     @Test
