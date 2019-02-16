@@ -1,6 +1,7 @@
 package br.samuelpsouza.matrizcurricular;
 
 import br.samuelpsouza.matrizcurricular.model.Course;
+import br.samuelpsouza.matrizcurricular.repository.CourseRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,14 +24,15 @@ public class MatrizCurricularApplicationTests {
 
     @Test
     public void shouldCreateACourseObject() {
-        course = new Course("Ciencia da Computação");
+        course = new Course("CC001", "Ciencia da Computação");
         assertNotNull(course);
         assertNotNull(course.getTitle());
+        assertNotNull(course.getCode());
     }
 
     @Test
     public void shouldCreateAndPersistAObject() {
-        course = new Course("Ciencia da Computação");
+        course = new Course("CC001", "Ciencia da Computação");
         Course persistedCourse = this.courseRepository.save(course);
         assertTrue(persistedCourse.getCode().equals(course.getCode()));
     }
