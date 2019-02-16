@@ -1,6 +1,7 @@
 package br.samuelpsouza.matrizcurricular;
 
 import br.samuelpsouza.matrizcurricular.model.Major;
+import br.samuelpsouza.matrizcurricular.model.Semester;
 import br.samuelpsouza.matrizcurricular.repository.MajorRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -42,7 +43,7 @@ public class MatrizCurricularApplicationTests {
     public void shouldCreateASemesterObject() {
         semester = new Semester("Semestre I");
         assertNotNull(semester);
-        assertNotNull(major.getDescription());
+        assertNotNull(semester.getDescription());
     }
 }
 
