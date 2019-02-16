@@ -20,6 +20,9 @@ public class MatrizCurricularApplicationTests {
     public void shouldCreateACourseObject(){
 	    Course course = new Course("Ciencia da Computação");
         assertNotNull(course);
+        assertNotNull(course.getTitle());
     }
+
+
 }
 
