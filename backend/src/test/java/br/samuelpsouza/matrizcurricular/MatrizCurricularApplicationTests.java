@@ -3,8 +3,10 @@ package br.samuelpsouza.matrizcurricular;
 import br.samuelpsouza.matrizcurricular.model.Course;
 import br.samuelpsouza.matrizcurricular.model.Major;
 import br.samuelpsouza.matrizcurricular.model.Semester;
+import br.samuelpsouza.matrizcurricular.repository.CourseRepository;
 import br.samuelpsouza.matrizcurricular.repository.MajorRepository;
 import br.samuelpsouza.matrizcurricular.repository.SemesterRepository;
+import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -78,5 +80,10 @@ public class MatrizCurricularApplicationTests {
         assertEquals(persistedCourse.getCode(), course.getCode());
     }
 
+    @After
+    public void cleanDatabaseUp() {
+        this.courseRepository.deleteAll();
+        this.majorRepository.deleteAll();
+        this.semesterRepository.deleteAll();
+    }
 }
-
