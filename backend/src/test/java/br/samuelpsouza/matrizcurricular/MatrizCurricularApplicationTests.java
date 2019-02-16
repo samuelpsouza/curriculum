@@ -3,6 +3,7 @@ package br.samuelpsouza.matrizcurricular;
 import br.samuelpsouza.matrizcurricular.model.Major;
 import br.samuelpsouza.matrizcurricular.model.Semester;
 import br.samuelpsouza.matrizcurricular.repository.MajorRepository;
+import br.samuelpsouza.matrizcurricular.repository.SemesterRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,11 +18,16 @@ import static org.junit.Assert.assertNotNull;
 public class MatrizCurricularApplicationTests {
     @Autowired
     private MajorRepository majorRepository;
+    @Autowired
+    private SemesterRepository semesterRepository;
+
     private Major major;
     private Semester semester;
 
     @Test
     public void contextLoads() {
+        assertNotNull(majorRepository);
+        assertNotNull(semesterRepository);
     }
 
     @Test
@@ -45,5 +51,13 @@ public class MatrizCurricularApplicationTests {
         assertNotNull(semester);
         assertNotNull(semester.getDescription());
     }
+
+    @Test
+    public void shouldCreateAndPersistASemesterObject() {
+        semester = new Semester("Semestre I");
+        Semester persistedSemester = this.semesterRepository.save(semester);
+        assertEquals(persistedSemester.getDescription(), semester.getDescription());
+    }
+
 }
 
