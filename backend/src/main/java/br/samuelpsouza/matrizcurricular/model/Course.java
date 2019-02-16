@@ -1,6 +1,10 @@
 package br.samuelpsouza.matrizcurricular.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
+@Data
+@AllArgsConstructor
 public class Course {
-    public Course(String ciencia_da_computação) {
-    }
+    private String title;
 }
