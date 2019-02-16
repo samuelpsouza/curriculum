@@ -1,5 +1,6 @@
 package br.samuelpsouza.matrizcurricular;
 
+import br.samuelpsouza.matrizcurricular.model.Course;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
