@@ -1,40 +1,48 @@
 package br.samuelpsouza.matrizcurricular;
 
-import br.samuelpsouza.matrizcurricular.model.Course;
-import br.samuelpsouza.matrizcurricular.repository.CourseRepository;
+import br.samuelpsouza.matrizcurricular.model.Major;
+import br.samuelpsouza.matrizcurricular.repository.MajorRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class MatrizCurricularApplicationTests {
     @Autowired
-    private CourseRepository courseRepository;
-    private Course course;
+    private MajorRepository majorRepository;
+    private Major major;
+    private Semester semester;
 
     @Test
     public void contextLoads() {
     }
 
     @Test
-    public void shouldCreateACourseObject() {
-        course = new Course("CC001", "Ciencia da Computação");
-        assertNotNull(course);
-        assertNotNull(course.getTitle());
-        assertNotNull(course.getCode());
+    public void shouldCreateAMajorObject() {
+        major = new Major("CC001", "Ciencia da Computação");
+        assertNotNull(major);
+        assertNotNull(major.getTitle());
+        assertNotNull(major.getCode());
     }
 
     @Test
-    public void shouldCreateAndPersistAObject() {
-        course = new Course("CC001", "Ciencia da Computação");
-        Course persistedCourse = this.courseRepository.save(course);
-        assertTrue(persistedCourse.getCode().equals(course.getCode()));
+    public void shouldCreateAndPersistAMajorObject() {
+        major = new Major("CC001", "Ciencia da Computação");
+        Major persistedMajor = this.majorRepository.save(major);
+        assertEquals(persistedMajor.getCode(), major.getCode());
+    }
+
+    @Test
+    public void shouldCreateASemesterObject() {
+        semester = new Semester("Semestre I");
+        assertNotNull(semester);
+        assertNotNull(major.getDescription());
     }
 }
 

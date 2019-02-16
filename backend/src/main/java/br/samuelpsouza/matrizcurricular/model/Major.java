@@ -12,7 +12,7 @@ import javax.validation.constraints.NotNull;
 
 @Data
 @Entity
-public class Course {
+public class Major {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -25,7 +25,7 @@ public class Course {
     @NotEmpty
     private String title;
 
-    public Course(@NotNull @NotBlank @NotEmpty String code, @NotNull @NotBlank @NotEmpty String title) {
+    public Major(@NotNull @NotBlank @NotEmpty String code, @NotNull @NotBlank @NotEmpty String title) {
         this.code = code;
         this.title = title;
     }
