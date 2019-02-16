@@ -1,5 +1,6 @@
 package br.samuelpsouza.matrizcurricular;
 
+import br.samuelpsouza.matrizcurricular.model.Course;
 import br.samuelpsouza.matrizcurricular.model.Major;
 import br.samuelpsouza.matrizcurricular.model.Semester;
 import br.samuelpsouza.matrizcurricular.repository.MajorRepository;
@@ -64,7 +65,14 @@ public class MatrizCurricularApplicationTests {
     public void shouldCreateACourseObject() {
         course = new Course("CC001FP001", "Fundamentos de Programação");
         assertNotNull(course);
-        assertNotNull(semester.getCode());
+        assertNotNull(course.getCode());
+    }
+
+    @Test
+    public void shouldCreateAndPersistACourseObject() {
+        course = new Course("CC001FP001", "Fundamentos de Programação");
+        Course persistedCourse = this.courseRepository.save(course);
+        assertEquals(persistedCourse.getCode(), course.getCode());
     }
 
 }
