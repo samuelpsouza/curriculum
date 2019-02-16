@@ -23,6 +23,7 @@ public class MatrizCurricularApplicationTests {
 
     private Major major;
     private Semester semester;
+    private Course course;
 
     @Test
     public void contextLoads() {
@@ -57,6 +58,13 @@ public class MatrizCurricularApplicationTests {
         semester = new Semester("Semestre I");
         Semester persistedSemester = this.semesterRepository.save(semester);
         assertEquals(persistedSemester.getDescription(), semester.getDescription());
+    }
+
+    @Test
+    public void shouldCreateACourseObject() {
+        course = new Course("CC001FP001", "Fundamentos de Programação");
+        assertNotNull(course);
+        assertNotNull(semester.getCode());
     }
 
 }
