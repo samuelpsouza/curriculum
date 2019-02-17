@@ -24,6 +24,7 @@ import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @RunWith(SpringRunner.class)
@@ -158,6 +159,20 @@ public class MatrizCurricularApplicationTests {
     public void shouldRequestMajorAndReceiveApiResponseJsonWithContent() throws Exception {
         mvc.perform(get("/majors")
                 .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(content()
+                        .contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.success", is(true)))
+                .andExpect(jsonPath("$.message", notNullValue()))
+                .andExpect(jsonPath("$.data.content", isA(ArrayList.class)));
+    }
+
+    @Test
+    public void shouldAddANewMajorAndReceiveApiResponseJson() throws Exception {
+        major = new Major("CC001", "Ciencia da Computação");
+        mvc.perform(post("/majors")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(major.toString()))
                 .andExpect(status().isOk())
                 .andExpect(content()
                         .contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
