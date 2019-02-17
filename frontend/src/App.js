@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import Fab from '@material-ui/core/Fab';
-import AddIcon from '@material-ui/icons/Add';
 import './App.css';
 
-import Major from './components/major/Major';
 import AppBar from './components/app-bar/AppBar';
 
 const styles = theme => ({
@@ -35,22 +32,9 @@ class App extends Component {
   }
 
   render() {
-    const { classes } = this.props;
     return (
       <div className="App">
         <AppBar />
-
-        <Fab color="primary" aria-label="Add" className={classes.fab}>
-          <AddIcon />
-        </Fab>
-
-        {
-          this.state.majors.map(major => {
-            return (
-              <Major major={major} />
-            );
-          })
-        }
       </div>
     );
   }
