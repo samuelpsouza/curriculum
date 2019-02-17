@@ -195,7 +195,10 @@ public class MatrizCurricularApplicationTests {
                         .contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.success", is(true)))
                 .andExpect(jsonPath("$.message", notNullValue()))
-                .andExpect(jsonPath("$.data", notNullValue()));
+
+                // No retorno, o spring está convertendo o Long para inteiro
+                // Deveria ser 56L, mas está retornando 56.
+                .andExpect(jsonPath("$.data.id", is(major.getId().intValue())));
     }
 
     @After

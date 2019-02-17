@@ -34,4 +34,10 @@ public class MajorController {
     public ResponseEntity<ApiResponse> addMajor(@RequestBody @Valid Major major) {
         return ResponseEntity.ok(this.majorService.addMajor(major));
     }
+
+    @PutMapping
+    @ResponseBody
+    public ResponseEntity<ApiResponse> updateMajor(@RequestBody @Valid Major major) {
+        return ResponseEntity.ok(this.majorService.addMajor(major));
+    }
 }
