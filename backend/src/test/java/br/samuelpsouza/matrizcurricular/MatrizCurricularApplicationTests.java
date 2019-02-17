@@ -151,7 +151,7 @@ public class MatrizCurricularApplicationTests {
                         .contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.success", is(true)))
                 .andExpect(jsonPath("$.message", notNullValue()))
-                .andExpect(jsonPath("$.data", isA(ArrayList.class)));
+                .andExpect(jsonPath("$.data.content", isA(ArrayList.class)));
     }
 
     @After
