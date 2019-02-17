@@ -100,7 +100,7 @@ public class MatrizCurricularApplicationTests {
     public void shouldCreateAndPersistAMatrixObject() {
         matrix = new Matrix();
         Matrix persistedCourse = this.matrixRepository.save(matrix);
-        assertNotNull(matrix.getId());
+        assertNotNull(persistedCourse.getId());
     }
 
     @After
