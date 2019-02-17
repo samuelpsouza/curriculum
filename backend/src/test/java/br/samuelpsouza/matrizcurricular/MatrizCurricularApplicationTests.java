@@ -20,6 +20,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.ArrayList;
 
+import static br.samuelpsouza.matrizcurricular.TestUtil.convertObjectToJsonBytes;
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -172,13 +173,13 @@ public class MatrizCurricularApplicationTests {
         major = new Major("CC001", "Ciencia da Computação");
         mvc.perform(post("/majors")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(major.toString()))
+                .content(convertObjectToJsonBytes(major)))
                 .andExpect(status().isOk())
                 .andExpect(content()
                         .contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.success", is(true)))
                 .andExpect(jsonPath("$.message", notNullValue()))
-                .andExpect(jsonPath("$.data.content", isA(ArrayList.class)));
+                .andExpect(jsonPath("$.data", notNullValue()));
     }
 
     @After

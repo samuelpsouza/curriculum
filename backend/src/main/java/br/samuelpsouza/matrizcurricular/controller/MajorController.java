@@ -1,5 +1,6 @@
 package br.samuelpsouza.matrizcurricular.controller;
 
+import br.samuelpsouza.matrizcurricular.model.Major;
 import br.samuelpsouza.matrizcurricular.payload.ApiResponse;
 import br.samuelpsouza.matrizcurricular.service.MajorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,10 +8,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 
 @RestController
@@ -27,5 +27,11 @@ public class MajorController {
     @ResponseBody
     public ResponseEntity<ApiResponse> getMajors(@PageableDefault Pageable page) {
         return ResponseEntity.ok(this.majorService.getMajors(page));
+    }
+
+    @PostMapping
+    @ResponseBody
+    public ResponseEntity<ApiResponse> addMajor(@RequestBody @Valid Major major) {
+        return ResponseEntity.ok(this.majorService.addMajor(major));
     }
 }
