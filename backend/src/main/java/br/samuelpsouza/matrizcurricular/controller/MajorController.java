@@ -40,4 +40,10 @@ public class MajorController {
     public ResponseEntity<ApiResponse> updateMajor(@RequestBody @Valid Major major) {
         return ResponseEntity.ok(this.majorService.addMajor(major));
     }
+
+    @DeleteMapping("/{id}")
+    @ResponseBody
+    public ResponseEntity<ApiResponse> deleteMajor(@PathVariable("id") Long id) {
+        return ResponseEntity.ok(this.majorService.deleteMajor(id));
+    }
 }
