@@ -6,6 +6,7 @@ import br.samuelpsouza.matrizcurricular.model.Matrix;
 import br.samuelpsouza.matrizcurricular.model.Semester;
 import br.samuelpsouza.matrizcurricular.repository.CourseRepository;
 import br.samuelpsouza.matrizcurricular.repository.MajorRepository;
+import br.samuelpsouza.matrizcurricular.repository.MatrixRepository;
 import br.samuelpsouza.matrizcurricular.repository.SemesterRepository;
 import org.junit.After;
 import org.junit.Test;
