@@ -29,6 +29,7 @@ public class MatrizCurricularApplicationTests {
     private Major major;
     private Semester semester;
     private Course course;
+    private Matrix matrix;
 
     @Test
     public void contextLoads() {
@@ -78,6 +79,21 @@ public class MatrizCurricularApplicationTests {
         course = new Course("CC001FP001", "Fundamentos de Programação");
         Course persistedCourse = this.courseRepository.save(course);
         assertEquals(persistedCourse.getCode(), course.getCode());
+    }
+
+    @Test(expected = org.springframework.dao.DataIntegrityViolationException.class)
+    public void shouldNotPersistACourseObjectWithSameCode() {
+        course = new Course("CC001FP001", "Fundamentos de Programação");
+        this.courseRepository.save(course);
+        Course newCourse = new Course("CC001FP001", "POO");
+        this.courseRepository.save(newCourse);
+    }
+
+    @Test
+    public void shouldCreateAMatrixObject() {
+        matrix = new Matrix();
+        assertNotNull(course);
+        assertNotNull(course.getCode());
     }
 
     @After
