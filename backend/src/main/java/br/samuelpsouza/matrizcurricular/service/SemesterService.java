@@ -1,5 +1,6 @@
 package br.samuelpsouza.matrizcurricular.service;
 
+import br.samuelpsouza.matrizcurricular.model.Semester;
 import br.samuelpsouza.matrizcurricular.payload.ApiResponse;
 import br.samuelpsouza.matrizcurricular.repository.SemesterRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -24,6 +25,13 @@ public class SemesterService {
         ApiResponse response = new ApiResponse(true, "Semester removed");
         this.semesterRepository.deleteById(id);
         log.info("Semester %s removed at %s", id, LocalDateTime.now());
+        return response;
+    }
+
+    @Transactional
+    public ApiResponse saveSemester(Semester semester) {
+        ApiResponse response = new ApiResponse(true, "Semester saved");
+        response.setData(this.semesterRepository.save(semester));
         return response;
     }
 }

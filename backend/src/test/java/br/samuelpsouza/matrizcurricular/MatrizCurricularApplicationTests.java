@@ -263,7 +263,7 @@ public class MatrizCurricularApplicationTests {
         semester = new Semester("Semestre I");
         mvc.perform(post("/semesters")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(convertObjectToJsonBytes(major)))
+                .content(convertObjectToJsonBytes(semester)))
                 .andExpect(status().isOk())
                 .andExpect(content()
                         .contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
