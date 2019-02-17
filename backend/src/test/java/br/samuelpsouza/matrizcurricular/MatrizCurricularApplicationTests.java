@@ -131,6 +131,18 @@ public class MatrizCurricularApplicationTests {
     }
 
     @Test
+    public void shouldRequestRootAndReceiveApiResponseJson() throws Exception {
+        mvc.perform(get("/")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(content()
+                        .contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.success", is(true)))
+                .andExpect(jsonPath("$.message", is("No donuts for you")))
+                .andExpect(jsonPath("$.data", anything()));
+    }
+
+    @Test
     public void shouldRequestMajorAndReceiveApiResponseJson() throws Exception {
         mvc.perform(get("/majors")
                 .contentType(MediaType.APPLICATION_JSON))
