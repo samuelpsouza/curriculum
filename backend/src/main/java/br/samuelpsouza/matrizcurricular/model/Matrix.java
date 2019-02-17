@@ -13,5 +13,5 @@ public class Matrix {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @OneToMany(cascade = CascadeType.ALL)
-    private List<Semester> semesterList = new ArrayList<>();
+    private List<Course> courseList = new ArrayList<>();
 }

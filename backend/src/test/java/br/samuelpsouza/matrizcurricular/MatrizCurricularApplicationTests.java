@@ -68,7 +68,7 @@ public class MatrizCurricularApplicationTests {
         matrix = new Matrix();
         Matrix persistedMatrix = this.matrixRepository.save(matrix);
         assertNotNull(persistedMatrix.getId());
-        assertNotNull(matrix.getSemesterList());
+        assertNotNull(matrix.getCourseList());
     }
 
     @Test
