@@ -13,14 +13,14 @@ const styles = theme => ({
 
 
 const Major = props => {
-    const { classes } = props;
+    const { classes, major } = props;
     return (
         <Paper className={classes.root} elevation={1}>
           <Typography variant="h5" component="h3">
-            This is a sheet of paper.
+            {major.title}
           </Typography>
           <Typography component="p">
-            Paper can be used to build surface or other elements for your application.
+            {major.description}
           </Typography>
         </Paper>
     )
