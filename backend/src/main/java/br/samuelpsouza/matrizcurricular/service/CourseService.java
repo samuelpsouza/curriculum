@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
+
 @Service
 @Slf4j
 public class CourseService {
@@ -29,6 +31,14 @@ public class CourseService {
     public ApiResponse saveCourse(Course course) {
         ApiResponse response = new ApiResponse(true, "Course saved");
         response.setData(this.courseRepository.save(course));
+        return response;
+    }
+
+    @Transactional
+    public ApiResponse deleteCourse(Long id) {
+        ApiResponse response = new ApiResponse(true, "Course removed");
+        this.courseRepository.deleteById(id);
+        log.info("Course %s removed at %s", id, LocalDateTime.now());
         return response;
     }
 }

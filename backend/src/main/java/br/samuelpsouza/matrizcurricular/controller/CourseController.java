@@ -36,4 +36,10 @@ public class CourseController {
     public ResponseEntity<ApiResponse> updateCourse(@RequestBody @Valid Course course) {
         return ResponseEntity.ok(this.courseService.saveCourse(course));
     }
+
+    @DeleteMapping("/{id}")
+    @ResponseBody
+    public ResponseEntity<ApiResponse> deleteCourse(@PathVariable("id") Long id) {
+        return ResponseEntity.ok(this.courseService.deleteCourse(id));
+    }
 }
