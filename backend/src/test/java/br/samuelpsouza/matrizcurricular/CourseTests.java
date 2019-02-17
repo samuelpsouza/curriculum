@@ -105,6 +105,21 @@ public class CourseTests {
                 .andExpect(jsonPath("$.data.id", is(course.getId().intValue())));
     }
 
+    @Test
+    public void shouldDeleteACourseAndReceiveApiResponseJson() throws Exception {
+        course = new Course("CC001WD001", "Web Development");
+        course = this.courseRepository.save(course);
+
+        mvc.perform(delete("/courses/" + course.getId())
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(content()
+                        .contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.success", is(true)))
+                .andExpect(jsonPath("$.message", notNullValue()))
+                .andExpect(jsonPath("$.data", anything()));
+    }
+
     @After
     public void cleanDatabaseUp() {
         this.courseRepository.deleteAll();
