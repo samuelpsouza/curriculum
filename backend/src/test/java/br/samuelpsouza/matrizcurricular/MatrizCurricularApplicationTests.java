@@ -201,6 +201,22 @@ public class MatrizCurricularApplicationTests {
                 .andExpect(jsonPath("$.data.id", is(major.getId().intValue())));
     }
 
+    @Test
+    public void shouldDeleteAMajorAndReceiveApiResponseJson() throws Exception {
+        major = new Major("CC001", "Ciencia da Computação");
+        major = this.majorRepository.save(major);
+
+        mvc.perform(delete("/majors/" + major.getId())
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(convertObjectToJsonBytes(major)))
+                .andExpect(status().isOk())
+                .andExpect(content()
+                        .contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.success", is(true)))
+                .andExpect(jsonPath("$.message", notNullValue()))
+                .andExpect(jsonPath("$.data", anything()));
+    }
+
     @After
     public void cleanDatabaseUp() {
         this.courseRepository.deleteAll();
