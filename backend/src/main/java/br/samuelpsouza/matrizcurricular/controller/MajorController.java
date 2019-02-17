@@ -1,5 +1,6 @@
 package br.samuelpsouza.matrizcurricular.controller;
 
+import br.samuelpsouza.matrizcurricular.payload.ApiResponse;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class MajorController {
     @GetMapping
     @ResponseBody
-    public ResponseEntity<String> getMajors() {
-        return ResponseEntity.ok("RequestBody");
+    public ResponseEntity<ApiResponse> getMajors() {
+        return ResponseEntity.ok(new ApiResponse());
     }
 }
