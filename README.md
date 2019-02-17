@@ -40,3 +40,8 @@ Nos relacionamentos entre as entidades foi levado em conta as opçoes de mover d
 de adcionar ou remover semestres do curso e a remoção da disciplina do curso. Usaremos composição para formar a entida
 de matriz.
 
+* Matriz => Matrix
+* Curso => Major
+* Disciplina => Curso
+* Semestre => Semester
+

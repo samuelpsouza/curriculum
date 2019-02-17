@@ -7,6 +7,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @Data
 @Entity
@@ -24,6 +25,8 @@ public class Major {
     @NotBlank
     @NotEmpty
     private String title;
+    @OneToMany
+    private List<Matrix> matrixList;
 
     public Major(@NotNull @NotBlank @NotEmpty String code, @NotNull @NotBlank @NotEmpty String title) {
         this.code = code;
