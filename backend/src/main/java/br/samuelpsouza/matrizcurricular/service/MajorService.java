@@ -29,7 +29,7 @@ public class MajorService {
     }
 
     @Transactional
-    public ApiResponse addMajor(Major major) {
+    public ApiResponse saveMajor(Major major) {
         ApiResponse response = new ApiResponse(true, "Major saved");
         response.setData(this.majorRepository.save(major));
         return response;

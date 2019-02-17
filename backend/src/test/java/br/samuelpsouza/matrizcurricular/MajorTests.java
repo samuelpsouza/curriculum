@@ -12,6 +12,8 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.util.ArrayList;
+
 import static br.samuelpsouza.matrizcurricular.TestUtil.convertObjectToJsonBytes;
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.assertEquals;
@@ -43,6 +45,41 @@ public class MajorTests {
         major = new Major("CC001", "Ciencia da Computação");
         Major persistedMajor = this.majorRepository.save(major);
         assertEquals(persistedMajor.getCode(), major.getCode());
+    }
+
+    @Test
+    public void shouldRequestMajorsAndHaveStatus200()
+            throws Exception {
+
+        mvc.perform(get("/majors")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(content()
+                        .contentTypeCompatibleWith(MediaType.APPLICATION_JSON));
+    }
+
+    @Test
+    public void shouldRequestMajorAndReceiveApiResponseJsonWithContent() throws Exception {
+        mvc.perform(get("/majors")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(content()
+                        .contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.success", is(true)))
+                .andExpect(jsonPath("$.message", notNullValue()))
+                .andExpect(jsonPath("$.data.content", isA(ArrayList.class)));
+    }
+
+    @Test
+    public void shouldRequestMajorAndReceiveApiResponseJson() throws Exception {
+        mvc.perform(get("/majors")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(content()
+                        .contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.success", notNullValue()))
+                .andExpect(jsonPath("$.message", notNullValue()))
+                .andExpect(jsonPath("$.data", anything()));
     }
 
     @Test

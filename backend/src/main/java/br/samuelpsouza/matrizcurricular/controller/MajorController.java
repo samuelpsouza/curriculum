@@ -32,13 +32,13 @@ public class MajorController {
     @PostMapping
     @ResponseBody
     public ResponseEntity<ApiResponse> addMajor(@RequestBody @Valid Major major) {
-        return ResponseEntity.ok(this.majorService.addMajor(major));
+        return ResponseEntity.ok(this.majorService.saveMajor(major));
     }
 
     @PutMapping
     @ResponseBody
     public ResponseEntity<ApiResponse> updateMajor(@RequestBody @Valid Major major) {
-        return ResponseEntity.ok(this.majorService.addMajor(major));
+        return ResponseEntity.ok(this.majorService.saveMajor(major));
     }
 
     @DeleteMapping("/{id}")

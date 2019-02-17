@@ -1,9 +1,7 @@
 package br.samuelpsouza.matrizcurricular;
 
-import br.samuelpsouza.matrizcurricular.model.Course;
 import br.samuelpsouza.matrizcurricular.model.Matrix;
 import br.samuelpsouza.matrizcurricular.model.Semester;
-import br.samuelpsouza.matrizcurricular.repository.CourseRepository;
 import br.samuelpsouza.matrizcurricular.repository.MatrixRepository;
 import br.samuelpsouza.matrizcurricular.repository.SemesterRepository;
 import org.junit.After;
@@ -15,8 +13,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
-
-import java.util.ArrayList;
 
 import static br.samuelpsouza.matrizcurricular.TestUtil.convertObjectToJsonBytes;
 import static org.hamcrest.CoreMatchers.*;
@@ -34,23 +30,18 @@ public class MatrizCurricularApplicationTests {
 
     @Autowired
     private SemesterRepository semesterRepository;
-    @Autowired
-    private CourseRepository courseRepository;
+
     @Autowired
     private MatrixRepository matrixRepository;
 
     private Semester semester;
-    private Course course;
     private Matrix matrix;
 
     @Test
     public void contextLoads() {
         assertNotNull(semesterRepository);
-        assertNotNull(courseRepository);
         assertNotNull(matrixRepository);
     }
-
-
 
     @Test
     public void shouldCreateASemesterObject() {
@@ -64,28 +55,6 @@ public class MatrizCurricularApplicationTests {
         semester = new Semester("Semestre I");
         Semester persistedSemester = this.semesterRepository.save(semester);
         assertEquals(persistedSemester.getDescription(), semester.getDescription());
-    }
-
-    @Test
-    public void shouldCreateACourseObject() {
-        course = new Course("CC001FP001", "Fundamentos de Programação");
-        assertNotNull(course);
-        assertNotNull(course.getCode());
-    }
-
-    @Test
-    public void shouldCreateAndPersistACourseObject() {
-        course = new Course("CC001FP001", "Fundamentos de Programação");
-        Course persistedCourse = this.courseRepository.save(course);
-        assertEquals(persistedCourse.getCode(), course.getCode());
-    }
-
-    @Test(expected = org.springframework.dao.DataIntegrityViolationException.class)
-    public void shouldNotPersistACourseObjectWithSameCode() {
-        course = new Course("CC001FP001", "Fundamentos de Programação");
-        this.courseRepository.save(course);
-        Course newCourse = new Course("CC001FP001", "POO");
-        this.courseRepository.save(newCourse);
     }
 
     @Test
@@ -103,17 +72,6 @@ public class MatrizCurricularApplicationTests {
     }
 
     @Test
-    public void shouldRequestMajorsAndHaveStatus200()
-            throws Exception {
-
-        mvc.perform(get("/majors")
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andExpect(content()
-                        .contentTypeCompatibleWith(MediaType.APPLICATION_JSON));
-    }
-
-    @Test
     public void shouldRequestRootAndReceiveApiResponseJson() throws Exception {
         mvc.perform(get("/")
                 .contentType(MediaType.APPLICATION_JSON))
@@ -124,31 +82,6 @@ public class MatrizCurricularApplicationTests {
                 .andExpect(jsonPath("$.message", is("No donuts for you")))
                 .andExpect(jsonPath("$.data", anything()));
     }
-
-    @Test
-    public void shouldRequestMajorAndReceiveApiResponseJson() throws Exception {
-        mvc.perform(get("/majors")
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andExpect(content()
-                        .contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.success", notNullValue()))
-                .andExpect(jsonPath("$.message", notNullValue()))
-                .andExpect(jsonPath("$.data", anything()));
-    }
-
-    @Test
-    public void shouldRequestMajorAndReceiveApiResponseJsonWithContent() throws Exception {
-        mvc.perform(get("/majors")
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andExpect(content()
-                        .contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.success", is(true)))
-                .andExpect(jsonPath("$.message", notNullValue()))
-                .andExpect(jsonPath("$.data.content", isA(ArrayList.class)));
-    }
-
 
     @Test
     public void shouldAddANewSemesterAndReceiveApiResponseJson() throws Exception {
@@ -197,38 +130,8 @@ public class MatrizCurricularApplicationTests {
                 .andExpect(jsonPath("$.data", anything()));
     }
 
-    @Test
-    public void shouldRequestASingleCourseAndReceiveApiResponseJson() throws Exception {
-        course = new Course("CC001WD001", "Web Development");
-        course = this.courseRepository.save(course);
-
-        mvc.perform(get("/courses/" + course.getId())
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andExpect(content()
-                        .contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.success", is(true)))
-                .andExpect(jsonPath("$.message", notNullValue()))
-                .andExpect(jsonPath("$.data", anything()));
-    }
-
-    @Test
-    public void shouldAddANewCourseAndReceiveApiResponseJson() throws Exception {
-        course = new Course("CC001WD001", "Web Development");
-        mvc.perform(post("/courses")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(convertObjectToJsonBytes(course)))
-                .andExpect(status().isOk())
-                .andExpect(content()
-                        .contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.success", is(true)))
-                .andExpect(jsonPath("$.message", notNullValue()))
-                .andExpect(jsonPath("$.data", notNullValue()));
-    }
-
     @After
     public void cleanDatabaseUp() {
-        this.courseRepository.deleteAll();
         this.semesterRepository.deleteAll();
     }
 }
