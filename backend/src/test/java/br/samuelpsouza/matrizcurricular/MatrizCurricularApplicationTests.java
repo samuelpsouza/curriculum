@@ -2,6 +2,7 @@ package br.samuelpsouza.matrizcurricular;
 
 import br.samuelpsouza.matrizcurricular.model.Course;
 import br.samuelpsouza.matrizcurricular.model.Major;
+import br.samuelpsouza.matrizcurricular.model.Matrix;
 import br.samuelpsouza.matrizcurricular.model.Semester;
 import br.samuelpsouza.matrizcurricular.repository.CourseRepository;
 import br.samuelpsouza.matrizcurricular.repository.MajorRepository;
@@ -92,8 +93,7 @@ public class MatrizCurricularApplicationTests {
     @Test
     public void shouldCreateAMatrixObject() {
         matrix = new Matrix();
-        assertNotNull(course);
-        assertNotNull(course.getCode());
+        assertNotNull(matrix);
     }
 
     @After
