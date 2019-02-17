@@ -96,6 +96,13 @@ public class MatrizCurricularApplicationTests {
         assertNotNull(matrix);
     }
 
+    @Test
+    public void shouldCreateAndPersistAMatrixObject() {
+        matrix = new Matrix();
+        Matrix persistedCourse = this.matrixRepository.save(matrix);
+        assertNotNull(matrix.getId());
+    }
+
     @After
     public void cleanDatabaseUp() {
         this.courseRepository.deleteAll();
