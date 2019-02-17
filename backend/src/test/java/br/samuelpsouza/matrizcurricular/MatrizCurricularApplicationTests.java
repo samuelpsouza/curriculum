@@ -207,8 +207,7 @@ public class MatrizCurricularApplicationTests {
         major = this.majorRepository.save(major);
 
         mvc.perform(delete("/majors/" + major.getId())
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(convertObjectToJsonBytes(major)))
+                .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content()
                         .contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
@@ -223,8 +222,7 @@ public class MatrizCurricularApplicationTests {
         major = this.majorRepository.save(major);
 
         mvc.perform(get("/majors/" + major.getId())
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(convertObjectToJsonBytes(major)))
+                .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content()
                         .contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
@@ -271,8 +269,22 @@ public class MatrizCurricularApplicationTests {
         semester = this.semesterRepository.save(semester);
 
         mvc.perform(delete("/semesters/" + semester.getId())
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(convertObjectToJsonBytes(major)))
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(content()
+                        .contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.success", is(true)))
+                .andExpect(jsonPath("$.message", notNullValue()))
+                .andExpect(jsonPath("$.data", anything()));
+    }
+
+    @Test
+    public void shouldRequestASingleCourseAndReceiveApiResponseJson() throws Exception {
+        course = new Course("CC001WD001", "Web Development");
+        course = this.courseRepository.save(course);
+
+        mvc.perform(get("/courses/" + course.getId())
+                .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content()
                         .contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
