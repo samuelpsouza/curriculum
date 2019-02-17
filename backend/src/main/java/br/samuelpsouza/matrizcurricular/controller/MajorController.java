@@ -14,6 +14,7 @@ import javax.validation.Valid;
 
 
 @RestController
+@CrossOrigin
 @RequestMapping(value = "majors", consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
 public class MajorController {
     private final MajorService majorService;
