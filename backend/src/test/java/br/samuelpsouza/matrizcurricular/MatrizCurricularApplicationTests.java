@@ -18,8 +18,9 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
-import static org.hamcrest.CoreMatchers.anything;
-import static org.hamcrest.CoreMatchers.notNullValue;
+import java.util.ArrayList;
+
+import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -139,6 +140,18 @@ public class MatrizCurricularApplicationTests {
                 .andExpect(jsonPath("$.success", notNullValue()))
                 .andExpect(jsonPath("$.message", notNullValue()))
                 .andExpect(jsonPath("$.data", anything()));
+    }
+
+    @Test
+    public void shouldRequestMajorAndReceiveApiResponseJsonWithContent() throws Exception {
+        mvc.perform(get("/majors")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(content()
+                        .contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.success", is(true)))
+                .andExpect(jsonPath("$.message", notNullValue()))
+                .andExpect(jsonPath("$.data", isA(ArrayList.class)));
     }
 
     @After
