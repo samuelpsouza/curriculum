@@ -23,3 +23,5 @@
 /nbdist/
 /.nb-gradle/
 /build/
+
+/frontend/node_modules/
