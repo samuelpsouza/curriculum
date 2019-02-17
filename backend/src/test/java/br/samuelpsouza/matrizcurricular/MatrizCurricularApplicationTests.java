@@ -24,8 +24,7 @@ import static br.samuelpsouza.matrizcurricular.TestUtil.convertObjectToJsonBytes
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @RunWith(SpringRunner.class)
@@ -172,6 +171,23 @@ public class MatrizCurricularApplicationTests {
     public void shouldAddANewMajorAndReceiveApiResponseJson() throws Exception {
         major = new Major("CC001", "Ciencia da Computação");
         mvc.perform(post("/majors")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(convertObjectToJsonBytes(major)))
+                .andExpect(status().isOk())
+                .andExpect(content()
+                        .contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.success", is(true)))
+                .andExpect(jsonPath("$.message", notNullValue()))
+                .andExpect(jsonPath("$.data", notNullValue()));
+    }
+
+    @Test
+    public void shouldUpdateAMajorAndReceiveApiResponseJson() throws Exception {
+        major = new Major("CC001", "Ciencia da Computação");
+        major = this.majorRepository.save(major);
+
+        major.setTitle("Introdução a Ciencia da Computação");
+        mvc.perform(put("/majors")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(convertObjectToJsonBytes(major)))
                 .andExpect(status().isOk())
