@@ -42,4 +42,10 @@ public class MajorService {
         log.info("Major %s removed at %s", id, LocalDateTime.now());
         return response;
     }
+
+    public ApiResponse getSingleMajor(Long id) {
+        ApiResponse response = new ApiResponse(true, "Major %s fetched", id);
+        response.setData(this.majorRepository.findById(id));
+        return response;
+    }
 }

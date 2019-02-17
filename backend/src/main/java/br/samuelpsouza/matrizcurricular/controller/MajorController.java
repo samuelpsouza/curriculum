@@ -46,4 +46,10 @@ public class MajorController {
     public ResponseEntity<ApiResponse> deleteMajor(@PathVariable("id") Long id) {
         return ResponseEntity.ok(this.majorService.deleteMajor(id));
     }
+
+    @GetMapping("/{id}")
+    @ResponseBody
+    public ResponseEntity<ApiResponse> getSingleMajor(@PathVariable("id") Long id) {
+        return ResponseEntity.ok(this.majorService.getSingleMajor(id));
+    }
 }

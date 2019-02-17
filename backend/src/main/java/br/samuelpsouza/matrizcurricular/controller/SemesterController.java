@@ -30,4 +30,12 @@ public class SemesterController {
     public ResponseEntity<ApiResponse> addSemester(@RequestBody @Valid Semester semester) {
         return ResponseEntity.ok(this.semesterService.saveSemester(semester));
     }
+
+    @PutMapping
+    @ResponseBody
+    public ResponseEntity<ApiResponse> updateSemester(@RequestBody @Valid Semester semester) {
+        // Usando o mesmo metodo pq os reposit´rios conseguem identificar se o objeto já existe no banco e atualizam.
+        // Se não existir, é persistido um novo objeto
+        return ResponseEntity.ok(this.semesterService.saveSemester(semester));
+    }
 }
