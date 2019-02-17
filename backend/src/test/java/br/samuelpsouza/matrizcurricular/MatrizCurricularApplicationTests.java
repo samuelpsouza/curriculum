@@ -26,6 +26,8 @@ public class MatrizCurricularApplicationTests {
     private SemesterRepository semesterRepository;
     @Autowired
     private CourseRepository courseRepository;
+    @Autowired
+    private MatrixRepository matrixRepository;
 
     private Major major;
     private Semester semester;
@@ -37,6 +39,7 @@ public class MatrizCurricularApplicationTests {
         assertNotNull(majorRepository);
         assertNotNull(semesterRepository);
         assertNotNull(courseRepository);
+        assertNotNull(matrixRepository);
     }
 
     @Test
