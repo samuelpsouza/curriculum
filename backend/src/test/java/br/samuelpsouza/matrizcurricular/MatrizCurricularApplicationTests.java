@@ -217,6 +217,113 @@ public class MatrizCurricularApplicationTests {
                 .andExpect(jsonPath("$.data", anything()));
     }
 
+    @Test
+    public void shouldRequestASingleMajorAndReceiveApiResponseJson() throws Exception {
+        major = new Major("CC001", "Ciencia da Computação");
+        major = this.majorRepository.save(major);
+
+        mvc.perform(get("/majors/" + major.getId())
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(convertObjectToJsonBytes(major)))
+                .andExpect(status().isOk())
+                .andExpect(content()
+                        .contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.success", is(true)))
+                .andExpect(jsonPath("$.message", notNullValue()))
+                .andExpect(jsonPath("$.data", anything()));
+    }
+
+
+    @Test
+    public void shouldRequestSemesterAndReceiveApiResponseJson() throws Exception {
+        mvc.perform(get("/semesters")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(content()
+                        .contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.success", notNullValue()))
+                .andExpect(jsonPath("$.message", notNullValue()))
+                .andExpect(jsonPath("$.data", anything()));
+    }
+
+    @Test
+    public void shouldRequestSemesterAndReceiveApiResponseJsonWithContent() throws Exception {
+        mvc.perform(get("/semesters")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(content()
+                        .contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.success", is(true)))
+                .andExpect(jsonPath("$.message", notNullValue()))
+                .andExpect(jsonPath("$.data.content", isA(ArrayList.class)));
+    }
+
+    @Test
+    public void shouldAddANewSemesterAndReceiveApiResponseJson() throws Exception {
+        semester = new Semester("Semestre I");
+        mvc.perform(post("/semesters")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(convertObjectToJsonBytes(major)))
+                .andExpect(status().isOk())
+                .andExpect(content()
+                        .contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.success", is(true)))
+                .andExpect(jsonPath("$.message", notNullValue()))
+                .andExpect(jsonPath("$.data", notNullValue()));
+    }
+
+    @Test
+    public void shouldUpdateASemesterAndReceiveApiResponseJson() throws Exception {
+        semester = new Semester("Semestre I");
+        semester = this.semesterRepository.save(semester);
+
+        semester.setDescription("Optativas");
+        mvc.perform(put("/semesters")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(convertObjectToJsonBytes(major)))
+                .andExpect(status().isOk())
+                .andExpect(content()
+                        .contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.success", is(true)))
+                .andExpect(jsonPath("$.message", notNullValue()))
+                .andExpect(jsonPath("$.data.id", is(semester.getId().intValue())))
+                .andExpect(jsonPath("$.data.description", is(semester.getDescription())));
+    }
+
+    @Test
+    public void shouldDeleteASemesterAndReceiveApiResponseJson() throws Exception {
+        semester = new Semester("Semestre I");
+        semester = this.semesterRepository.save(semester);
+
+        mvc.perform(delete("/semesters/" + semester.getId())
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(convertObjectToJsonBytes(major)))
+                .andExpect(status().isOk())
+                .andExpect(content()
+                        .contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.success", is(true)))
+                .andExpect(jsonPath("$.message", notNullValue()))
+                .andExpect(jsonPath("$.data", anything()));
+    }
+
+    @Test
+    public void shouldRequestASingleSemesterAndReceiveApiResponseJson() throws Exception {
+        semester = new Semester("Semestre I");
+        semester = this.semesterRepository.save(semester);
+
+        mvc.perform(get("/semesters/" + semester.getId())
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(convertObjectToJsonBytes(semester)))
+                .andExpect(status().isOk())
+                .andExpect(content()
+                        .contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.success", is(true)))
+                .andExpect(jsonPath("$.message", notNullValue()))
+                .andExpect(jsonPath("$.data", anything()))
+                .andExpect(jsonPath("$.data.id", is(semester.getId().intValue())))
+                .andExpect(jsonPath("$.data.description", is(semester.getDescription())));
+    }
+
     @After
     public void cleanDatabaseUp() {
         this.courseRepository.deleteAll();
