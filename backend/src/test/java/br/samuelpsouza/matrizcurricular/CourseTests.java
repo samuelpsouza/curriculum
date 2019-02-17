@@ -16,8 +16,7 @@ import static br.samuelpsouza.matrizcurricular.TestUtil.convertObjectToJsonBytes
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @RunWith(SpringRunner.class)
@@ -87,6 +86,23 @@ public class CourseTests {
                 .andExpect(jsonPath("$.success", is(true)))
                 .andExpect(jsonPath("$.message", notNullValue()))
                 .andExpect(jsonPath("$.data", notNullValue()));
+    }
+
+    @Test
+    public void shouldUpdateACourseAndReceiveApiResponseJson() throws Exception {
+        course = new Course("CC001WD001", "Web Development");
+        course = this.courseRepository.save(course);
+
+        course.setDescription("Web Development with Java");
+        mvc.perform(put("/courses")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(convertObjectToJsonBytes(course)))
+                .andExpect(status().isOk())
+                .andExpect(content()
+                        .contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.success", is(true)))
+                .andExpect(jsonPath("$.message", notNullValue()))
+                .andExpect(jsonPath("$.data.id", is(course.getId().intValue())));
     }
 
     @After

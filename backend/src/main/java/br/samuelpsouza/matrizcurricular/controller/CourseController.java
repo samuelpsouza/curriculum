@@ -33,7 +33,7 @@ public class CourseController {
 
     @PutMapping
     @ResponseBody
-    public ResponseEntity<ApiResponse> updateMajor(@RequestBody @Valid Course course) {
+    public ResponseEntity<ApiResponse> updateCourse(@RequestBody @Valid Course course) {
         return ResponseEntity.ok(this.courseService.saveCourse(course));
     }
 }
