@@ -9,6 +9,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -35,7 +36,7 @@ public class Major {
     private String duration;
     private String registrationNumber;
     @OneToMany
-    private List<Matrix> matrixList;
+    private List<Matrix> matrixList = new ArrayList<>();
 
     public Major(@NotNull @NotBlank @NotEmpty String code, @NotNull @NotBlank @NotEmpty String title) {
         this.code = code;

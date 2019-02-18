@@ -15,7 +15,8 @@ export default props => {
         >
           <DialogTitle id="responsive-dialog-title">{props.major.title}</DialogTitle>
           <DialogContent>
-              
+              Periodo: {props.major.period} <br />
+              Duração: {props.major.duration}
           </DialogContent>
           <DialogActions>
             <Button color="primary" onClick={props.handleClose}>

@@ -46,6 +46,7 @@ class MajorList extends Component {
     };
 
     handleSubmit = () => {
+        this.handleClose();
         const major = {}
         major.code = this.state.code
         major.title = this.state.title
@@ -63,7 +64,6 @@ class MajorList extends Component {
         })
         .then(response => response.json())
         .then(response => {
-            this.setState({...this.state, open: false});
             this.refresh();
         })
 
