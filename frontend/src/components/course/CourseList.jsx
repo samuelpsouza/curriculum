@@ -16,8 +16,17 @@ const styles = theme => ({
     },
   });
 
-export default props => {
-    return (
-        <div>Disciplinas</div>
-    );
+class CourseList extends Component {
+    render(){
+        const {classes} = this.props;
+        return (
+            <div>
+                <Fab color="primary" aria-label="Add" className={classes.fab} onClick={() => this.handleClickOpen()}>
+                    <AddIcon />
+                </Fab>
+            </div>
+        );
+    }
 }
+
+export default withStyles(styles)(CourseList);
