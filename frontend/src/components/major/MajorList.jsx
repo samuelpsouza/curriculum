@@ -54,7 +54,6 @@ class MajorList extends Component {
         major.duration = this.state.duration
         major.registrationNumber = this.state.registrationNumber
 
-        console.log(JSON.stringify(major))
         fetch(URL, {
             headers: {
                 'Content-Type': 'application/json'
@@ -63,7 +62,10 @@ class MajorList extends Component {
             body: JSON.stringify(major)
         })
         .then(response => response.json())
-        .then(response => console.log(response))
+        .then(response => {
+            this.setState({...this.state, open: false});
+            this.refresh();
+        })
 
     }
 
@@ -71,7 +73,7 @@ class MajorList extends Component {
         this.setState({ ...this.state, [name]: event.target.value });
     };
 
-    componentWillMount(){
+    refresh(){
         fetch(URL, {
             headers: {
                 'Content-Type': 'application/json'
@@ -81,6 +83,10 @@ class MajorList extends Component {
         .then(response => {
             this.setState({...this.state, majors: response.data.content});
         })
+    }
+
+    componentWillMount(){
+       this.refresh();
     }
 
     render(){
