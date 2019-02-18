@@ -29,7 +29,7 @@ public class CourseController {
         return ResponseEntity.ok(this.courseService.getSingleCourse(id));
     }
 
-    @GetMapping("/{id}")
+    @GetMapping
     @ResponseBody
     public ResponseEntity<ApiResponse> getCourses(@PageableDefault Pageable pageable) {
         return ResponseEntity.ok(this.courseService.getCourses(pageable));
