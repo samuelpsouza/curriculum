@@ -4,6 +4,8 @@ import br.samuelpsouza.matrizcurricular.model.Course;
 import br.samuelpsouza.matrizcurricular.payload.ApiResponse;
 import br.samuelpsouza.matrizcurricular.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,6 +26,12 @@ public class CourseController {
     @ResponseBody
     public ResponseEntity<ApiResponse> getSingleCourse(@PathVariable("id") Long id) {
         return ResponseEntity.ok(this.courseService.getSingleCourse(id));
+    }
+
+    @GetMapping("/{id}")
+    @ResponseBody
+    public ResponseEntity<ApiResponse> getCourses(@PageableDefault Pageable pageable) {
+        return ResponseEntity.ok(this.courseService.getCourses(pageable));
     }
 
     @PostMapping

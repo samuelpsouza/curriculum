@@ -5,6 +5,7 @@ import br.samuelpsouza.matrizcurricular.payload.ApiResponse;
 import br.samuelpsouza.matrizcurricular.repository.CourseRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -39,6 +40,13 @@ public class CourseService {
         ApiResponse response = new ApiResponse(true, "Course removed");
         this.courseRepository.deleteById(id);
         log.info("Course %s removed at %s", id, LocalDateTime.now());
+        return response;
+    }
+
+    @Transactional(readOnly = true)
+    public ApiResponse getCourses(Pageable pageable) {
+        ApiResponse response = new ApiResponse(true, "Courses fetched");
+        response.setData(this.courseRepository.findAll(pageable));
         return response;
     }
 }
