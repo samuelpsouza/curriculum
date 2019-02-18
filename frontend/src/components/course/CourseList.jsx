@@ -5,7 +5,7 @@ import AddIcon from '@material-ui/icons/Add';
 import Course from './Course';
 import CourseForm from './CourseForm';
 
-const URL = 'http://localhost:8080/majors';
+const URL = 'http://localhost:8080/courses';
 
 const styles = theme => ({
     fab: {
@@ -35,7 +35,21 @@ class CourseList extends Component {
 
     handleSubmit = () => {
         this.handleClose();
-        console.log(this.state)
+        const course = {}
+        course.code = this.state.code
+        course.description = this.state.description
+    
+        fetch(URL, {
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            method: 'POST',
+            body: JSON.stringify(course)
+        })
+        .then(response => response.json())
+        .then(response => {
+            this.refresh();
+        })
     }
 
     handleChange = name => event => {
@@ -49,6 +63,22 @@ class CourseList extends Component {
     handleClose = () => {
         this.setState({ open: false });
     };
+
+    refresh(){
+        fetch(URL, {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => response.json())
+        .then(response => {
+            this.setState({...this.state, courses: response.data.content});
+        })
+    }
+
+    componentWillMount(){
+       this.refresh();
+    }
 
     render(){
         const {classes} = this.props;
