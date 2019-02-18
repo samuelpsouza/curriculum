@@ -4,7 +4,6 @@ import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
 export default props => {
@@ -14,27 +13,23 @@ export default props => {
           onClose={props.handleClose}
           aria-labelledby="form-dialog-title"
         >
-          <DialogTitle id="form-dialog-title">Subscribe</DialogTitle>
+          <DialogTitle id="form-dialog-title">Novo Curso</DialogTitle>
           <DialogContent>
-            <DialogContentText>
-              To subscribe to this website, please enter your email address here. We will send
-              updates occasionally.
-            </DialogContentText>
             <TextField
               autoFocus
               margin="dense"
-              id="name"
-              label="Email Address"
-              type="email"
+              id="title"
+              label="Título"
+              type="text"
               fullWidth
             />
           </DialogContent>
           <DialogActions>
             <Button onClick={props.handleClose} color="primary">
-              Cancel
+              Cancelar
             </Button>
             <Button onClick={props.handleClose} color="primary">
-              Subscribe
+              Salvar
             </Button>
           </DialogActions>
         </Dialog>
