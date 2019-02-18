@@ -48,11 +48,11 @@ class MajorList extends Component {
         const { classes } = this.props;
         return (
             <div>
-                <Fab color="primary" aria-label="Add" className={classes.fab}>
+                <Fab color="primary" aria-label="Add" className={classes.fab} onClick={() => this.handleClickOpen()}>
                     <AddIcon />
                 </Fab>
                 {this.state.majors.map(major => (<Major major={major} />))}
-                <MajorForm open={this.state.open} />
+                <MajorForm open={this.state.open} handleClose={this.handleClose}/>
             </div>
         );
     }
