@@ -96,7 +96,7 @@ class MajorList extends Component {
                 <Fab color="primary" aria-label="Add" className={classes.fab} onClick={() => this.handleClickOpen()}>
                     <AddIcon />
                 </Fab>
-                {this.state.majors.map(major => (<Major major={major} />))}
+                {this.state.majors.map(major => (<Major key={major.id} major={major} />))}
                 <MajorForm 
                     open={this.state.open} 
                     code={this.state.code}
