@@ -3,6 +3,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import Major from './Major';
+import MajorForm from './MajorForm';
 
 const URL = 'http://localhost:8080/majors';
 
@@ -19,8 +20,17 @@ const styles = theme => ({
 
 class MajorList extends Component {
     state = {
+        open: false,
         majors:[]
     }
+   
+    handleClickOpen = () => {
+        this.setState({ open: true });
+    };
+    
+    handleClose = () => {
+        this.setState({ open: false });
+    };
 
     componentWillMount(){
         fetch(URL, {
@@ -42,6 +52,7 @@ class MajorList extends Component {
                     <AddIcon />
                 </Fab>
                 {this.state.majors.map(major => (<Major major={major} />))}
+                <MajorForm open={this.state.open} />
             </div>
         );
     }
