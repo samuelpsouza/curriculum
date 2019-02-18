@@ -21,6 +21,7 @@ const styles = theme => ({
 class MajorList extends Component {
     state = {
         open: false,
+        major: {},
         majors:[]
     }
    
@@ -32,6 +33,9 @@ class MajorList extends Component {
         this.setState({ open: false });
     };
 
+    handleSubmit = () => {
+        console.log()
+    }
     componentWillMount(){
         fetch(URL, {
             headers: {
@@ -52,7 +56,7 @@ class MajorList extends Component {
                     <AddIcon />
                 </Fab>
                 {this.state.majors.map(major => (<Major major={major} />))}
-                <MajorForm open={this.state.open} handleClose={this.handleClose}/>
+                <MajorForm open={this.state.open} major={this.state.major} handleSubmit={this.handleSubmit} handleClose={this.handleClose}/>
             </div>
         );
     }
