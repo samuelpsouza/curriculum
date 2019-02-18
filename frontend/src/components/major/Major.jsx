@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
@@ -18,26 +18,27 @@ const styles = theme => ({
     },
 });
 
-
-const Major = props => {
-    const { classes, major } = props;
-    return (
-      <ExpansionPanel>
-        <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-          <Typography variant="h5" component="h3">
-            {major.title}
-          </Typography>
-        </ExpansionPanelSummary>
-        <ExpansionPanelDetails>
-          <Typography component="p">
-            {major.description}
-          </Typography>
-          <Button color="primary" className={classes.button}>
-            Visualizar
-          </Button>
-        </ExpansionPanelDetails>
-      </ExpansionPanel>
-    )
+class Major extends Component {
+    render(){
+      const { classes, major } = this.props;
+      return (
+        <ExpansionPanel>
+          <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+            <Typography variant="h5" component="h3">
+              {major.title}
+            </Typography>
+          </ExpansionPanelSummary>
+          <ExpansionPanelDetails>
+            <Typography component="p">
+              {major.description}
+            </Typography>
+            <Button color="primary" className={classes.button}>
+              Visualizar
+            </Button>
+          </ExpansionPanelDetails>
+        </ExpansionPanel>
+      )
+    }
 }
 
 export default withStyles(styles)(Major);
