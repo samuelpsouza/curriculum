@@ -15,6 +15,7 @@ export default props => {
         >
           <DialogTitle id="responsive-dialog-title">{props.major.title}</DialogTitle>
           <DialogContent>
+              
           </DialogContent>
           <DialogActions>
             <Button color="primary" onClick={props.handleClose}>

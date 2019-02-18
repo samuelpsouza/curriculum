@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import { ExpansionPanel, ExpansionPanelSummary,
-  ExpansionPanelDetails, Button, Typography } from '@material-ui/core';
+  ExpansionPanelDetails, Button, Typography, Divider, 
+  ExpansionPanelActions } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import FullView from './FullView';
 
@@ -47,10 +48,13 @@ class Major extends Component {
             <Typography component="p">
               {major.description}
             </Typography>
-            <Button color="primary" className={classes.button} onClick={() => this.handleClickOpen()}>
-              Visualizar
-            </Button>
           </ExpansionPanelDetails>
+          <Divider />
+          <ExpansionPanelActions>
+            <Button color="primary" className={classes.button} onClick={() => this.handleClickOpen()}>
+                Visualizar
+            </Button>
+          </ExpansionPanelActions>
           <FullView fullScreen={fullScreen} open={this.state.open} handleClose={this.handleClose} major={major}/>
         </ExpansionPanel>
       )
