@@ -8,15 +8,16 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 export default props => {
     return (
         <Dialog
+          fullScreen={props.fullScreen}
           open={props.open}
           onClose={props.handleClose}
-          aria-labelledby="form-dialog-title"
+          aria-labelledby="responsive-dialog-title"
         >
-          <DialogTitle id="form-dialog-title">Novo Curso</DialogTitle>
+          <DialogTitle id="responsive-dialog-title">{props.major.title}</DialogTitle>
           <DialogContent>
-            </DialogContent>
+          </DialogContent>
           <DialogActions>
-            <Button color="primary">
+            <Button color="primary" onClick={props.handleClose}>
               Fechar
             </Button>
           </DialogActions>
