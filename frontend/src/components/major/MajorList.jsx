@@ -19,12 +19,24 @@ const styles = theme => ({
   });
 
 class MajorList extends Component {
-    state = {
-        open: false,
-        major: {},
-        majors:[]
+    constructor(props){
+        super(props);
+
+        this.state = {
+            open: false,
+            code:'',
+            title:'',
+            description: '',
+            period: '',
+            duration:'',
+            registrationNumber:'',
+            majors:[]
+        }
+
+        this.handleChange = this.handleChange.bind(this)
+        this.handleSubmit = this.handleSubmit.bind(this)
     }
-   
+
     handleClickOpen = () => {
         this.setState({ open: true });
     };
@@ -34,8 +46,31 @@ class MajorList extends Component {
     };
 
     handleSubmit = () => {
-        console.log()
+        const major = {}
+        major.code = this.state.code
+        major.title = this.state.title
+        major.description = this.state.description
+        major.period = this.state.period
+        major.duration = this.state.duration
+        major.registrationNumber = this.state.registrationNumber
+
+        console.log(JSON.stringify(major))
+        fetch(URL, {
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            method: 'POST',
+            body: JSON.stringify(major)
+        })
+        .then(response => response.json())
+        .then(response => console.log(response))
+
     }
+
+    handleChange = name => event => {
+        this.setState({ ...this.state, [name]: event.target.value });
+    };
+
     componentWillMount(){
         fetch(URL, {
             headers: {
@@ -56,7 +91,17 @@ class MajorList extends Component {
                     <AddIcon />
                 </Fab>
                 {this.state.majors.map(major => (<Major major={major} />))}
-                <MajorForm open={this.state.open} major={this.state.major} handleSubmit={this.handleSubmit} handleClose={this.handleClose}/>
+                <MajorForm 
+                    open={this.state.open} 
+                    code={this.state.code}
+                    title={this.state.title}
+                    description={this.state.description}
+                    period={this.state.period}
+                    duration={this.state.duration}
+                    registrationNumber={this.state.registrationNumber}
+                    handleSubmit={this.handleSubmit} 
+                    handleClose={this.handleClose}
+                    handleChange={this.handleChange}/>
             </div>
         );
     }
