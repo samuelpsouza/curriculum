@@ -35,11 +35,11 @@ class CourseList extends Component {
 
     handleSubmit = () => {
         this.handleClose();
-        console.log('cclosed')
+        console.log(this.state)
     }
 
     handleChange = name => event => {
-        console.log('changed')
+        this.setState({ ...this.state, [name]: event.target.value });
     };
 
     handleClickOpen = () => {
