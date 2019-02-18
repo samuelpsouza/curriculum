@@ -63,7 +63,9 @@ class CourseList extends Component {
                     code={this.state.code}
                     description={this.state.description}
                     handleSubmit={this.handleSubmit} 
-                    handleClose={this.handleClose}/>
+                    handleClose={this.handleClose}
+                    handleChange={this.handleChange}
+                />
             </div>
         );
     }

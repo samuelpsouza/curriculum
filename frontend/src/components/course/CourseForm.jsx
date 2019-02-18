@@ -16,11 +16,7 @@ export default props => {
           <DialogTitle id="form-dialog-title">Nova Disciplina</DialogTitle>
           <DialogContent>
             <TextField autoFocus margin="dense" id="code" label="Código" type="text" value={props.code} onChange={props.handleChange('code')} fullWidth/>
-            <TextField margin="dense" id="title" label="Título" type="text" value={props.title} onChange={props.handleChange('title')} fullWidth/>
             <TextField margin="dense" id="description" label="Descrição" type="textarea" value={props.description} onChange={props.handleChange('description')} fullWidth/>
-
-            <TextField margin="dense" id="duration" label="Duração" type="text" value={props.duration} onChange={props.handleChange('duration')} fullWidth/>
-            <TextField margin="dense" id="registrationNumber" label="Vagas Disponíveis" type="number" value={props.registrationNumber} onChange={props.handleChange('registrationNumber')} fullWidth/>
           </DialogContent>
           <DialogActions>
             <Button onClick={props.handleClose} color="primary">
