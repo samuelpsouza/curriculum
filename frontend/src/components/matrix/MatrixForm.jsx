@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import CloseIcon from '@material-ui/icons/Close';
+import AddIcon from '@material-ui/icons/Add';
 import { 
-        Button, Dialog,
-        DialogActions, DialogContent, DialogTitle, 
-        Fab, Typography, Divider, Slide,
-        AppBar, Toolbar, IconButton 
+        Button, Dialog, ListItemText,
+        Typography, Slide, ListItem,
+        AppBar, Toolbar, IconButton,
+        List, Divider, ListItemIcon 
     } from '@material-ui/core';
 
 const styles = theme => ({
@@ -14,6 +15,12 @@ const styles = theme => ({
     },
     extendedIcon: {
         marginRight: theme.spacing.unit,
+    },
+    appBar: {
+        position: 'relative',
+      },
+    flex: {
+        flex: 1,
     },
 });
 
@@ -50,6 +57,28 @@ class MatrixForm extends Component {
                     </Button>
                     </Toolbar>
                 </AppBar>
+                <List>
+                    <Typography variant="h6" color="inherit" className={classes.flex}>
+                        Disciplinas Obrigatórias
+                    </Typography>
+                    <ListItem button>
+                        <ListItemText primary="Semestre" />
+                        <ListItemIcon>
+                            <AddIcon />
+                        </ListItemIcon>
+                    </ListItem>
+                    <Divider />
+
+                    <Typography variant="h6" color="inherit" className={classes.flex}>
+                        Disciplinas Optativas
+                    </Typography>
+                    <ListItem button>
+                        <ListItemText primary="Disciplina" />
+                        <ListItemIcon>
+                            <AddIcon />
+                        </ListItemIcon>
+                    </ListItem>
+                </List>
             </Dialog>
         );
     }
