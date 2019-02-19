@@ -36,16 +36,28 @@ class MatrixForm extends Component {
 
         this.state = {
             scroll: 'paper',
-            openSelection: false
+            openSelection: false,
+            selectedCourse: {}
         };
     }
 
-    handleOpenSelection = () => {
-        this.setState({...this.state, openSelection: true});
+    handleOpenSelection = (course) => {
+        this.setState({...this.state, openSelection: true, selectedCourse: course});
     }
 
     handeCloseSelection = () => {
         this.setState({...this.state, openSelection: false});
+    }
+
+    handleSelection = (option) => {
+        this.handeCloseSelection();
+        if(option === 'optativa'){
+            console.log('optivativa selecionada')
+        }
+        else{
+            console.log(option)
+            console.log('semestre selecionada')
+        }
     }
 
     render(){
@@ -97,7 +109,7 @@ class MatrixForm extends Component {
 
                 <List className={classes.root}>
                     {courses.map(course => (
-                        <ListItem key={course.id} dense button onClick={() => this.handleOpenSelection()}>
+                        <ListItem key={course.id} dense button onClick={() => this.handleOpenSelection(course)}>
                             <ListItemText primary={course.id} />
                             <ListItemText primary={course.description} />
                             <ListItemIcon>
@@ -112,8 +124,20 @@ class MatrixForm extends Component {
                      aria-labelledby="form-dialog-title"
                      >
                         <DialogContent>
-                            Lista de Semestres
-                            Optativa
+                            <List className={classes.root}>
+                                {courses.map(course => (
+                                    <ListItem key={course.id} dense button onClick={() => this.handleOpenSelection()}>
+                                        <ListItemText primary={course.id} />
+                                        <ListItemText primary={course.description} />
+                                    </ListItem>
+                                ))}
+                            </List>
+                            <List className={classes.root}>
+                                <ListItem dense button onClick={() => this.handleSelection('optativa')}>
+                                    <ListItemText primary="Optativa" />
+                                </ListItem>
+                            </List>
+                            
                         </DialogContent>
                         <DialogActions>
                             <Button onClick={this.handleClose} color="primary">
