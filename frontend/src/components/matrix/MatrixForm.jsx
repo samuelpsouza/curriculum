@@ -44,7 +44,8 @@ class MatrixForm extends Component {
             selectedCourse: {},
             selectedMajor: this.props.major,
             openSemesterSelection: false,
-            notAssigned:[]
+            notAssigned:[],
+            semester: ''
         };
     }
 
@@ -98,13 +99,21 @@ class MatrixForm extends Component {
     }
 
     handleAddSemester = () => {
-        console.log('semester')
+        this.handeCloseSemesterSelection();
+        let updated = Object.create(this.state.selectedMajor)
+        updated.matrix.semesterList.push({description:this.state.semester});
+        this.setState({...this.state.selectedMajor, selectedMajor: updated});
+
+        this.handleUpdate(this.state.selectedMajor);
     }
 
     handleOpenSemesterSelection = () => {
         this.setState({...this.state.openSemesterSelection, openSemesterSelection: true});
     }
 
+    handleSemesterChange = name => event => {
+        this.setState({ ...this.state, [name]: event.target.value });
+    };
 
     componentDidMount = () => {
         let notAssigned = this.props.courses.filter(course => {
@@ -195,10 +204,9 @@ class MatrixForm extends Component {
                         <DialogTitle id="form-dialog-title">Associar à Matriz</DialogTitle>
                         <DialogContent>
                             <List className={classes.root}>
-                                {this.state.selectedMajor.matrix.semesterList.map(course => (
-                                    <ListItem key={course.id} dense button onClick={() => this.handleOpenSelection()}>
-                                        <ListItemText primary={course.id} />
-                                        <ListItemText primary={course.description} />
+                                {this.state.selectedMajor.matrix.semesterList.map(semester => (
+                                    <ListItem key={semester.id} dense button onClick={() => this.handleOpenSelection()}>
+                                        <ListItemText primary={semester.description} />
                                     </ListItem>
                                 ))}
                             </List>
@@ -221,13 +229,13 @@ class MatrixForm extends Component {
                      >  
                         <DialogTitle id="form-dialog-title">Novo Semestre</DialogTitle>
                         <DialogContent>
-                            <TextField margin="dense" id="semester" label="Semestre" type="text" fullWidth/>
+                            <TextField margin="dense" id="semester" label="Semestre" type="text" onChange={this.handleSemesterChange('semester')} value={this.state.semester} fullWidth/>
                         </DialogContent>
                         <DialogActions>
                             <Button onClick={this.handeCloseSemesterSelection} color="primary">
                                 Cancelar
                             </Button>
-                            <Button onClick={this.handeCloseSemesterSelection} color="primary">
+                            <Button onClick={this.handleAddSemester} color="primary">
                                 Salvar
                             </Button>
                         </DialogActions>
