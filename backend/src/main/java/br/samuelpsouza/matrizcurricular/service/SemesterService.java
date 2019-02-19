@@ -24,7 +24,7 @@ public class SemesterService {
     public ApiResponse deleteSemester(Long id) {
         ApiResponse response = new ApiResponse(true, "Semester removed");
         this.semesterRepository.deleteById(id);
-        log.info("Semester %s removed at %s", id, LocalDateTime.now());
+        log.info("Semester " + id + " removed at " + LocalDateTime.now());
         return response;
     }
 

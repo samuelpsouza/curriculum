@@ -177,7 +177,7 @@ class MatrixForm extends Component {
                                 </ListItem>
                                 <List>
                                     {this.state.selectedMajor.matrix.courseList.filter(course=>{
-                                        if(course.semester===semester)
+                                        if(course.semester===semester.id)
                                             return <ListItemText key={course.id} primary={course.description} />
                                         return null;
                                     })}

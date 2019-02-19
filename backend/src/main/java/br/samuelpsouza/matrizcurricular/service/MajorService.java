@@ -39,7 +39,7 @@ public class MajorService {
     public ApiResponse deleteMajor(Long id) {
         ApiResponse response = new ApiResponse(true, "Major removed");
         this.majorRepository.deleteById(id);
-        log.info("Major %s removed at %s", id, LocalDateTime.now());
+        log.info("Major " + id + " removed at " + LocalDateTime.now());
         return response;
     }
 
