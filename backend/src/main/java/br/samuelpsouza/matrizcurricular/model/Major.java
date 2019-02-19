@@ -9,8 +9,6 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import java.util.ArrayList;
-import java.util.List;
 
 @Data
 @Entity
@@ -35,21 +33,21 @@ public class Major {
     private Period period;
     private String duration;
     private String registrationNumber;
-    @OneToMany
-    private List<Matrix> matrixList = new ArrayList<>();
+    @OneToOne(cascade = CascadeType.ALL)
+    private Matrix matrix = new Matrix();
 
     public Major(@NotNull @NotBlank @NotEmpty String code, @NotNull @NotBlank @NotEmpty String title) {
         this.code = code;
         this.title = title;
     }
 
-    public Major(@NotNull @NotBlank @NotEmpty String code, @NotNull @NotBlank @NotEmpty String title, String description, Period period, String duration, String registrationNumber, List<Matrix> matrixList) {
+    public Major(@NotNull @NotBlank @NotEmpty String code, @NotNull @NotBlank @NotEmpty String title, String description, Period period, String duration, String registrationNumber, Matrix matrix) {
         this.code = code;
         this.title = title;
         this.description = description;
         this.period = period;
         this.duration = duration;
         this.registrationNumber = registrationNumber;
-        this.matrixList = matrixList;
+        this.matrix = matrix;
     }
 }

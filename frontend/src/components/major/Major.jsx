@@ -75,7 +75,7 @@ class Major extends Component {
             </Button>
           </ExpansionPanelActions>
           <FullView fullScreen={fullScreen} open={this.state.open} handleClose={this.handleClose} major={major}/>
-          <MatrixForm courses={courses} openInclude={this.state.openInclude} handleClose={this.handleClickCloseIncludeForm} />
+          <MatrixForm major={major} courses={courses} openInclude={this.state.openInclude} handleClose={this.handleClickCloseIncludeForm} />
         </ExpansionPanel>
       )
     }

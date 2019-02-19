@@ -61,7 +61,7 @@ class MatrixForm extends Component {
     }
 
     render(){
-        const {openInclude, handleClose, handleSubmit, classes, courses} = this.props;
+        const {openInclude, handleClose, handleSubmit, classes, courses, major} = this.props;
 
         return (
             <Dialog
@@ -125,7 +125,7 @@ class MatrixForm extends Component {
                      >
                         <DialogContent>
                             <List className={classes.root}>
-                                {courses.map(course => (
+                                {major.matrix.semesterList.map(course => (
                                     <ListItem key={course.id} dense button onClick={() => this.handleOpenSelection()}>
                                         <ListItemText primary={course.id} />
                                         <ListItemText primary={course.description} />
