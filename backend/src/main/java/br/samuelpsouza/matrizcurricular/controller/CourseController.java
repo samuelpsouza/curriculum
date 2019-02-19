@@ -8,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -25,30 +26,35 @@ public class CourseController {
 
     @GetMapping("/{id}")
     @ResponseBody
+    @PreAuthorize("hasRole('COORDENADOR')")
     public ResponseEntity<ApiResponse> getSingleCourse(@PathVariable("id") Long id) {
         return ResponseEntity.ok(this.courseService.getSingleCourse(id));
     }
 
     @GetMapping
     @ResponseBody
+    @PreAuthorize("hasRole('COORDENADOR')")
     public ResponseEntity<ApiResponse> getCourses(@PageableDefault Pageable pageable) {
         return ResponseEntity.ok(this.courseService.getCourses(pageable));
     }
 
     @PostMapping
     @ResponseBody
+    @PreAuthorize("hasRole('COORDENADOR')")
     public ResponseEntity<ApiResponse> addCourse(@RequestBody @Valid Course course) {
         return ResponseEntity.ok(this.courseService.saveCourse(course));
     }
 
     @PutMapping
     @ResponseBody
+    @PreAuthorize("hasRole('COORDENADOR')")
     public ResponseEntity<ApiResponse> updateCourse(@RequestBody @Valid Course course) {
         return ResponseEntity.ok(this.courseService.saveCourse(course));
     }
 
     @DeleteMapping("/{id}")
     @ResponseBody
+    @PreAuthorize("hasRole('COORDENADOR')")
     public ResponseEntity<ApiResponse> deleteCourse(@PathVariable("id") Long id) {
         return ResponseEntity.ok(this.courseService.deleteCourse(id));
     }
