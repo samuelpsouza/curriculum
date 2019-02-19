@@ -1,32 +1,58 @@
 import React, { Component } from 'react';
-import { Button, TextField, Dialog,
-    DialogActions, DialogContent, DialogTitle, MenuItem,
-    Typography, Divider } from '@material-ui/core';
+import { withStyles } from '@material-ui/core/styles';
+import CloseIcon from '@material-ui/icons/Close';
+import { 
+        Button, Dialog,
+        DialogActions, DialogContent, DialogTitle, 
+        Fab, Typography, Divider, Slide,
+        AppBar, Toolbar, IconButton 
+    } from '@material-ui/core';
+
+const styles = theme => ({
+    fab: {
+        margin: theme.spacing.unit,
+    },
+    extendedIcon: {
+        marginRight: theme.spacing.unit,
+    },
+});
+
+function Transition(props) {
+    return <Slide direction="up" {...props} />;
+}
 
 class MatrixForm extends Component {
+    state = {
+        scroll: 'paper',
+    };
+
     render(){
-        const {openInclude, handleClose, handleClose, handleSubmit} = this.props;
+        const {openInclude, handleClose, handleSubmit, classes} = this.props;
         return (
             <Dialog
+                fullScreen
                 open={openInclude}
                 onClose={handleClose}
+                scroll={this.state.scroll}
                 aria-labelledby="form-dialog-title"
+                TransitionComponent={Transition}
             >
-                <DialogTitle id="form-dialog-title">Novo Curso</DialogTitle>
-                <DialogContent>
-                <Typography>Disciplinas Obrigatórioas</Typography>
-                <Divider />
-                <Typography>Disciplinas Optativas</Typography>
-                </DialogContent>
-                <DialogActions>
-                <Button onClick={handleClose} color="primary">
-                    Cancelar
-                </Button>
-                <Button onClick={handleSubmit} color="primary">
-                    Salvar
-                </Button>
-                </DialogActions>
+                <AppBar className={classes.appBar}>
+                    <Toolbar>
+                    <IconButton color="inherit" onClick={handleClose} aria-label="Close">
+                        <CloseIcon />
+                    </IconButton>
+                    <Typography variant="h6" color="inherit" className={classes.flex}>
+                        Cancelar
+                    </Typography>
+                    <Button color="inherit" onClick={handleSubmit}>
+                        Salvar
+                    </Button>
+                    </Toolbar>
+                </AppBar>
             </Dialog>
         );
     }
 }
+
+export default withStyles(styles)(MatrixForm);
