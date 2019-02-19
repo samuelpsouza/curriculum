@@ -5,7 +5,7 @@ import AddIcon from '@material-ui/icons/Add';
 import Major from './Major';
 import MajorForm from './MajorForm';
 
-const URL = 'http://localhost:8080/majors';
+const URL = 'http://localhost:8080';
 
 const styles = theme => ({
     fab: {
@@ -30,7 +30,8 @@ class MajorList extends Component {
             period: '',
             duration:'',
             registrationNumber:'',
-            majors:[]
+            majors:[],
+            courses:[]
         }
 
         this.handleChange = this.handleChange.bind(this);
@@ -87,8 +88,20 @@ class MajorList extends Component {
         this.setState({ ...this.state, [name]: event.target.value });
     };
 
-    refresh(){
-        fetch(URL, {
+    refreshMajors(){
+        fetch(URL + '/majors', {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => response.json())
+        .then(response => {
+            this.setState({...this.state, majors: response.data.content});
+        })
+    }
+
+    refreshCourses(){
+        fetch(URL + '/courses', {
             headers: {
                 'Content-Type': 'application/json'
             }
@@ -100,7 +113,8 @@ class MajorList extends Component {
     }
 
     componentWillMount(){
-       this.refresh();
+       this.refreshCourses();
+       this.refreshMajors();
     }
 
     render(){
@@ -110,7 +124,7 @@ class MajorList extends Component {
                 <Fab color="primary" aria-label="Add" className={classes.fab} onClick={() => this.handleClickOpen()}>
                     <AddIcon />
                 </Fab>
-                {this.state.majors.map(major => (<Major key={major.id} major={major} handleRemove={this.handleRemove}/>))}
+                {this.state.majors.map(major => (<Major courses={this.state.courses} key={major.id} major={major} handleRemove={this.handleRemove}/>))}
                 <MajorForm 
                     open={this.state.open} 
                     code={this.state.code}

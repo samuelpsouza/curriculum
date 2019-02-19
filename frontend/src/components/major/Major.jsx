@@ -7,6 +7,8 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import FullView from './FullView';
 import MatrixForm from '../matrix/MatrixForm';
 
+const URL = 'http://localhost:8080/courses';
+
 const styles = theme => ({
     root: {
       ...theme.mixins.gutters(),
@@ -24,7 +26,7 @@ class Major extends Component {
 
       this.state = {
         open: false,
-        openInclude: false
+        openInclude: false,
       };
     }
 
@@ -45,7 +47,8 @@ class Major extends Component {
     }
 
     render(){
-      const { classes, major, fullScreen } = this.props;
+      const { classes, major, fullScreen, courses } = this.props;
+      
       return (
         <ExpansionPanel>
           <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
@@ -74,7 +77,7 @@ class Major extends Component {
             </Button>
           </ExpansionPanelActions>
           <FullView fullScreen={fullScreen} open={this.state.open} handleClose={this.handleClose} major={major}/>
-          <MatrixForm openInclude={this.state.openInclude} handleClose={this.handleClickCloseIncludeForm} />
+          <MatrixForm courses={courses} openInclude={this.state.openInclude} handleClose={this.handleClickCloseIncludeForm} />
         </ExpansionPanel>
       )
     }

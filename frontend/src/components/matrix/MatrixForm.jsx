@@ -32,29 +32,16 @@ function Transition(props) {
 }
 
 class MatrixForm extends Component {
-    state = {
-        scroll: 'paper',
-        courses: []
-    };
+    constructor(props){
+        super(props);
 
-    refresh(){
-        fetch(URL, {
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-        .then(response => response.json())
-        .then(response => {
-            this.setState({...this.state, courses: response.data.content});
-        })
+        this.state = {
+            scroll: 'paper'
+        };
     }
 
-    componentWillMount(){
-        this.refresh();
-     }
-
     render(){
-        const {openInclude, handleClose, handleSubmit, classes} = this.props;
+        const {openInclude, handleClose, handleSubmit, classes, courses} = this.props;
         return (
             <Dialog
                 fullScreen
@@ -100,8 +87,8 @@ class MatrixForm extends Component {
                 <Divider />
 
                 <List className={classes.root}>
-                    {this.state.courses.map(value => (
-                    <ListItem key={value} role={undefined} dense button onClick={this.handleToggle(value)}>
+                    {courses.map(value => (
+                    <ListItem key={value} role={undefined} dense button>
                         <Checkbox
                             checked={this.state.checked.indexOf(value) !== -1}
                             tabIndex={-1}
