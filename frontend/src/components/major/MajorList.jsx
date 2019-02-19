@@ -102,7 +102,17 @@ class MajorList extends Component {
         this.setState({ ...this.state, [name]: event.target.value });
     };
 
+    cleanForm = () => {
+        this.setState({...this.state.code, code:''});
+        this.setState({...this.state.title, title:''});
+        this.setState({...this.state.description, description: ''});
+        this.setState({...this.state.period, period: ''});
+        this.setState({...this.state.duration, duration:''});
+        this.setState({...this.state.registrationNumber, registrationNumber:''});
+    }
+
     refreshMajors(){
+        this.cleanForm()
         fetch(URL + '/majors', {
             headers: {
                 'Content-Type': 'application/json'
