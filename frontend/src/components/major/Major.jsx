@@ -5,6 +5,7 @@ import { ExpansionPanel, ExpansionPanelSummary,
   ExpansionPanelActions } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import FullView from './FullView';
+import MatrixForm from '../matrix/MatrixForm';
 
 const styles = theme => ({
     root: {
@@ -23,16 +24,25 @@ class Major extends Component {
 
       this.state = {
         open: false,
+        openInclude: false
       };
     }
 
     handleClickOpen = () => {
-      this.setState({ open: true });
+      this.setState({ ...this.state, open: true });
     };
 
+    handleClickOpenIncludeForm = () => {
+      this.setState({ ...this.state, openInclude: true });
+    }
+
     handleClose = () => {
-      this.setState({ open: false });
+      this.setState({ ...this.state, open: false });
     };
+
+    handleClickCloseIncludeForm = () => {
+      this.setState({ ...this.state, openInclude: false });
+    }
 
     render(){
       const { classes, major, fullScreen } = this.props;
@@ -56,11 +66,15 @@ class Major extends Component {
             <Button className={classes.button} onClick={() => this.handleClickOpen()}>
                 Editar
             </Button>
+            <Button className={classes.button} onClick={() => this.handleClickOpenIncludeForm()}>
+                Incluir
+            </Button>
             <Button color="primary" className={classes.button} onClick={() => this.handleClickOpen()}>
                 Visualizar
             </Button>
           </ExpansionPanelActions>
           <FullView fullScreen={fullScreen} open={this.state.open} handleClose={this.handleClose} major={major}/>
+          <MatrixForm openInclude={this.state.openInclude} handleClose={this.handleClickCloseIncludeForm} />
         </ExpansionPanel>
       )
     }
