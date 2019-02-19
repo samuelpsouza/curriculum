@@ -41,7 +41,8 @@ class MatrixForm extends Component {
             scroll: 'paper',
             openSelection: false,
             selectedCourse: {},
-            selectedMajor: this.props.major
+            selectedMajor: this.props.major,
+            notAssigned:[]
         };
     }
 
@@ -90,8 +91,24 @@ class MatrixForm extends Component {
 
     }
 
+    componentDidMount = () => {
+        let notAssigned = this.props.courses.filter(course => {
+            if(course.semester)
+                return null;
+            else {
+                this.props.major.matrix.courseList.forEach(element => {
+                    if(element.code === course.code)
+                        return null;
+                });
+            }
+            return course;
+        });
+
+        this.setState({...this.state.notAssigned, notAssigned:notAssigned});
+    }
+
     render(){
-        const {openInclude, handleClose, classes, courses} = this.props;
+        const {openInclude, handleClose, classes} = this.props;
 
         return (
             <Dialog
@@ -131,16 +148,16 @@ class MatrixForm extends Component {
                         Disciplinas Optativas
                     </Typography>
                     <ListItem button>
-                        {/*this.state.selectedMajor.matrix.courseList.map(course=>{
+                        {this.state.selectedMajor.matrix.courseList.map(course=>{
                             return (<ListItemText primary={course.description} />);
-                        })*/}
+                        })}
                     </ListItem>
                 </List>
 
                 <Divider />
 
                 <List className={classes.root}>
-                    {courses.map(course => (
+                    {this.state.notAssigned.map(course => (
                         <ListItem key={course.id} dense button onClick={() => this.handleOpenSelection(course)}>
                             <ListItemText primary={course.id} />
                             <ListItemText primary={course.description} />
