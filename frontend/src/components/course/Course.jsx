@@ -33,8 +33,8 @@ class Course extends Component {
                 </ExpansionPanelDetails>
                 <Divider />
                 <ExpansionPanelActions>
-                    <Button color="secondary" className={classes.button} onClick={() => this.handleClickOpen()}>
-                        Remover
+                    <Button color="secondary" className={classes.button} onClick={() => this.props.handleRemove(course.id)}>
+                    Remover
                     </Button>
                     <Button className={classes.button} onClick={() => this.handleClickOpen()}>
                         Editar

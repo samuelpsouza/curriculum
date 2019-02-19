@@ -76,6 +76,19 @@ class CourseList extends Component {
         })
     }
 
+    handleRemove = (id) => {
+        fetch(URL + '/' + id, {
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            method: 'DELETE'
+        })
+        .then(response => response.json())
+        .then(response => {
+            this.refresh();
+        })
+    }
+
     componentWillMount(){
        this.refresh();
     }
@@ -87,7 +100,7 @@ class CourseList extends Component {
                 <Fab color="primary" aria-label="Add" className={classes.fab} onClick={() => this.handleClickOpen()}>
                     <AddIcon />
                 </Fab>
-                {this.state.courses.map(course => (<Course key={course.id} course={course} />))}
+                {this.state.courses.map(course => (<Course key={course.id} course={course} handleRemove={this.handleRemove} />))}
                 <CourseForm 
                     open={this.state.open} 
                     code={this.state.code}
