@@ -11,6 +11,9 @@ import {
         DialogContent, DialogActions
     } from '@material-ui/core';
 
+
+const URL = 'http://localhost:8080';
+
 const styles = theme => ({
     fab: {
         margin: theme.spacing.unit,
@@ -42,12 +45,27 @@ class MatrixForm extends Component {
         };
     }
 
+    handleUpdate = (major) => {
+        fetch(URL + '/majors', {
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            method: 'PUT',
+            body: JSON.stringify(major)
+        })
+        .then(response => response.json())
+        .then(response => {
+            console.log(response)
+        })
+    }
+
     handleOpenSelection = (course) => {
-        this.setState({...this.state, openSelection: true, selectedCourse: course});
+        this.setState({...this.state.openSelection, openSelection: true});
+        this.setState({...this.state.selectedCourse, selectedCourse: course});
     }
 
     handeCloseSelection = () => {
-        this.setState({...this.state, openSelection: false});
+        this.setState({...this.state.openSelection, openSelection: false});
     }
 
     handleSelection = (option) => {
@@ -67,11 +85,9 @@ class MatrixForm extends Component {
             this.setState({...this.state.selectedMajor, selectedMajor: updatedMajor});
             this.setState({...this.state.selectedCourse, selectedCourse: updatedCourse});
         }
-    }
 
-    handleSubmit = () => {
-        this.props.handleClose()
-        this.props.handleSubmit(this.state.selectedMajor)
+        this.handleUpdate(this.state.selectedMajor);
+
     }
 
     render(){

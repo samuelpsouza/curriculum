@@ -72,7 +72,6 @@ class MajorList extends Component {
     }
 
     handleUpdate = (selectedMajor) => {
-        console.log(selectedMajor)
         fetch(URL + '/majors', {
             headers: {
                 'Content-Type': 'application/json'

@@ -1,14 +1,13 @@
 import React from 'react';
-import Button from '@material-ui/core/Button';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogTitle from '@material-ui/core/DialogTitle';
+import { Divider, Button, Dialog, DialogActions, 
+  DialogContent, DialogTitle, Typography, List,
+  ListItem, ListItemText } from '@material-ui/core';
+
 
 export default props => {
     return (
         <Dialog
-          fullScreen={props.fullScreen}
+          fullScreen
           open={props.open}
           onClose={props.handleClose}
           aria-labelledby="responsive-dialog-title"
@@ -17,6 +16,23 @@ export default props => {
           <DialogContent>
               Periodo: {props.major.period} <br />
               Duração: {props.major.duration}
+
+              <Typography variant="h6" color="inherit">
+                Disciplinas Obrigatórias
+              </Typography>
+              <Divider />
+              <Typography variant="h6" color="inherit">
+                Disciplinas Optativas
+              </Typography>
+
+              <List>
+                {props.major.matrix.courseList.map(course => (
+                    <ListItem key={course.id} dense button>
+                      <ListItemText primary={course.id} />
+                      <ListItemText primary={course.description} />
+                  </ListItem>
+                  ))}
+              </List>
           </DialogContent>
           <DialogActions>
             <Button color="primary" onClick={props.handleClose}>
