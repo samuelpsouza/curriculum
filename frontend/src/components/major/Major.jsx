@@ -25,7 +25,6 @@ class Major extends Component {
         open: false,
       };
     }
-    
 
     handleClickOpen = () => {
       this.setState({ open: true });
@@ -51,7 +50,7 @@ class Major extends Component {
           </ExpansionPanelDetails>
           <Divider />
           <ExpansionPanelActions>
-            <Button color="secondary" className={classes.button} onClick={() => this.handleClickOpen()}>
+            <Button color="secondary" className={classes.button} onClick={() => this.props.handleRemove(major.id)}>
               Remover
             </Button>
             <Button className={classes.button} onClick={() => this.handleClickOpen()}>

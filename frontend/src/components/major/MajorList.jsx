@@ -33,8 +33,9 @@ class MajorList extends Component {
             majors:[]
         }
 
-        this.handleChange = this.handleChange.bind(this)
-        this.handleSubmit = this.handleSubmit.bind(this)
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleRemove = this.handleRemove.bind(this);
     }
 
     handleClickOpen = () => {
@@ -69,6 +70,19 @@ class MajorList extends Component {
 
     }
 
+    handleRemove = (id) => {
+        fetch(URL + '/' + id, {
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            method: 'DELETE'
+        })
+        .then(response => response.json())
+        .then(response => {
+            this.refresh();
+        })
+    }
+
     handleChange = name => event => {
         this.setState({ ...this.state, [name]: event.target.value });
     };
@@ -96,7 +110,7 @@ class MajorList extends Component {
                 <Fab color="primary" aria-label="Add" className={classes.fab} onClick={() => this.handleClickOpen()}>
                     <AddIcon />
                 </Fab>
-                {this.state.majors.map(major => (<Major key={major.id} major={major} />))}
+                {this.state.majors.map(major => (<Major key={major.id} major={major} handleRemove={this.handleRemove}/>))}
                 <MajorForm 
                     open={this.state.open} 
                     code={this.state.code}
@@ -107,7 +121,8 @@ class MajorList extends Component {
                     registrationNumber={this.state.registrationNumber}
                     handleSubmit={this.handleSubmit} 
                     handleClose={this.handleClose}
-                    handleChange={this.handleChange}/>
+                    handleChange={this.handleChange}
+                    />
             </div>
         );
     }
