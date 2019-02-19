@@ -33,6 +33,12 @@ class Course extends Component {
                 </ExpansionPanelDetails>
                 <Divider />
                 <ExpansionPanelActions>
+                    <Button color="secondary" className={classes.button} onClick={() => this.handleClickOpen()}>
+                        Remover
+                    </Button>
+                    <Button className={classes.button} onClick={() => this.handleClickOpen()}>
+                        Editar
+                    </Button>
                     <Button color="primary" className={classes.button} onClick={() => this.handleClickOpen()}>
                         Visualizar
                     </Button>
