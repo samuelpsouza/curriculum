@@ -140,7 +140,7 @@ class MatrixForm extends Component {
                             
                         </DialogContent>
                         <DialogActions>
-                            <Button onClick={this.handleClose} color="primary">
+                            <Button onClick={this.handeCloseSelection} color="primary">
                             Cancelar
                             </Button>
                             <Button color="primary">

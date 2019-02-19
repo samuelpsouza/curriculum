@@ -57,7 +57,7 @@ class MajorList extends Component {
         major.duration = this.state.duration
         major.registrationNumber = this.state.registrationNumber
 
-        fetch(URL, {
+        fetch(URL + '/majors', {
             headers: {
                 'Content-Type': 'application/json'
             },
@@ -66,13 +66,13 @@ class MajorList extends Component {
         })
         .then(response => response.json())
         .then(response => {
-            this.refresh();
+            this.refreshMajors();
         })
 
     }
 
     handleRemove = (id) => {
-        fetch(URL + '/' + id, {
+        fetch(URL + '/majors/' + id, {
             headers: {
                 'Content-Type': 'application/json'
             },
@@ -80,7 +80,7 @@ class MajorList extends Component {
         })
         .then(response => response.json())
         .then(response => {
-            this.refresh();
+            this.refreshMajors();
         })
     }
 
