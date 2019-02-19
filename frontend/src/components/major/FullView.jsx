@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 import { Divider, Button, Dialog, DialogActions, 
   DialogContent, DialogTitle, Typography, List,
   ListItem, ListItemText } from '@material-ui/core';
@@ -23,14 +23,23 @@ export default props => {
               <Typography variant="h6" color="inherit">
                 Disciplinas Obrigatórias
               </Typography>
-              <List>
-                {mandatory.map(course => (
-                    <ListItem key={course.id} dense button>
-                      <ListItemText primary={course.id} />
-                      <ListItemText primary={course.description} />
-                  </ListItem>
-                  ))}
-              </List>
+              
+              {props.major.matrix.semesterList.map(semester => {
+                return (
+                  <Fragment>
+                    <Typography>{semester.description}</Typography>
+                    <List>
+                      {mandatory.map(course => (
+                        <ListItem key={course.id} dense button>
+                          <ListItemText primary={course.id} />
+                          <ListItemText primary={course.description} />
+                      </ListItem>
+                      ))}
+                    </List>
+                  </Fragment>
+                )
+              })}
+
               <Divider />
               <Typography variant="h6" color="inherit">
                 Disciplinas Optativas
