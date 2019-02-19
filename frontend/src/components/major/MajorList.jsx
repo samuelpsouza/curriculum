@@ -71,6 +71,21 @@ class MajorList extends Component {
 
     }
 
+    handleUpdate = (selectedMajor) => {
+        console.log(selectedMajor)
+        fetch(URL + '/majors', {
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            method: 'PUT',
+            body: JSON.stringify(selectedMajor)
+        })
+        .then(response => response.json())
+        .then(response => {
+            this.refreshMajors();
+        })
+    }
+
     handleRemove = (id) => {
         fetch(URL + '/majors/' + id, {
             headers: {
@@ -127,7 +142,7 @@ class MajorList extends Component {
                 <Fab color="primary" aria-label="Add" className={classes.fab} onClick={() => this.handleClickOpen()}>
                     <AddIcon />
                 </Fab>
-                {this.state.majors.map(major => (<Major courses={this.state.courses} key={major.id} major={major} handleRemove={this.handleRemove}/>))}
+                {this.state.majors.map(major => (<Major handleSubmit={this.handleUpdate} courses={this.state.courses} key={major.id} major={major} handleRemove={this.handleRemove}/>))}
                 <MajorForm 
                     open={this.state.open} 
                     code={this.state.code}

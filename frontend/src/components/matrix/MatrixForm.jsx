@@ -37,7 +37,8 @@ class MatrixForm extends Component {
         this.state = {
             scroll: 'paper',
             openSelection: false,
-            selectedCourse: {}
+            selectedCourse: {},
+            selectedMajor: this.props.major
         };
     }
 
@@ -52,16 +53,29 @@ class MatrixForm extends Component {
     handleSelection = (option) => {
         this.handeCloseSelection();
         if(option === 'optativa'){
-            console.log('optivativa selecionada')
+            let updated = Object.create(this.state.selectedMajor)
+            updated.matrix.courseList.push(this.state.selectedCourse);
+            this.setState({...this.state.selectedMajor, selectedMajor: updated});
         }
         else{
-            console.log(option)
-            console.log('semestre selecionada')
+            // Nunca modifico o estado diretamente. Sempre crio uma mutação dele
+            let updatedMajor = Object.create(this.state.selectedMajor)
+            updatedMajor.matrix.courseList.push(this.state.selectedCourse);
+
+            let updatedCourse = Object.create(this.state.selectedCourse)
+            updatedCourse.semester = option;
+            this.setState({...this.state.selectedMajor, selectedMajor: updatedMajor});
+            this.setState({...this.state.selectedCourse, selectedCourse: updatedCourse});
         }
     }
 
+    handleSubmit = () => {
+        this.props.handleClose()
+        this.props.handleSubmit(this.state.selectedMajor)
+    }
+
     render(){
-        const {openInclude, handleClose, handleSubmit, classes, courses, major} = this.props;
+        const {openInclude, handleClose, classes, courses} = this.props;
 
         return (
             <Dialog
@@ -80,7 +94,7 @@ class MatrixForm extends Component {
                     <Typography variant="h6" color="inherit" className={classes.flex}>
                         Cancelar
                     </Typography>
-                    <Button color="inherit" onClick={handleSubmit}>
+                    <Button color="inherit" onClick={() => this.handleSubmit()}>
                         Salvar
                     </Button>
                     </Toolbar>
@@ -101,7 +115,9 @@ class MatrixForm extends Component {
                         Disciplinas Optativas
                     </Typography>
                     <ListItem button>
-                        <ListItemText primary="Disciplina" />
+                        {/*this.state.selectedMajor.matrix.courseList.map(course=>{
+                            return (<ListItemText primary={course.description} />);
+                        })*/}
                     </ListItem>
                 </List>
 
@@ -125,7 +141,7 @@ class MatrixForm extends Component {
                      >
                         <DialogContent>
                             <List className={classes.root}>
-                                {major.matrix.semesterList.map(course => (
+                                {this.state.selectedMajor.matrix.semesterList.map(course => (
                                     <ListItem key={course.id} dense button onClick={() => this.handleOpenSelection()}>
                                         <ListItemText primary={course.id} />
                                         <ListItemText primary={course.description} />
@@ -142,9 +158,6 @@ class MatrixForm extends Component {
                         <DialogActions>
                             <Button onClick={this.handeCloseSelection} color="primary">
                             Cancelar
-                            </Button>
-                            <Button color="primary">
-                            Salvar
                             </Button>
                         </DialogActions>
                 </Dialog>

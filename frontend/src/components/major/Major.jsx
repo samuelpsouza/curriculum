@@ -45,7 +45,7 @@ class Major extends Component {
     }
 
     render(){
-      const { classes, major, fullScreen, courses } = this.props;
+      const { classes, major, fullScreen, courses, handleSubmit } = this.props;
       
       return (
         <ExpansionPanel>
@@ -75,7 +75,7 @@ class Major extends Component {
             </Button>
           </ExpansionPanelActions>
           <FullView fullScreen={fullScreen} open={this.state.open} handleClose={this.handleClose} major={major}/>
-          <MatrixForm major={major} courses={courses} openInclude={this.state.openInclude} handleClose={this.handleClickCloseIncludeForm} />
+          <MatrixForm major={major} courses={courses} openInclude={this.state.openInclude} handleClose={this.handleClickCloseIncludeForm} handleSubmit={handleSubmit} />
         </ExpansionPanel>
       )
     }

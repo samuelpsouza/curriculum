@@ -1,5 +1,6 @@
 package br.samuelpsouza.matrizcurricular.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -11,6 +12,7 @@ import javax.validation.constraints.NotNull;
 @Data
 @Entity
 @NoArgsConstructor
+@AllArgsConstructor
 public class Course {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,6 +26,8 @@ public class Course {
     @NotEmpty
     @NotBlank
     private String description;
+    @OneToOne
+    private Semester semester;
 
     public Course(@NotNull @NotEmpty @NotBlank String code, @NotNull @NotEmpty @NotBlank String description) {
         this.code = code;
