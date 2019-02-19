@@ -108,13 +108,16 @@ class MajorList extends Component {
         })
         .then(response => response.json())
         .then(response => {
-            this.setState({...this.state, majors: response.data.content});
+            this.setState({...this.state, courses: response.data.content});
         })
     }
 
-    componentWillMount(){
-       this.refreshCourses();
-       this.refreshMajors();
+    componentWillMount = () => {
+        this.refreshMajors();
+    }
+
+    componentDidMount = () => {
+        this.refreshCourses();
     }
 
     render(){

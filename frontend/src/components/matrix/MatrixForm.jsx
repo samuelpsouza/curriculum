@@ -10,8 +10,6 @@ import {
         Checkbox 
     } from '@material-ui/core';
 
-const URL = 'http://localhost:8080/courses';
-
 const styles = theme => ({
     fab: {
         margin: theme.spacing.unit,
@@ -42,6 +40,7 @@ class MatrixForm extends Component {
 
     render(){
         const {openInclude, handleClose, handleSubmit, classes, courses} = this.props;
+
         return (
             <Dialog
                 fullScreen
@@ -87,14 +86,13 @@ class MatrixForm extends Component {
                 <Divider />
 
                 <List className={classes.root}>
-                    {courses.map(value => (
-                    <ListItem key={value} role={undefined} dense button>
+                    {courses.map(course => (
+                    <ListItem key={course.id} role={undefined} dense button>
                         <Checkbox
-                            checked={this.state.checked.indexOf(value) !== -1}
                             tabIndex={-1}
                             disableRipple
                         />
-                        <ListItemText primary={`Line item ${value + 1}`} />
+                        <ListItemText primary={`Line item ${course.title + 1}`} />
                     </ListItem>
                     ))}
                 </List>
