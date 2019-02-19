@@ -6,7 +6,8 @@ import {
         Button, Dialog, ListItemText,
         Typography, Slide, ListItem,
         AppBar, Toolbar, IconButton,
-        List, Divider, ListItemIcon 
+        List, Divider, ListItemIcon,
+        Checkbox 
     } from '@material-ui/core';
 
 const styles = theme => ({
@@ -31,6 +32,7 @@ function Transition(props) {
 class MatrixForm extends Component {
     state = {
         scroll: 'paper',
+        courses: []
     };
 
     render(){
@@ -74,10 +76,22 @@ class MatrixForm extends Component {
                     </Typography>
                     <ListItem button>
                         <ListItemText primary="Disciplina" />
-                        <ListItemIcon>
-                            <AddIcon />
-                        </ListItemIcon>
                     </ListItem>
+                </List>
+
+                <Divider />
+
+                <List className={classes.root}>
+                    {this.state.courses.map(value => (
+                    <ListItem key={value} role={undefined} dense button onClick={this.handleToggle(value)}>
+                        <Checkbox
+                            checked={this.state.checked.indexOf(value) !== -1}
+                            tabIndex={-1}
+                            disableRipple
+                        />
+                        <ListItemText primary={`Line item ${value + 1}`} />
+                    </ListItem>
+                    ))}
                 </List>
             </Dialog>
         );

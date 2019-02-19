@@ -16,7 +16,7 @@ const periods = [
       value: 'NOITE',
       label: 'Noite',
     }
-  ];
+];
 
 export default props => {
     return (
