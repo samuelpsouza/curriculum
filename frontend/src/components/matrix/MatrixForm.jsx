@@ -10,6 +10,8 @@ import {
         Checkbox 
     } from '@material-ui/core';
 
+const URL = 'http://localhost:8080/courses';
+
 const styles = theme => ({
     fab: {
         margin: theme.spacing.unit,
@@ -34,6 +36,22 @@ class MatrixForm extends Component {
         scroll: 'paper',
         courses: []
     };
+
+    refresh(){
+        fetch(URL, {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => response.json())
+        .then(response => {
+            this.setState({...this.state, courses: response.data.content});
+        })
+    }
+
+    componentWillMount(){
+        this.refresh();
+     }
 
     render(){
         const {openInclude, handleClose, handleSubmit, classes} = this.props;
