@@ -7,8 +7,6 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import FullView from './FullView';
 import MatrixForm from '../matrix/MatrixForm';
 
-const URL = 'http://localhost:8080/courses';
-
 const styles = theme => ({
     root: {
       ...theme.mixins.gutters(),

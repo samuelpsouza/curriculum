@@ -7,7 +7,8 @@ import {
         Button, Dialog, ListItemText,
         Typography, Slide, ListItem,
         AppBar, Toolbar, IconButton,
-        List, Divider, ListItemIcon
+        List, Divider, ListItemIcon, 
+        DialogContent, DialogActions
     } from '@material-ui/core';
 
 const styles = theme => ({
@@ -34,8 +35,17 @@ class MatrixForm extends Component {
         super(props);
 
         this.state = {
-            scroll: 'paper'
+            scroll: 'paper',
+            openSelection: false
         };
+    }
+
+    handleOpenSelection = () => {
+        this.setState({...this.state, openSelection: true});
+    }
+
+    handeCloseSelection = () => {
+        this.setState({...this.state, openSelection: false});
     }
 
     render(){
@@ -87,15 +97,33 @@ class MatrixForm extends Component {
 
                 <List className={classes.root}>
                     {courses.map(course => (
-                    <ListItem key={course.id} role={undefined} dense button>
-                        <ListItemText primary={course.id} />
-                        <ListItemText primary={course.description} />
-                        <ListItemIcon>
-                            <AddIcon />
-                        </ListItemIcon>
-                    </ListItem>
+                        <ListItem key={course.id} dense button onClick={() => this.handleOpenSelection()}>
+                            <ListItemText primary={course.id} />
+                            <ListItemText primary={course.description} />
+                            <ListItemIcon>
+                                <AddIcon />
+                            </ListItemIcon>
+                        </ListItem>
                     ))}
                 </List>
+
+                <Dialog
+                     open={this.state.openSelection}
+                     aria-labelledby="form-dialog-title"
+                     >
+                        <DialogContent>
+                            Lista de Semestres
+                            Optativa
+                        </DialogContent>
+                        <DialogActions>
+                            <Button onClick={this.handleClose} color="primary">
+                            Cancelar
+                            </Button>
+                            <Button color="primary">
+                            Salvar
+                            </Button>
+                        </DialogActions>
+                </Dialog>
             </Dialog>
         );
     }
