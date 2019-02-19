@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -84,6 +85,7 @@ public class MatrizCurricularApplicationTests {
     }
 
     @Test
+    @WithMockUser(roles="COORDENADOR")
     public void shouldAddANewSemesterAndReceiveApiResponseJson() throws Exception {
         semester = new Semester("Semestre I");
         mvc.perform(post("/semesters")
@@ -98,6 +100,7 @@ public class MatrizCurricularApplicationTests {
     }
 
     @Test
+    @WithMockUser(roles="COORDENADOR")
     public void shouldUpdateASemesterAndReceiveApiResponseJson() throws Exception {
         semester = new Semester("Semestre I");
         semester = this.semesterRepository.save(semester);
@@ -116,6 +119,7 @@ public class MatrizCurricularApplicationTests {
     }
 
     @Test
+    @WithMockUser(roles="COORDENADOR")
     public void shouldDeleteASemesterAndReceiveApiResponseJson() throws Exception {
         semester = new Semester("Semestre I");
         semester = this.semesterRepository.save(semester);
