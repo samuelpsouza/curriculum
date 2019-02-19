@@ -5,6 +5,9 @@ import { Divider, Button, Dialog, DialogActions,
 
 
 export default props => {
+    let optionals = props.major.matrix.courseList.filter(course => course.semester === null || course.semester !== undefined);
+    let mandatory = props.major.matrix.courseList.filter(course => course.semester !== null && course.semester !== undefined);
+    
     return (
         <Dialog
           fullScreen
@@ -20,13 +23,21 @@ export default props => {
               <Typography variant="h6" color="inherit">
                 Disciplinas Obrigatórias
               </Typography>
+              <List>
+                {mandatory.map(course => (
+                    <ListItem key={course.id} dense button>
+                      <ListItemText primary={course.id} />
+                      <ListItemText primary={course.description} />
+                  </ListItem>
+                  ))}
+              </List>
               <Divider />
               <Typography variant="h6" color="inherit">
                 Disciplinas Optativas
               </Typography>
 
               <List>
-                {props.major.matrix.courseList.map(course => (
+                {optionals.map(course => (
                     <ListItem key={course.id} dense button>
                       <ListItemText primary={course.id} />
                       <ListItemText primary={course.description} />
