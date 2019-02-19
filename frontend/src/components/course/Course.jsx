@@ -23,7 +23,7 @@ class Course extends Component {
             <ExpansionPanel>
                 <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
                     <Typography variant="h5" component="h3">
-                    {course.title}
+                    {course.code}
                     </Typography>
                 </ExpansionPanelSummary>
                 <ExpansionPanelDetails>
