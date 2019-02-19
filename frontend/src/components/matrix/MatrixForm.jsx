@@ -8,7 +8,8 @@ import {
         Typography, Slide, ListItem,
         AppBar, Toolbar, IconButton,
         List, Divider, ListItemIcon, 
-        DialogContent, DialogActions
+        DialogContent, DialogActions,
+        TextField, DialogTitle
     } from '@material-ui/core';
 
 
@@ -42,6 +43,7 @@ class MatrixForm extends Component {
             openSelection: false,
             selectedCourse: {},
             selectedMajor: this.props.major,
+            openSemesterSelection: false,
             notAssigned:[]
         };
     }
@@ -69,6 +71,10 @@ class MatrixForm extends Component {
         this.setState({...this.state.openSelection, openSelection: false});
     }
 
+    handeCloseSemesterSelection = () => {
+        this.setState({...this.state.openSemesterSelection, openSemesterSelection: false});
+    }
+
     handleSelection = (option) => {
         this.handeCloseSelection();
         if(option === 'optativa'){
@@ -90,6 +96,15 @@ class MatrixForm extends Component {
         this.handleUpdate(this.state.selectedMajor);
 
     }
+
+    handleAddSemester = () => {
+        console.log('semester')
+    }
+
+    handleOpenSemesterSelection = () => {
+        this.setState({...this.state.openSemesterSelection, openSemesterSelection: true});
+    }
+
 
     componentDidMount = () => {
         let notAssigned = this.props.courses.filter(course => {
@@ -136,11 +151,16 @@ class MatrixForm extends Component {
                     <Typography variant="h6" color="inherit" className={classes.flex}>
                         Disciplinas Obrigatórias
                     </Typography>
-                    <ListItem button>
-                        <ListItemText primary="Semestre" />
+                    <ListItem button onClick={() => this.handleOpenSemesterSelection()}>
+                        <ListItemText primary="Novo Semestre" />
                         <ListItemIcon>
                             <AddIcon />
                         </ListItemIcon>
+                    </ListItem>
+                    <ListItem button>
+                        {this.state.selectedMajor.matrix.courseList.map(course=>{
+                            return (<ListItemText key={course.id} primary={course.description} />);
+                        })}
                     </ListItem>
                     <Divider />
 
@@ -149,7 +169,7 @@ class MatrixForm extends Component {
                     </Typography>
                     <ListItem button>
                         {this.state.selectedMajor.matrix.courseList.map(course=>{
-                            return (<ListItemText primary={course.description} />);
+                            return (<ListItemText key={course.id} primary={course.description} />);
                         })}
                     </ListItem>
                 </List>
@@ -172,6 +192,7 @@ class MatrixForm extends Component {
                      open={this.state.openSelection}
                      aria-labelledby="form-dialog-title"
                      >
+                        <DialogTitle id="form-dialog-title">Associar à Matriz</DialogTitle>
                         <DialogContent>
                             <List className={classes.root}>
                                 {this.state.selectedMajor.matrix.semesterList.map(course => (
@@ -191,6 +212,23 @@ class MatrixForm extends Component {
                         <DialogActions>
                             <Button onClick={this.handeCloseSelection} color="primary">
                             Cancelar
+                            </Button>
+                        </DialogActions>
+                </Dialog>
+                <Dialog
+                     open={this.state.openSemesterSelection}
+                     aria-labelledby="form-dialog-title"
+                     >  
+                        <DialogTitle id="form-dialog-title">Novo Semestre</DialogTitle>
+                        <DialogContent>
+                            <TextField margin="dense" id="semester" label="Semestre" type="text" fullWidth/>
+                        </DialogContent>
+                        <DialogActions>
+                            <Button onClick={this.handeCloseSemesterSelection} color="primary">
+                                Cancelar
+                            </Button>
+                            <Button onClick={this.handeCloseSemesterSelection} color="primary">
+                                Salvar
                             </Button>
                         </DialogActions>
                 </Dialog>
