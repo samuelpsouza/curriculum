@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import CloseIcon from '@material-ui/icons/Close';
 import AddIcon from '@material-ui/icons/Add';
+
 import { 
         Button, Dialog, ListItemText,
         Typography, Slide, ListItem,
         AppBar, Toolbar, IconButton,
-        List, Divider, ListItemIcon,
-        Checkbox 
+        List, Divider, ListItemIcon
     } from '@material-ui/core';
 
 const styles = theme => ({
@@ -88,11 +88,11 @@ class MatrixForm extends Component {
                 <List className={classes.root}>
                     {courses.map(course => (
                     <ListItem key={course.id} role={undefined} dense button>
-                        <Checkbox
-                            tabIndex={-1}
-                            disableRipple
-                        />
+                        <ListItemText primary={course.id} />
                         <ListItemText primary={course.description} />
+                        <ListItemIcon>
+                            <AddIcon />
+                        </ListItemIcon>
                     </ListItem>
                     ))}
                 </List>
