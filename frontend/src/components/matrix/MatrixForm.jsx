@@ -92,7 +92,7 @@ class MatrixForm extends Component {
                             tabIndex={-1}
                             disableRipple
                         />
-                        <ListItemText primary={`Line item ${course.title + 1}`} />
+                        <ListItemText primary={course.description} />
                     </ListItem>
                     ))}
                 </List>
