@@ -26,7 +26,7 @@ export default props => {
               
               {props.major.matrix.semesterList.map(semester => {
                 return (
-                  <Fragment>
+                  <Fragment key={semester.id}>
                     <Typography>{semester.description}</Typography>
                     <List>
                       {mandatory.map(course => (
