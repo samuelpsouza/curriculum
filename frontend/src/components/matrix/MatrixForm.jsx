@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import CloseIcon from '@material-ui/icons/Close';
 import AddIcon from '@material-ui/icons/Add';
@@ -166,11 +166,24 @@ class MatrixForm extends Component {
                             <AddIcon />
                         </ListItemIcon>
                     </ListItem>
-                    <ListItem button>
-                        {this.state.selectedMajor.matrix.courseList.map(course=>{
-                            return (<ListItemText key={course.id} primary={course.description} />);
-                        })}
-                    </ListItem>
+                    
+                    {this.state.selectedMajor.matrix.semesterList.map(semester=>{
+                        return (
+                            <List key={semester.id}>
+                                <ListItem button>
+                                    <Typography variant="h6" color="inherit">
+                                        {semester.description} 
+                                    </Typography>
+                                </ListItem>
+                                <List>
+                                    {this.state.selectedMajor.matrix.courseList.map(course=>{
+                                        return <ListItemText key={course.id} primary={course.description} />
+                                    })}
+                                </List>
+                            </List>
+                            );
+                    })}
+
                     <Divider />
 
                     <Typography variant="h6" color="inherit" className={classes.flex}>
