@@ -176,8 +176,10 @@ class MatrixForm extends Component {
                                     </Typography>
                                 </ListItem>
                                 <List>
-                                    {this.state.selectedMajor.matrix.courseList.map(course=>{
-                                        return <ListItemText key={course.id} primary={course.description} />
+                                    {this.state.selectedMajor.matrix.courseList.filter(course=>{
+                                        if(course.semester===semester)
+                                            return <ListItemText key={course.id} primary={course.description} />
+                                        return null;
                                     })}
                                 </List>
                             </List>
