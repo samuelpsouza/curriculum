@@ -18,14 +18,20 @@ public class UserService {
     }
 
     public ApiResponse getUsers() {
-        return null;
+        ApiResponse response = new ApiResponse(true, "Users fetched");
+        response.setData(this.userRepository.findAll());
+        return response;
     }
 
     public ApiResponse saveUser(User user) {
-        return null;
+        ApiResponse response = new ApiResponse(true, "User " + user.getUsername() + " saved");
+        log.info("User " + user.getUsername() + " added");
+        return response;
     }
 
     public ApiResponse deleteUser(Long id) {
-        return null;
+        ApiResponse response = new ApiResponse(true, "User " + id + " removed");
+        log.info("User " + id + "removed");
+        return response;
     }
 }

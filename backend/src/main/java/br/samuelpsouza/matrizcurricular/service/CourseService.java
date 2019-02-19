@@ -23,7 +23,7 @@ public class CourseService {
 
     @Transactional(readOnly = true)
     public ApiResponse getSingleCourse(Long id) {
-        ApiResponse response = new ApiResponse(true, "Course %s fetched", id);
+        ApiResponse response = new ApiResponse(true, "Course " + id + "fetched");
         response.setData(this.courseRepository.findById(id));
         return response;
     }
