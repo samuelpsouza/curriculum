@@ -8,7 +8,7 @@ export default props => {
             open={this.state.openSemesterSelection}
             aria-labelledby="form-dialog-title"
             >  
-            <DialogTitle id="form-dialog-title">Novo Semestre</DialogTitle>
+            <DialogTitle id="form-dialog-title">Login</DialogTitle>
             <DialogContent>
                 <TextField margin="dense" id="username" label="Usuário" type="text" fullWidth/>
                 <TextField margin="dense" id="password" label="Senha" type="password" fullWidth/>
