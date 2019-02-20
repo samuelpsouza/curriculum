@@ -55,13 +55,13 @@ public class UserService {
 
     @Transactional
     public ApiResponse init() {
-        User user = this.userRepository.findByUsername("demo").orElse(null);
+        User user = this.userRepository.findByUsername("administrator").orElse(null);
 
         if (user != null)
             return new ApiResponse(false, "Usuário Demo já existe");
         else {
             List<Role> roles = this.roleRepository.findByName("ADMIN");
-            User newUser = new User("demo", "demo", roles);
+            User newUser = new User("administrator", "12345678", roles);
             this.userRepository.save(newUser);
             return new ApiResponse(true, "Usuário Demo inicializado com sucessp");
         }

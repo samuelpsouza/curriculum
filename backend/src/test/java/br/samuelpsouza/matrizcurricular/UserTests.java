@@ -1,6 +1,7 @@
 package br.samuelpsouza.matrizcurricular;
 
-import br.samuelpsouza.matrizcurricular.model.Major;
+import br.samuelpsouza.matrizcurricular.model.Role;
+import br.samuelpsouza.matrizcurricular.model.User;
 import br.samuelpsouza.matrizcurricular.repository.RoleRepository;
 import br.samuelpsouza.matrizcurricular.repository.UserRepository;
 import io.zonky.test.db.AutoConfigureEmbeddedDatabase;
@@ -17,14 +18,14 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
-import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import static br.samuelpsouza.matrizcurricular.TestUtil.convertObjectToJsonBytes;
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -41,10 +42,17 @@ public class UserTests {
     private RoleRepository roleRepository;
 
     @Test
-    public void shouldCreateAndPersistAMajorObject() {
-        major = new Major("CC001", "Ciencia da Computação");
-        Major persistedMajor = this.majorRepository.save(major);
-        assertEquals(persistedMajor.getCode(), major.getCode());
+    public void shouldCreateAndPersistAUserObject() {
+        User user = new User("samuel123", "12345678", Collections.EMPTY_LIST);
+        User persistedUser = this.userRepository.save(user);
+        assertEquals(persistedUser.getUsername(), user.getUsername());
+    }
+
+    @Test
+    public void shouldCreateAndPersistARoleObject() {
+        Role role = new Role("ROLE_ADMIN");
+        Role persistedRole = this.roleRepository.save(role);
+        assertEquals(persistedRole.getName(), role.getName());
     }
 
     @Test
@@ -59,20 +67,9 @@ public class UserTests {
     }
 
     @Test
-    public void shouldRequestMajorAndReceiveApiResponseJsonWithContent() throws Exception {
-        mvc.perform(get("/majors")
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andExpect(content()
-                        .contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.success", is(true)))
-                .andExpect(jsonPath("$.message", notNullValue()))
-                .andExpect(jsonPath("$.data.content", isA(ArrayList.class)));
-    }
-
-    @Test
-    public void shouldRequestMajorAndReceiveApiResponseJson() throws Exception {
-        mvc.perform(get("/majors")
+    @WithMockUser(roles = "ADMIN")
+    public void shouldRequestUsersAndReceiveApiResponseJson() throws Exception {
+        mvc.perform(get("/users")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content()
@@ -83,12 +80,26 @@ public class UserTests {
     }
 
     @Test
-    @WithMockUser(roles="COORDENADOR")
+    @WithMockUser(roles = "ADMIN")
+    public void shouldRequestRolesAndReceiveApiResponseJson() throws Exception {
+        mvc.perform(get("/users/roles")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(content()
+                        .contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.success", notNullValue()))
+                .andExpect(jsonPath("$.message", notNullValue()))
+                .andExpect(jsonPath("$.data", anything()));
+    }
+
+    @Test
+    @WithMockUser(roles = "ADMIN")
     public void shouldAddANewMajorAndReceiveApiResponseJson() throws Exception {
-        major = new Major("CC001", "Ciencia da Computação");
-        mvc.perform(post("/majors")
+        List<Role> roles = this.roleRepository.findByName("ROLE_COORDENADOR");
+        User user = new User("samuelsouza", "12345678", roles);
+        mvc.perform(post("/users")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(convertObjectToJsonBytes(major)))
+                .content(convertObjectToJsonBytes(user)))
                 .andExpect(status().isOk())
                 .andExpect(content()
                         .contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
@@ -98,33 +109,13 @@ public class UserTests {
     }
 
     @Test
-    @WithMockUser(roles="COORDENADOR")
-    public void shouldUpdateAMajorAndReceiveApiResponseJson() throws Exception {
-        major = new Major("CC001", "Ciencia da Computação");
-        major = this.majorRepository.save(major);
+    @WithMockUser(roles = "ADMIN")
+    public void shouldDeleteAUserAndReceiveApiResponseJson() throws Exception {
+        List<Role> roles = this.roleRepository.findByName("ROLE_COORDENADOR");
+        User user = new User("samuel123", "12345678", roles);
+        User persistedUser = this.userRepository.save(user);
 
-        major.setTitle("Introdução a Ciencia da Computação");
-        mvc.perform(put("/majors")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(convertObjectToJsonBytes(major)))
-                .andExpect(status().isOk())
-                .andExpect(content()
-                        .contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.success", is(true)))
-                .andExpect(jsonPath("$.message", notNullValue()))
-
-                // No retorno, o spring está convertendo o Long para inteiro
-                // Deveria ser 56L, mas está retornando 56.
-                .andExpect(jsonPath("$.data.id", is(major.getId().intValue())));
-    }
-
-    @Test
-    @WithMockUser(roles="COORDENADOR")
-    public void shouldDeleteAMajorAndReceiveApiResponseJson() throws Exception {
-        major = new Major("CC001", "Ciencia da Computação");
-        major = this.majorRepository.save(major);
-
-        mvc.perform(delete("/majors/" + major.getId())
+        mvc.perform(delete("/users/" + persistedUser.getId())
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content()
@@ -135,11 +126,13 @@ public class UserTests {
     }
 
     @Test
-    public void shouldRequestASingleMajorAndReceiveApiResponseJson() throws Exception {
-        major = new Major("CC001", "Ciencia da Computação");
-        major = this.majorRepository.save(major);
+    @WithMockUser
+    public void shouldRequestUserInfoAndReceiveApiResponseJson() throws Exception {
+        List<Role> roles = this.roleRepository.findByName("ROLE_COORDENADOR");
+        User user = new User("samuel123", "12345678", roles);
+        this.userRepository.save(user);
 
-        mvc.perform(get("/majors/" + major.getId())
+        mvc.perform(get("/users/info")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content()
@@ -151,6 +144,6 @@ public class UserTests {
 
     @After
     public void cleanDatabaseUp() {
-        this.majorRepository.deleteAll();
+        this.userRepository.deleteAll();
     }
 }
