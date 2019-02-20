@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Router, Route, Redirect, Switch } from 'react-router-dom'
 import MajorList from './components/major/MajorList';
 import CourseList from './components/course/CourseList';
@@ -28,4 +29,11 @@ const AppRoutes = ({ history, isAuthenticated }) => (
     </Router>   
 );
 
-export default AppRoutes;
+
+const mapStateToProps = state => ({
+    user: state.user
+})
+
+export default connect(mapStateToProps)(AppRoutes)
+
+

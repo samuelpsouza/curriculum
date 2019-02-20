@@ -21,7 +21,7 @@ const persistConfig = {
   whitelist: ['user']
 }
 
-let reduxDevToolsCompose = process.env.REACT_APP_ENV === 'dev' ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : null
+let reduxDevToolsCompose = process.env.REACT_APP_ENV === 'dev' ? window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__() : null
 
 const composeEnhancers = reduxDevToolsCompose || compose
 const persistedReducer = persistCombineReducers(persistConfig, rootReducer)

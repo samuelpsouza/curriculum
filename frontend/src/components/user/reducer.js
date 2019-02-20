@@ -1,7 +1,9 @@
 import actions from './actions';
 
 const initState = {
-  isAuthenticated: false
+  user: {
+    isAuthenticated: false
+  }
 }
 
 export default function (state = initState, action) {
