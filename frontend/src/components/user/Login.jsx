@@ -28,7 +28,7 @@ class Login extends Component {
                 <Card className='main-card'>
                     <CardHeader title='Login' />
                     <CardContent>
-                        <form onSubmit={handleSubmit(this.onSubmit)}>
+                        <form onSubmit={handleSubmit(val => this.onSubmit(val))}>
                             <Field label='Usuário' name='username' component={TextField} type='text'
                                     validate={[required]} fullWidth/>
                             <Field label='Password' name='password' component={TextField} type='password'
