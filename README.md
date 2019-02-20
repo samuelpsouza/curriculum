@@ -15,12 +15,17 @@ banco e não deixar essa resposabilidade para a dll do hibernate, e
  assim conseguimos evitar conflitos de tipos, campos removidos, etc... em novas versões da aplicação)
 
 ### Instalando
+git clone https://github.com/samuelpsouza/matriz-curricular.git
 
+cd matriz-curricular/
 
-## Testando
+docker-compose up -d
 
+deve acessar http:localhost:8080/init para criar o usuario inicial.
+usuario: demo
+senha: demo
 
-## Deployment
+deve ser criado um usuario coordenador para add cursos, disciplinas, semestres e montar a matriz.
 
 ## Suposições realizadas
 
