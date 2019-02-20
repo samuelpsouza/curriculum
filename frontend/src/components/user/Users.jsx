@@ -19,11 +19,28 @@ class Users extends Component {
     state = {
         open: false,
         roles: [],
-        users: []
+        users: [],
+        roleSelected: {}
     }
 
     handleSubmit = () => {
+        this.handleClose();
+        const user = {}
+        user.username = this.state.username
+        user.password = this.state.password
+        user.roleList.push(this.state.roleSelected)
 
+        fetch(URL + '/users', {
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            method: 'POST',
+            body: JSON.stringify(user)
+        })
+        .then(response => response.json())
+        .then(response => {
+            this.refresh();
+        })
     }
 
     handleClose = () => {

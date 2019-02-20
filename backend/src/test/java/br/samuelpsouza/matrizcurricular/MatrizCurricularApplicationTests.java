@@ -19,6 +19,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static br.samuelpsouza.matrizcurricular.TestUtil.convertObjectToJsonBytes;
+import static io.zonky.test.db.AutoConfigureEmbeddedDatabase.DatabaseProvider.DOCKER;
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -29,7 +30,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 @TestPropertySource(locations="classpath:test.properties")
-@AutoConfigureEmbeddedDatabase
+@AutoConfigureEmbeddedDatabase(beanName = "dataSource3", provider = DOCKER)
 @FlywayTest
 public class MatrizCurricularApplicationTests {
     @Autowired
