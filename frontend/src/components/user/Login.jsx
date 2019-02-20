@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import requestLogin from './actions';
 import required from '../../_helpers/required';
 
-import { Card, CardContent, CardHeader, CircularProgress,
+import { Card, CardContent, CardHeader,
     Button, TextField } from '@material-ui/core';
 import "./Login.css";
 
@@ -48,5 +48,5 @@ class Login extends Component {
 
 const LoginForm = reduxForm({ form: 'loginForm' })(Login);
 const mapDispatchToProps = dispatch => bindActionCreators({ requestLogin },
-    dispatch)
-export default connect(null, mapDispatchToProps)(LoginForm)
+    dispatch);
+export default connect(null, mapDispatchToProps)(LoginForm);
