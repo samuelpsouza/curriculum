@@ -1,11 +1,9 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
+import { AppBar, Toolbar, Typography,
+  Button, IconButton } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
+import Login from '../user/Login';
 
 const styles = theme => ({
   root: {
@@ -26,9 +24,14 @@ const styles = theme => ({
   }
 });
 
-
 const ButtonAppBar = props => {
   const { classes } = props;
+  let openLogin = false;
+
+  const handleOpenLogin = () => {
+    openLogin = true;
+  }
+
   return (
     <div className={classes.root}>
       <AppBar position="static">
@@ -39,9 +42,10 @@ const ButtonAppBar = props => {
           <Typography color="inherit" className={classes.grow}>
             Cursos
           </Typography>
-          <Button color="inherit">Login</Button>
+          <Button color="inherit" onClick={() => handleOpenLogin()}>Login</Button>
           <Button color="inherit">Logout</Button>
         </Toolbar>
+        <Login openLogin={openLogin} />
       </AppBar>
     </div>
   );

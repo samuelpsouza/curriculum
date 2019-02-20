@@ -5,7 +5,7 @@ import { Dialog, DialogTitle, DialogContent,
 export default props => {
     return (
         <Dialog
-            open={this.state.openSemesterSelection}
+            open={props.openLogin}
             aria-labelledby="form-dialog-title"
             >  
             <DialogTitle id="form-dialog-title">Login</DialogTitle>
