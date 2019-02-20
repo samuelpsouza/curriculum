@@ -25,6 +25,7 @@ deve acessar http:localhost:8080/init para criar o usuario inicial.
 usuario: demo
 senha: demo
 
+acesso a ui: http://localhost:3000
 deve ser criado um usuario coordenador para add cursos, disciplinas, semestres e montar a matriz.
 
 ## Suposições realizadas
