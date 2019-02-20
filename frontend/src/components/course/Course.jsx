@@ -36,9 +36,6 @@ class Course extends Component {
                     <Button color="secondary" className={classes.button} onClick={() => this.props.handleRemove(course.id)}>
                     Remover
                     </Button>
-                    <Button className={classes.button} onClick={() => this.handleClickOpen()}>
-                        Editar
-                    </Button>
                     <Button color="primary" className={classes.button} onClick={() => this.handleClickOpen()}>
                         Visualizar
                     </Button>

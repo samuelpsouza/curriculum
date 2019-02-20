@@ -64,9 +64,6 @@ class Major extends Component {
             <Button color="secondary" className={classes.button} onClick={() => this.props.handleRemove(major.id)}>
                 Remover
             </Button>
-            <Button className={classes.button} onClick={() => this.handleClickOpen()}>
-                Editar
-            </Button>
             <Button className={classes.button} onClick={() => this.handleClickOpenIncludeForm()}>
                 Incluir
             </Button>

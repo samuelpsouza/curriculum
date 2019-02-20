@@ -36,9 +36,6 @@ const User = props => {
                 <Button color="secondary" className={classes.button} onClick={() => handleRemove(user.id)}>
                     Remover
                 </Button>
-                <Button className={classes.button}>
-                    Editar
-                </Button>
             </ExpansionPanelActions>
         </ExpansionPanel>
     );  
