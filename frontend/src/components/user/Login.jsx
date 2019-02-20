@@ -3,7 +3,6 @@ import { bindActionCreators } from 'redux';
 import { reduxForm, Field } from 'redux-form';
 import { connect } from 'react-redux';
 import requestLogin from './actions';
-import required from '../../_helpers/required';
 
 import { Card, CardContent, CardHeader,
     Button, TextField } from '@material-ui/core';
@@ -16,8 +15,9 @@ class Login extends Component {
     }
 
     onSubmit = values => {
-        const { requestLogin } = this.props;
-        requestLogin(values)
+        //const { requestLogin } = this.props;
+        //requestLogin(values)
+        console.log(values)
     }
 
     render() {
@@ -26,11 +26,11 @@ class Login extends Component {
             <Card className='main-card'>
                 <CardHeader title='Login' />
                 <CardContent>
-                    <form onSubmit={handleSubmit(val => this.onSubmit(val))}>
-                        <Field label='Usuário' name='username' component={TextField} type='text'
-                                validate={[required]} fullWidth/>
-                        <Field label='Password' name='password' component={TextField} type='password'
-                                fullWidth margin='normal' validate={[required]} />
+                    <form onSubmit={handleSubmit(this.onSubmit)}>
+                        <Field label='Usuário' id="username" name='username' 
+                            component={TextField} type='text' fullWidth required/>
+                        <Field label='Password' id="password" name='password'
+                            component={TextField} type='password' fullWidth required/>
 
                         <Button color='primary' type="submit" variant='contained' 
                             style={{ marginTop: 10 }} fullWidth>
