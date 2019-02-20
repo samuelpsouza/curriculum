@@ -27,7 +27,7 @@ class Login extends Component {
         e.preventDefault();
 
         this.setState({ submitted: true });
-        const { username, password, returnUrl } = this.state;
+        const { username, password } = this.state;
 
         if (!(username && password)) {
             return;
@@ -50,9 +50,9 @@ class Login extends Component {
                 <Card className='main-card'>
                     <CardHeader title='Login' />
                     <CardContent>
-                        <TextField margin="dense" id="username" label="Usuário" type="text" fullWidth />
-                        <TextField margin="dense" id="password" label="Senha" type="password" fullWidth/>
-                        <Button color="primary">
+                        <TextField margin="dense" id="username" label="Usuário" type="text" onChange={this.handleChange} fullWidth />
+                        <TextField margin="dense" id="password" label="Senha" type="password" onChange={this.handleChange} fullWidth/>
+                        <Button color="primary" onClick={this.handleSubmit}>
                             Login
                         </Button>
                     </CardContent>
