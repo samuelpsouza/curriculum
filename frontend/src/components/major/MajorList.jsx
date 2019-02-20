@@ -148,9 +148,11 @@ class MajorList extends Component {
         const { classes } = this.props;
         return (
             <div>
-                <Fab color="primary" aria-label="Add" className={classes.fab} onClick={() => this.handleClickOpen()}>
-                    <AddIcon />
-                </Fab>
+                {
+                    localStorage.getItem('user') ? <Fab color="primary" aria-label="Add" className={classes.fab} onClick={() => this.handleClickOpen()}>
+                        <AddIcon />
+                    </Fab> : null
+                }
                 {this.state.majors.map(major => (<Major handleSubmit={this.handleUpdate} courses={this.state.courses} key={major.id} major={major} handleRemove={this.handleRemove}/>))}
                 <MajorForm 
                     open={this.state.open} 

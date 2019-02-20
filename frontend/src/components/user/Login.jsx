@@ -1,26 +1,65 @@
-import React from 'react';
-import { Dialog, DialogTitle, DialogContent,
-    DialogActions, Button, TextField } from '@material-ui/core';
+import React, { Component } from 'react';
+import { Card, CardContent, CardHeader, Button, TextField } from '@material-ui/core';
+import "./Login.css";
+import { userService } from "../../_helpers/auth-service";
 
-export default props => {
-    return (
-        <Dialog
-            open={props.openLogin}
-            aria-labelledby="form-dialog-title"
-            >  
-            <DialogTitle id="form-dialog-title">Login</DialogTitle>
-            <DialogContent>
-                <TextField margin="dense" id="username" label="Usuário" type="text" fullWidth/>
-                <TextField margin="dense" id="password" label="Senha" type="password" fullWidth/>
-            </DialogContent>
-            <DialogActions>
-                <Button color="primary">
-                    Cancelar
-                </Button>
-                <Button color="primary">
-                    Login
-                </Button>
-            </DialogActions>
-        </Dialog>
-    );
+class Login extends Component {
+    constructor(props) {
+        super(props);
+
+        userService.logout();
+
+        this.state = {
+            username: '',
+            password: ''
+        };
+
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    handleChange(e) {
+        const { name, value } = e.target;
+        this.setState({ [name]: value });
+    }
+
+    handleSubmit(e) {
+        e.preventDefault();
+
+        this.setState({ submitted: true });
+        const { username, password, returnUrl } = this.state;
+
+        if (!(username && password)) {
+            return;
+        }
+
+        this.setState({ loading: true });
+        userService.login(username, password)
+            .then(
+                user => {
+                    const { from } = this.props.location.state || { from: { pathname: "/majors" } };
+                    this.props.history.push(from);
+                },
+                error => this.setState({ error, loading: false })
+            );
+    }
+
+    render() {
+        return (
+            <div>
+                <Card className='main-card'>
+                    <CardHeader title='Login' />
+                    <CardContent>
+                        <TextField margin="dense" id="username" label="Usuário" type="text" fullWidth />
+                        <TextField margin="dense" id="password" label="Senha" type="password" fullWidth/>
+                        <Button color="primary">
+                            Login
+                        </Button>
+                    </CardContent>
+                </Card>
+            </div>
+        );
+    }
 }
+
+export default Login;

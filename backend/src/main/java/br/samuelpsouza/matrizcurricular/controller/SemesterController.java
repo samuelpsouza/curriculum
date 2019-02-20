@@ -12,6 +12,7 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping(value = "semesters")
+@CrossOrigin
 public class SemesterController {
     private final SemesterService semesterService;
 

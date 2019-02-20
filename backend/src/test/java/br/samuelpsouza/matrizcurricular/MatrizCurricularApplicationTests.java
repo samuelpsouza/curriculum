@@ -4,6 +4,8 @@ import br.samuelpsouza.matrizcurricular.model.Matrix;
 import br.samuelpsouza.matrizcurricular.model.Semester;
 import br.samuelpsouza.matrizcurricular.repository.MatrixRepository;
 import br.samuelpsouza.matrizcurricular.repository.SemesterRepository;
+import io.zonky.test.db.AutoConfigureEmbeddedDatabase;
+import org.flywaydb.test.annotation.FlywayTest;
 import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,6 +14,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -25,6 +28,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
+@TestPropertySource(locations="classpath:test.properties")
+@AutoConfigureEmbeddedDatabase
+@FlywayTest
 public class MatrizCurricularApplicationTests {
     @Autowired
     private MockMvc mvc;

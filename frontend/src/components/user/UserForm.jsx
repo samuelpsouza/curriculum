@@ -14,9 +14,9 @@ const UserForm = props => {
             <TextField autoFocus margin="dense" id="username" label="Usuário" type="text" value={props.code} onChange={props.handleChange('username')} fullWidth/>
             <TextField margin="dense" id="password" label="Senha" type="password" value={props.title} onChange={props.handleChange('password')} fullWidth/>
             <TextField margin="dense" id="roles" select label="Permissões" value={props.period} onChange={props.handleChange('roles')} fullWidth>
-                {props.roles.map(option => (
-                    <MenuItem key={option.value} value={option.value}>
-                        {option.label}
+                {props.roles.map(role => (
+                    <MenuItem key={role.id} value={role.name}>
+                        {role.name}
                     </MenuItem>
                 ))}
             </TextField>

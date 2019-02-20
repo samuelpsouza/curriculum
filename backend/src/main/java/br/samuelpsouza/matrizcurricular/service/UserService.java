@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.security.Principal;
 import java.util.List;
 
 @Service
@@ -64,5 +65,12 @@ public class UserService {
             this.userRepository.save(newUser);
             return new ApiResponse(true, "Usuário Demo inicializado com sucessp");
         }
+    }
+
+    @Transactional(readOnly = true)
+    public ApiResponse getInfo(Principal principal) {
+        ApiResponse response = new ApiResponse(true, "User info fetched");
+        response.setData(this.userRepository.findByUsername(principal.getName()));
+        return response;
     }
 }

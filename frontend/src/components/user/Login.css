@@ -1,0 +1,14 @@
+.main-div {
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+    text-align: center;
+    background: #F5F5F5;
+    height: 100vh;
+    padding: 0 5px;
+}
+
+.main-card { 
+    max-width: 500px;
+    margin: 0 auto;
+}

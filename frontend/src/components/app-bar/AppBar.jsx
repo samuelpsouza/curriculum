@@ -3,7 +3,6 @@ import { withStyles } from '@material-ui/core/styles';
 import { AppBar, Toolbar, Typography,
   Button, IconButton } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
-import Login from '../user/Login';
 
 const styles = theme => ({
   root: {
@@ -26,11 +25,6 @@ const styles = theme => ({
 
 const ButtonAppBar = props => {
   const { classes } = props;
-  let openLogin = false;
-
-  const handleOpenLogin = () => {
-    openLogin = true;
-  }
 
   return (
     <div className={classes.root}>
@@ -39,13 +33,10 @@ const ButtonAppBar = props => {
           <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
             <MenuIcon />
           </IconButton>
-          <Typography color="inherit" className={classes.grow}>
-            Cursos
-          </Typography>
-          <Button color="inherit" onClick={() => handleOpenLogin()}>Login</Button>
-          <Button color="inherit">Logout</Button>
+            {
+              localStorage.getItem('user') ? <Button color="inherit">Logout</Button> : null
+            }
         </Toolbar>
-        <Login openLogin={openLogin} />
       </AppBar>
     </div>
   );

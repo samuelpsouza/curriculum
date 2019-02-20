@@ -9,10 +9,12 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.security.Principal;
 
 @RestController
 @RequestMapping("users")
 @PreAuthorize("hasRole('ADMIN')")
+@CrossOrigin
 public class UserController {
     private final UserService userService;
 
@@ -27,7 +29,7 @@ public class UserController {
         return ResponseEntity.ok(this.userService.getUsers());
     }
 
-    @GetMapping
+    @GetMapping("/roles")
     @ResponseBody
     public ResponseEntity<ApiResponse> getRoles() {
         return ResponseEntity.ok(this.userService.getRoles());
@@ -49,5 +51,11 @@ public class UserController {
     @ResponseBody
     public ResponseEntity<ApiResponse> deleteUser(@PathVariable("id") Long id) {
         return ResponseEntity.ok(this.userService.deleteUser(id));
+    }
+
+    @GetMapping("/info")
+    @ResponseBody
+    public ResponseEntity<ApiResponse> getInfo(Principal principal){
+        return ResponseEntity.ok(this.userService.getInfo(principal));
     }
 }

@@ -18,7 +18,8 @@ const styles = theme => ({
 class Users extends Component {
     state = {
         open: false,
-        users:[]
+        roles: [],
+        users: []
     }
 
     handleSubmit = () => {
@@ -26,7 +27,11 @@ class Users extends Component {
     }
 
     handleClose = () => {
+        this.setState({...this.state.open, open:false})
+    }
 
+    handleChange = name => event => {
+        this.setState({...this.state, [name]: event.target.value});
     }
 
     handleUpdate = (user) => {
@@ -85,7 +90,11 @@ class Users extends Component {
                     );
                 })}
 
-                <UserForm open={this.state.open} handleSubmit={this.handleSubmit} handleClose={this.handleClose}/>
+                <UserForm open={this.state.open} 
+                    handleSubmit={this.handleSubmit} 
+                    handleClose={this.handleClose}
+                    handleChange={this.handleChange}
+                    roles={this.state.roles}/>
             </Fragment>
         );
     }   
