@@ -1,0 +1,2 @@
+INSERT INTO public.role VALUES (1, 'ROLE_ADMIN');
+INSERT INTO public.role VALUES (2, 'ROLE_COORDENADOR');

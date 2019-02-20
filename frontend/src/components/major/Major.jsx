@@ -62,7 +62,7 @@ class Major extends Component {
           <Divider />
           <ExpansionPanelActions>
             <Button color="secondary" className={classes.button} onClick={() => this.props.handleRemove(major.id)}>
-              Remover
+                Remover
             </Button>
             <Button className={classes.button} onClick={() => this.handleClickOpen()}>
                 Editar

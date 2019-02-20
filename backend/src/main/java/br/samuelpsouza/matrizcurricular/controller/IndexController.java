@@ -25,7 +25,7 @@ public class IndexController {
         return ResponseEntity.ok(new ApiResponse(true, "No donuts for you"));
     }
 
-    @GetMapping
+    @GetMapping("/init")
     @ResponseBody
     public ResponseEntity<ApiResponse> init() {
         return ResponseEntity.ok(this.userService.init());

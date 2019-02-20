@@ -1,13 +1,13 @@
 version: '2'
 services:
   app:
-    image: backend/Dockerfile
+    build: ./backend
     ports:
       - "8080:8080"
     depends_on:
       - mypostgres
   ui:
-    image: frontend/Dockerfile
+    build: ./frontend
     ports: 
       - "3000:3000"
     depends_on:

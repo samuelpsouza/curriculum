@@ -14,10 +14,14 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+    private final CustomUserDetailService customUserDetailService;
+    private final UnauthorizedHandler unauthorizedHandler;
+
     @Autowired
-    private CustomUserDetailService customUserDetailService;
-    @Autowired
-    private UnauthorizedHandler unauthorizedHandler;
+    public SecurityConfig(CustomUserDetailService customUserDetailService, UnauthorizedHandler unauthorizedHandler) {
+        this.customUserDetailService = customUserDetailService;
+        this.unauthorizedHandler = unauthorizedHandler;
+    }
 
     @Bean
     public JwtAuthenticationFilter jwtAuthenticationFilter() {
@@ -50,7 +54,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and().authorizeRequests()
-                .antMatchers("/auth/**", "/majors", "/majors/**", "/")
+                .antMatchers("/auth/**", "/majors", "/majors/**", "/", "/init")
                 .permitAll()
                 .anyRequest().authenticated();
     }
