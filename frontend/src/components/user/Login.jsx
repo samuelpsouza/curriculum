@@ -16,32 +16,29 @@ class Login extends Component {
     }
 
     onSubmit = values => {
-        console.log(values)
-        //const { requestLogin } = this.props;
-        //requestLogin(values)
+        const { requestLogin } = this.props;
+        requestLogin(values)
     }
 
     render() {
         const { handleSubmit } = this.props
         return (
-            <div>
-                <Card className='main-card'>
-                    <CardHeader title='Login' />
-                    <CardContent>
-                        <form onSubmit={handleSubmit(val => this.onSubmit(val))}>
-                            <Field label='Usuário' name='username' component={TextField} type='text'
-                                    validate={[required]} fullWidth/>
-                            <Field label='Password' name='password' component={TextField} type='password'
-                                    fullWidth margin='normal' validate={[required]} />
+            <Card className='main-card'>
+                <CardHeader title='Login' />
+                <CardContent>
+                    <form onSubmit={handleSubmit(val => this.onSubmit(val))}>
+                        <Field label='Usuário' name='username' component={TextField} type='text'
+                                validate={[required]} fullWidth/>
+                        <Field label='Password' name='password' component={TextField} type='password'
+                                fullWidth margin='normal' validate={[required]} />
 
-                            <Button color='primary' type="submit" variant='contained' 
-                                style={{ marginTop: 10 }} fullWidth>
-                                Login
-                            </Button>
-                        </form>
-                    </CardContent>
-                </Card>
-            </div>
+                        <Button color='primary' type="submit" variant='contained' 
+                            style={{ marginTop: 10 }} fullWidth>
+                            Login
+                        </Button>
+                    </form>
+                </CardContent>
+            </Card>
         );
     }
 }
