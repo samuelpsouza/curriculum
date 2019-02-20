@@ -4,7 +4,10 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
-import javax.validation.constraints.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 @Entity
@@ -28,4 +31,10 @@ public class User {
 
     @ManyToMany(cascade = CascadeType.ALL)
     private List<Role> roleList;
+
+    public User(@Size(min = 8) @NotNull @NotBlank @NotEmpty String username, @NotNull @NotBlank @NotEmpty String password, List<Role> roleList) {
+        this.username = username;
+        this.password = password;
+        this.roleList = roleList;
+    }
 }

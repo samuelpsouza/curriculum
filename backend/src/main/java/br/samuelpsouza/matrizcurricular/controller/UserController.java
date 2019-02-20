@@ -27,6 +27,12 @@ public class UserController {
         return ResponseEntity.ok(this.userService.getUsers());
     }
 
+    @GetMapping
+    @ResponseBody
+    public ResponseEntity<ApiResponse> getRoles() {
+        return ResponseEntity.ok(this.userService.getRoles());
+    }
+
     @PostMapping
     @ResponseBody
     public ResponseEntity<ApiResponse> addUser(@RequestBody @Valid User user) {

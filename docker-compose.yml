@@ -1,11 +1,17 @@
 version: '2'
 services:
   app:
-    image: matriz-backend
+    image: backend/Dockerfile
     ports:
       - "8080:8080"
     depends_on:
       - mypostgres
+  ui:
+    image: frontend/Dockerfile
+    ports: 
+      - "3000:3000"
+    depends_on:
+      - app
   mypostgres:
     image: postgres
     ports:
