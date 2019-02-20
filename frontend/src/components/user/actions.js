@@ -10,43 +10,53 @@ const actions = {
 const requestLogin = (credentials) => {
     return {
         type: actions.LOGIN_REQUEST,
-        isFetching: true,
-        isAuthenticated: false,
-        credentials
+        payload: {
+            isFetching: true,
+            isAuthenticated: false,
+            credentials
+        }
     };
 }
 
 const receiveLogin = (user) => {
     return {
         type: actions.LOGIN_SUCCESS,
-        isFetching: false,
-        isAuthenticated: true,
-        id_token: user.id_token
+        payload: {
+            isFetching: false,
+            isAuthenticated: true,
+            id_token: user.id_token
+        }
     };
 }
 
 const loginError = (message) => {
     return {
         type: actions.LOGIN_FAILURE,
-        isFetching: false,
-        isAuthenticated: false,
-        message
+        payload: {
+            isFetching: false,
+            isAuthenticated: false,
+            message
+        }
     };
 }
 
 const requestLogout = () => {
     return {
         type: actions.LOGOUT_REQUEST,
-        isFetching: true,
-        isAuthenticated: false
+        payload: {
+            isFetching: true,
+            isAuthenticated: false
+        }
     };
 }
 
 const receiveLogout = () => {
     return {
         type: actions.LOGOUT_SUCCESS,
-        isFetching: false,
-        isAuthenticated: false
+        payload: {
+            isFetching: false,
+            isAuthenticated: false
+        }
     };
 }
 
