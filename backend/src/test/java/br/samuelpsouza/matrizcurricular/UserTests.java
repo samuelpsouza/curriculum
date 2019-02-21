@@ -49,17 +49,6 @@ public class UserTests {
     }
 
     @Test
-    public void shouldRequestMajorsAndHaveStatus200()
-            throws Exception {
-
-        mvc.perform(get("/majors")
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andExpect(content()
-                        .contentTypeCompatibleWith(MediaType.APPLICATION_JSON));
-    }
-
-    @Test
     @WithMockUser(roles = "ADMIN")
     public void shouldRequestUsersAndReceiveApiResponseJson() throws Exception {
         mvc.perform(get("/users")
@@ -90,6 +79,8 @@ public class UserTests {
     public void shouldAddANewUserAndReceiveApiResponseJson() throws Exception {
         List<Role> roles = this.roleRepository.findByName("ROLE_COORDENADOR");
         User user = new User("samuelsouza", "12345678", roles);
+
+        System.out.println(user.toString());
         mvc.perform(post("/users")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(convertObjectToJsonBytes(user)))
@@ -126,6 +117,18 @@ public class UserTests {
         this.userRepository.save(user);
 
         mvc.perform(get("/users/info")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(content()
+                        .contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.success", is(true)))
+                .andExpect(jsonPath("$.message", notNullValue()))
+                .andExpect(jsonPath("$.data", anything()));
+    }
+
+    @Test
+    public void shouldRequestInitializeAUserForDemoAndReceiveApiResponseJson() throws Exception {
+        mvc.perform(get("/init")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content()

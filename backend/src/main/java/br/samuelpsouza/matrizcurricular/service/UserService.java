@@ -34,6 +34,7 @@ public class UserService {
 
     @Transactional
     public ApiResponse saveUser(User user) {
+        this.userRepository.save(user);
         ApiResponse response = new ApiResponse(true, "User " + user.getUsername() + " saved");
         log.info("User " + user.getUsername() + " added");
         return response;
@@ -41,6 +42,7 @@ public class UserService {
 
     @Transactional
     public ApiResponse deleteUser(Long id) {
+        this.userRepository.deleteById(id);
         ApiResponse response = new ApiResponse(true, "User " + id + " removed");
         log.info("User " + id + "removed");
         return response;
