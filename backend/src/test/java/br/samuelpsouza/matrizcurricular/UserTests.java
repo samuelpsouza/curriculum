@@ -2,6 +2,7 @@ package br.samuelpsouza.matrizcurricular;
 
 import br.samuelpsouza.matrizcurricular.model.Role;
 import br.samuelpsouza.matrizcurricular.model.User;
+import br.samuelpsouza.matrizcurricular.payload.LoginRequest;
 import br.samuelpsouza.matrizcurricular.repository.RoleRepository;
 import br.samuelpsouza.matrizcurricular.repository.UserRepository;
 import io.zonky.test.db.AutoConfigureEmbeddedDatabase;
@@ -135,7 +136,19 @@ public class UserTests {
                 .andExpect(jsonPath("$.success", is(true)))
                 .andExpect(jsonPath("$.message", notNullValue()))
                 .andExpect(jsonPath("$.data", anything()));
+
+        LoginRequest loginRequest = new LoginRequest("administrator", "12345678");
+        mvc.perform(post("/auth/login")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(convertObjectToJsonBytes(loginRequest)))
+                .andExpect(status().isOk())
+                .andExpect(content()
+                        .contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.success", is(true)))
+                .andExpect(jsonPath("$.message", notNullValue()))
+                .andExpect(jsonPath("$.data", notNullValue()));
     }
+
 
     @After
     public void cleanDatabaseUp() {
