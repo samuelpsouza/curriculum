@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { reduxForm, Field } from 'redux-form';
 import { connect } from 'react-redux';
-import requestLogin from './actions';
+import loginUser from './actions';
 
 import { Card, CardContent, CardHeader,
     Button, TextField } from '@material-ui/core';
@@ -11,17 +11,16 @@ import "./Login.css";
 class Login extends Component {
     constructor(props) {
         super(props)
-        this.onSubmit = this.onSubmit.bind(this)
+        this.onSubmit = this.onSubmit.bind(this);
     }
 
     onSubmit = values => {
-        //const { requestLogin } = this.props;
-        //requestLogin(values)
-        console.log(values)
+        const { loginUser } = this.props;
+        loginUser(values);
     }
 
     render() {
-        const { handleSubmit } = this.props
+        const { handleSubmit } = this.props;
         return (
             <Card className='main-card'>
                 <CardHeader title='Login' />
@@ -44,6 +43,6 @@ class Login extends Component {
 }
 
 const LoginForm = reduxForm({ form: 'loginForm' })(Login);
-const mapDispatchToProps = dispatch => bindActionCreators({ requestLogin },
+const mapDispatchToProps = dispatch => bindActionCreators({ loginUser },
     dispatch);
 export default connect(null, mapDispatchToProps)(LoginForm);

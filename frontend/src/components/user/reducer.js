@@ -6,11 +6,6 @@ const initState = {
 
 export default function (state = initState, action) {
   switch (action.type) {
-    case actions.LOGIN_REQUEST:
-      return {
-        ...state,
-        user: action.payload
-      }
     case actions.LOGIN_SUCCESS:
       return { 
         ...state, 
