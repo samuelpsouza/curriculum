@@ -18,7 +18,6 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
-import java.util.Collections;
 import java.util.List;
 
 import static br.samuelpsouza.matrizcurricular.TestUtil.convertObjectToJsonBytes;
@@ -43,16 +42,10 @@ public class UserTests {
 
     @Test
     public void shouldCreateAndPersistAUserObject() {
-        User user = new User("samuel123", "12345678", Collections.EMPTY_LIST);
+        List<Role> roles = this.roleRepository.findByName("ROLE_COORDENADOR");
+        User user = new User("samuel123", "12345678", roles);
         User persistedUser = this.userRepository.save(user);
         assertEquals(persistedUser.getUsername(), user.getUsername());
-    }
-
-    @Test
-    public void shouldCreateAndPersistARoleObject() {
-        Role role = new Role("ROLE_ADMIN");
-        Role persistedRole = this.roleRepository.save(role);
-        assertEquals(persistedRole.getName(), role.getName());
     }
 
     @Test
@@ -94,7 +87,7 @@ public class UserTests {
 
     @Test
     @WithMockUser(roles = "ADMIN")
-    public void shouldAddANewMajorAndReceiveApiResponseJson() throws Exception {
+    public void shouldAddANewUserAndReceiveApiResponseJson() throws Exception {
         List<Role> roles = this.roleRepository.findByName("ROLE_COORDENADOR");
         User user = new User("samuelsouza", "12345678", roles);
         mvc.perform(post("/users")
