@@ -27,7 +27,7 @@ class Login extends Component {
                     <form onSubmit={handleSubmit(this.onSubmit)}>
                         <Field label='Usuário' id="username" name='username' 
                             component={TextField} type='text' fullWidth required/>
-                        <Field label='Password' id="password" name='password'
+                        <Field label='Senha' id="password" name='password'
                             component={TextField} type='password' fullWidth required/>
 
                         <Button color='primary' type="submit" variant='contained' 
