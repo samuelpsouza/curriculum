@@ -1,65 +1,49 @@
 import React, { Component } from 'react';
-import { Card, CardContent, CardHeader, Button, TextField } from '@material-ui/core';
+import { bindActionCreators } from 'redux';
+import { reduxForm, Field } from 'redux-form';
+import { connect } from 'react-redux';
+import requestLogin from './actions';
+
+import { Card, CardContent, CardHeader,
+    Button, TextField } from '@material-ui/core';
 import "./Login.css";
-import { userService } from "../../_helpers/auth-service";
 
 class Login extends Component {
     constructor(props) {
-        super(props);
-
-        userService.logout();
-
-        this.state = {
-            username: '',
-            password: ''
-        };
-
-        this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
+        super(props)
+        this.onSubmit = this.onSubmit.bind(this)
     }
 
-    handleChange(e) {
-        const { name, value } = e.target;
-        this.setState({ [name]: value });
-    }
-
-    handleSubmit(e) {
-        e.preventDefault();
-
-        this.setState({ submitted: true });
-        const { username, password } = this.state;
-
-        if (!(username && password)) {
-            return;
-        }
-
-        this.setState({ loading: true });
-        userService.login(username, password)
-            .then(
-                user => {
-                    const { from } = this.props.location.state || { from: { pathname: "/majors" } };
-                    this.props.history.push(from);
-                },
-                error => this.setState({ error, loading: false })
-            );
+    onSubmit = values => {
+        //const { requestLogin } = this.props;
+        //requestLogin(values)
+        console.log(values)
     }
 
     render() {
+        const { handleSubmit } = this.props
         return (
-            <div>
-                <Card className='main-card'>
-                    <CardHeader title='Login' />
-                    <CardContent>
-                        <TextField margin="dense" id="username" label="Usuário" type="text" onChange={this.handleChange} fullWidth />
-                        <TextField margin="dense" id="password" label="Senha" type="password" onChange={this.handleChange} fullWidth/>
-                        <Button color="primary" onClick={this.handleSubmit}>
+            <Card className='main-card'>
+                <CardHeader title='Login' />
+                <CardContent>
+                    <form onSubmit={handleSubmit(this.onSubmit)}>
+                        <Field label='Usuário' id="username" name='username' 
+                            component={TextField} type='text' fullWidth required/>
+                        <Field label='Password' id="password" name='password'
+                            component={TextField} type='password' fullWidth required/>
+
+                        <Button color='primary' type="submit" variant='contained' 
+                            style={{ marginTop: 10 }} fullWidth>
                             Login
                         </Button>
-                    </CardContent>
-                </Card>
-            </div>
+                    </form>
+                </CardContent>
+            </Card>
         );
     }
 }
 
-export default Login;
+const LoginForm = reduxForm({ form: 'loginForm' })(Login);
+const mapDispatchToProps = dispatch => bindActionCreators({ requestLogin },
+    dispatch);
+export default connect(null, mapDispatchToProps)(LoginForm);

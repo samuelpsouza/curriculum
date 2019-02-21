@@ -7,6 +7,7 @@ import br.samuelpsouza.matrizcurricular.repository.RoleRepository;
 import br.samuelpsouza.matrizcurricular.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,11 +19,13 @@ import java.util.List;
 public class UserService {
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserService(UserRepository userRepository, RoleRepository roleRepository) {
+    public UserService(UserRepository userRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Transactional(readOnly = true)
@@ -34,6 +37,7 @@ public class UserService {
 
     @Transactional
     public ApiResponse saveUser(User user) {
+        this.userRepository.save(user);
         ApiResponse response = new ApiResponse(true, "User " + user.getUsername() + " saved");
         log.info("User " + user.getUsername() + " added");
         return response;
@@ -41,6 +45,7 @@ public class UserService {
 
     @Transactional
     public ApiResponse deleteUser(Long id) {
+        this.userRepository.deleteById(id);
         ApiResponse response = new ApiResponse(true, "User " + id + " removed");
         log.info("User " + id + "removed");
         return response;
@@ -61,7 +66,7 @@ public class UserService {
             return new ApiResponse(false, "Usuário Demo já existe");
         else {
             List<Role> roles = this.roleRepository.findByName("ADMIN");
-            User newUser = new User("administrator", "12345678", roles);
+            User newUser = new User("administrator", passwordEncoder.encode("12345678"), roles);
             this.userRepository.save(newUser);
             return new ApiResponse(true, "Usuário Demo inicializado com sucessp");
         }

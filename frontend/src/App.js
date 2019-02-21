@@ -1,45 +1,23 @@
 import React, { Component } from 'react';
 import AppRouter from './AppRouter';
-import { withStyles } from '@material-ui/core/styles';
 import './App.css';
 
-import AppBar from './components/app-bar/AppBar';
+import { Provider } from 'react-redux'
+import { PersistGate } from 'redux-persist/integration/react'
 
-const styles = theme => ({
-  fab: {
-    margin: theme.spacing.unit,
-  },
-  extendedIcon: {
-    marginRight: theme.spacing.unit,
-  },
-});
-
+import { store, persistor } from './redux/store'
+import { history } from './redux/store'
 
 class App extends Component {
-  state = {
-    majors: []
-  }
-
-  componentWillMount(){
-    fetch('http://localhost:8080/majors', {
-      headers: {
-        "Content-Type": "application/json"
-      }
-    })
-    .then(response => response.json())
-    .then(response => {
-      this.setState({...this.state, majors: response.data.content})
-    })
-  }
-
   render() {
     return (
-      <div className="App">
-        <AppBar />
-        <AppRouter />
-      </div>
+      <Provider store={store} >
+        <PersistGate loading={null} persistor={persistor}>
+          <AppRouter history={history} />
+        </PersistGate>
+      </Provider>
     );
   }
 }
 
-export default withStyles(styles)(App);
+export default App;
