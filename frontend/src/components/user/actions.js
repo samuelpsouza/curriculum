@@ -1,4 +1,4 @@
-const actions = {
+export const actions = {
     LOGIN_REQUEST: 'LOGIN_REQUEST',
     LOGIN_SUCCESS: 'LOGIN_SUCCESS',
     LOGIN_FAILURE: 'LOGIN_FAILURE',
@@ -60,7 +60,7 @@ const receiveLogout = () => {
     };
 }
 
-const loginUser = (credentials) => {
+export const loginUser = (credentials) => {
     let config = {
         method: 'POST',
         headers: {
@@ -89,7 +89,7 @@ const loginUser = (credentials) => {
     }
 }
 
-const logoutUser = () => {
+export const logoutUser = () => {
     return dispatch => {
         dispatch(requestLogout());
         localStorage.removeItem('id_token');
@@ -97,5 +97,3 @@ const logoutUser = () => {
         dispatch(receiveLogout());
     }
 }
-
-export default [loginUser, logoutUser, actions];

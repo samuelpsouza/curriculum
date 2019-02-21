@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { reduxForm, Field } from 'redux-form';
 import { connect } from 'react-redux';
-import loginUser from './actions';
+import { loginUser } from './actions';
 
 import { Card, CardContent, CardHeader,
     Button, TextField } from '@material-ui/core';
