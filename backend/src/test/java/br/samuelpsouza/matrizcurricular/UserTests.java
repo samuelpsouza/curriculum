@@ -78,9 +78,8 @@ public class UserTests {
     @WithMockUser(roles = "ADMIN")
     public void shouldAddANewUserAndReceiveApiResponseJson() throws Exception {
         List<Role> roles = this.roleRepository.findByName("ROLE_COORDENADOR");
-        User user = new User("samuelsouza", "12345678", roles);
+        User user = new User("samuelsouza", "abc12345678", roles);
 
-        System.out.println(user.toString());
         mvc.perform(post("/users")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(convertObjectToJsonBytes(user)))
@@ -89,7 +88,7 @@ public class UserTests {
                         .contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.success", is(true)))
                 .andExpect(jsonPath("$.message", notNullValue()))
-                .andExpect(jsonPath("$.data", notNullValue()));
+                .andExpect(jsonPath("$.data", nullValue()));
     }
 
     @Test

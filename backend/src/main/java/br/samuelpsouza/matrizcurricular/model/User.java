@@ -1,6 +1,5 @@
 package br.samuelpsouza.matrizcurricular.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -28,7 +27,6 @@ public class User {
     @NotBlank
     @NotEmpty
     @org.springframework.data.annotation.Transient
-    @JsonIgnore
     private String password;
 
     @ManyToMany
