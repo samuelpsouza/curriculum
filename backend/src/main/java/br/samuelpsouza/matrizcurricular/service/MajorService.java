@@ -3,7 +3,8 @@ package br.samuelpsouza.matrizcurricular.service;
 import br.samuelpsouza.matrizcurricular.model.Major;
 import br.samuelpsouza.matrizcurricular.payload.ApiResponse;
 import br.samuelpsouza.matrizcurricular.repository.MajorRepository;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -12,12 +13,12 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 
 @Service
-@Slf4j
 public class MajorService {
+    private static final Logger log = LoggerFactory.getLogger(MajorService.class);
     private final MajorRepository majorRepository;
 
     @Autowired
-    public MajorService(MajorRepository majorRepository) {
+    public MajorService(final MajorRepository majorRepository) {
         this.majorRepository = majorRepository;
     }
 

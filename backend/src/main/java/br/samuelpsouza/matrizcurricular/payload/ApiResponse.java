@@ -1,12 +1,5 @@
 package br.samuelpsouza.matrizcurricular.payload;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class ApiResponse {
     private Boolean success;
     private String message;
@@ -15,5 +8,15 @@ public class ApiResponse {
     public ApiResponse(Boolean success, String message) {
         this.success = success;
         this.message = message;
+    }
+
+    public ApiResponse(final boolean success, final String message, final Object id) {
+        this.success = success;
+        this.message = message;
+        this.data = id;
+    }
+
+    public void setData(Object data) {
+        this.data = data;
     }
 }

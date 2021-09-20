@@ -9,16 +9,15 @@ import java.util.Collection;
 import java.util.stream.Collectors;
 
 public class UserPrincipal implements UserDetails {
-    private User user;
+    private final User user;
 
-    public UserPrincipal(User user) {
+    public UserPrincipal(final User user) {
         this.user = user;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return user.getRoleList().stream().map(role ->
-                new SimpleGrantedAuthority(role.getName())).collect(Collectors.toList());
+        return user.getRoleList().stream().map(role -> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toList());
     }
 
     public Long getId() {

@@ -12,6 +12,9 @@
 
 ### IntelliJ IDEA ###
 /backend/.idea
+/backend/.mvn
+/backend/mvnw
+/backend/mvnw.cmd
 *.iws
 *.iml
 *.ipr
@@ -25,3 +28,4 @@
 /build/
 
 frontend/node_modules
+.idea

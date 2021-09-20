@@ -32,28 +32,24 @@ public class MajorController {
     }
 
     @PostMapping
-    @ResponseBody
     @PreAuthorize("hasRole('COORDENADOR')")
     public ResponseEntity<ApiResponse> addMajor(@RequestBody @Valid Major major) {
         return ResponseEntity.ok(this.majorService.saveMajor(major));
     }
 
     @PutMapping
-    @ResponseBody
     @PreAuthorize("hasRole('COORDENADOR')")
     public ResponseEntity<ApiResponse> updateMajor(@RequestBody @Valid Major major) {
         return ResponseEntity.ok(this.majorService.saveMajor(major));
     }
 
     @DeleteMapping("/{id}")
-    @ResponseBody
     @PreAuthorize("hasRole('COORDENADOR')")
     public ResponseEntity<ApiResponse> deleteMajor(@PathVariable("id") Long id) {
         return ResponseEntity.ok(this.majorService.deleteMajor(id));
     }
 
     @GetMapping("/{id}")
-    @ResponseBody
     @PreAuthorize("hasRole('COORDENADOR')")
     public ResponseEntity<ApiResponse> getSingleMajor(@PathVariable("id") Long id) {
         return ResponseEntity.ok(this.majorService.getSingleMajor(id));

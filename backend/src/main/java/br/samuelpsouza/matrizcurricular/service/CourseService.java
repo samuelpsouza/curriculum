@@ -3,7 +3,8 @@ package br.samuelpsouza.matrizcurricular.service;
 import br.samuelpsouza.matrizcurricular.model.Course;
 import br.samuelpsouza.matrizcurricular.payload.ApiResponse;
 import br.samuelpsouza.matrizcurricular.repository.CourseRepository;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -12,8 +13,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 
 @Service
-@Slf4j
 public class CourseService {
+    private static final Logger log = LoggerFactory.getLogger(CourseService.class);
     private final CourseRepository courseRepository;
 
     @Autowired
@@ -39,7 +40,7 @@ public class CourseService {
     public ApiResponse deleteCourse(Long id) {
         ApiResponse response = new ApiResponse(true, "Course removed");
         this.courseRepository.deleteById(id);
-        log.info("Course " + id + "removed at " + LocalDateTime.now());
+        log.info("Course {} removed at ", id, LocalDateTime.now());
         return response;
     }
 

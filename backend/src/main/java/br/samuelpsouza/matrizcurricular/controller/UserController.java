@@ -24,37 +24,31 @@ public class UserController {
     }
 
     @GetMapping
-    @ResponseBody
     public ResponseEntity<ApiResponse> getUsers() {
         return ResponseEntity.ok(this.userService.getUsers());
     }
 
     @GetMapping("/roles")
-    @ResponseBody
     public ResponseEntity<ApiResponse> getRoles() {
         return ResponseEntity.ok(this.userService.getRoles());
     }
 
     @PostMapping
-    @ResponseBody
     public ResponseEntity<ApiResponse> addUser(@RequestBody @Valid User user) {
         return ResponseEntity.ok(this.userService.saveUser(user));
     }
 
     @PutMapping
-    @ResponseBody
     public ResponseEntity<ApiResponse> updateUser(@RequestBody @Valid User user) {
         return ResponseEntity.ok(this.userService.saveUser(user));
     }
 
     @DeleteMapping("/{id}")
-    @ResponseBody
     public ResponseEntity<ApiResponse> deleteUser(@PathVariable("id") Long id) {
         return ResponseEntity.ok(this.userService.deleteUser(id));
     }
 
     @GetMapping("/info")
-    @ResponseBody
     public ResponseEntity<ApiResponse> getInfo(Principal principal){
         return ResponseEntity.ok(this.userService.getInfo(principal));
     }

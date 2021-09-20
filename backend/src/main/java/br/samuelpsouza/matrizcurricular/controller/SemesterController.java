@@ -17,26 +17,23 @@ public class SemesterController {
     private final SemesterService semesterService;
 
     @Autowired
-    public SemesterController(SemesterService semesterService) {
+    public SemesterController(final SemesterService semesterService) {
         this.semesterService = semesterService;
     }
 
     @DeleteMapping("/{id}")
-    @ResponseBody
     @PreAuthorize("hasRole('COORDENADOR')")
     public ResponseEntity<ApiResponse> deleteSemester(@PathVariable("id") Long id) {
         return ResponseEntity.ok(this.semesterService.deleteSemester(id));
     }
 
     @PostMapping
-    @ResponseBody
     @PreAuthorize("hasRole('COORDENADOR')")
     public ResponseEntity<ApiResponse> addSemester(@RequestBody @Valid Semester semester) {
         return ResponseEntity.ok(this.semesterService.saveSemester(semester));
     }
 
     @PutMapping
-    @ResponseBody
     @PreAuthorize("hasRole('COORDENADOR')")
     public ResponseEntity<ApiResponse> updateSemester(@RequestBody @Valid Semester semester) {
         // Usando o mesmo metodo pq os reposit´rios conseguem identificar se o objeto já existe no banco e atualizam.

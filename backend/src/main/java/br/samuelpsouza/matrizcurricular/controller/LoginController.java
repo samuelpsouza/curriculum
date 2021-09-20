@@ -4,7 +4,6 @@ import br.samuelpsouza.matrizcurricular.config.JwtTokenProvider;
 import br.samuelpsouza.matrizcurricular.payload.ApiResponse;
 import br.samuelpsouza.matrizcurricular.payload.LoginRequest;
 import br.samuelpsouza.matrizcurricular.util.Util;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -17,14 +16,16 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/auth")
-@Slf4j
 @CrossOrigin
 public class LoginController {
-    @Autowired
-    private JwtTokenProvider jwtTokenProvider;
+    private final JwtTokenProvider jwtTokenProvider;
+    private final AuthenticationManager authenticationManager;
 
     @Autowired
-    private AuthenticationManager authenticationManager;
+    public LoginController(final JwtTokenProvider jwtTokenProvider, final AuthenticationManager authenticationManager) {
+        this.jwtTokenProvider = jwtTokenProvider;
+        this.authenticationManager = authenticationManager;
+    }
 
     @PostMapping("/login")
     public ResponseEntity<ApiResponse> login(@Valid @RequestBody LoginRequest loginRequest) {

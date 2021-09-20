@@ -1,19 +1,13 @@
 package br.samuelpsouza.matrizcurricular.model;
 
 import br.samuelpsouza.matrizcurricular.util.Period;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-@Data
 @Entity
-@NoArgsConstructor
-@AllArgsConstructor
 public class Major {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -49,5 +43,21 @@ public class Major {
         this.duration = duration;
         this.registrationNumber = registrationNumber;
         this.matrix = matrix;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 }
