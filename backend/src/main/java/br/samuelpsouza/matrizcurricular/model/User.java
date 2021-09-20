@@ -51,4 +51,8 @@ public class User implements Serializable {
     public String getPassword() {
         return password;
     }
+
+    public List<Role> getRoleList() {
+        return roleList;
+    }
 }

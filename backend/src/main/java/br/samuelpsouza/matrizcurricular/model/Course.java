@@ -30,4 +30,16 @@ public class Course {
     public Course() {
         // Empty constructor
     }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 }

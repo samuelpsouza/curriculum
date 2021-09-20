@@ -1,17 +1,10 @@
 package br.samuelpsouza.matrizcurricular.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Data
 @Entity
-@AllArgsConstructor
-@NoArgsConstructor
 public class Matrix {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,4 +13,12 @@ public class Matrix {
     private List<Course> courseList = new ArrayList<>();
     @OneToMany(cascade = CascadeType.ALL)
     private List<Semester> semesterList = new ArrayList<>();
+
+    public Long getId() {
+        return id;
+    }
+
+    public List<Course> getCourseList() {
+        return courseList;
+    }
 }

@@ -16,4 +16,8 @@ public class Role implements Serializable {
     public Role() {
         // Empty constructor
     }
+
+    public String getName() {
+        return name;
+    }
 }

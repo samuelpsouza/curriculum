@@ -1,14 +1,9 @@
 package br.samuelpsouza.matrizcurricular.model;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
-@Data
 @Entity
-@NoArgsConstructor
 public class Semester {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,6 +12,22 @@ public class Semester {
     private String description;
 
     public Semester(@NotNull String description) {
+        this.description = description;
+    }
+
+    public Semester() {
+        // Empty constructor
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
         this.description = description;
     }
 }
