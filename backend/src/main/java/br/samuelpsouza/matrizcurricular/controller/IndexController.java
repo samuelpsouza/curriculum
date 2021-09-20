@@ -13,19 +13,17 @@ public class IndexController {
     private final UserService userService;
 
     @Autowired
-    public IndexController(UserService userService) {
+    public IndexController(final UserService userService) {
         this.userService = userService;
     }
 
     @GetMapping
-    @ResponseBody
     public ResponseEntity<ApiResponse> index() {
         return ResponseEntity.ok(new ApiResponse(true, "No donuts for you"));
     }
 
     @GetMapping("/init")
-    @ResponseBody
     public ResponseEntity<ApiResponse> init() {
-        return ResponseEntity.ok(this.userService.init());
+        return ResponseEntity.ok(userService.init());
     }
 }

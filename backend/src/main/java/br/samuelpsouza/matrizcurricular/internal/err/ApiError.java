@@ -1,7 +1,6 @@
 package br.samuelpsouza.matrizcurricular.internal.err;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.Data;
 import org.hibernate.validator.internal.engine.path.PathImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.FieldError;
@@ -13,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-@Data
 public class ApiError {
     private boolean success = false;
     private HttpStatus status;
@@ -93,5 +91,17 @@ public class ApiError {
 
     public void addValidationErrors(Set<ConstraintViolation<?>> constraintViolations) {
         constraintViolations.forEach(this::addValidationError);
+    }
+
+    public void setMessage(final String message) {
+        this.message = message;
+    }
+
+    public void setDebugMessage(String debugMessage) {
+        this.debugMessage = debugMessage;
+    }
+
+    public HttpStatus getStatus() {
+        return status;
     }
 }
