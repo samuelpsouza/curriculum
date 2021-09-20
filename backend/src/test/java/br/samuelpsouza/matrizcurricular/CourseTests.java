@@ -2,8 +2,6 @@ package br.samuelpsouza.matrizcurricular;
 
 import br.samuelpsouza.matrizcurricular.model.Course;
 import br.samuelpsouza.matrizcurricular.repository.CourseRepository;
-import io.zonky.test.db.AutoConfigureEmbeddedDatabase;
-import org.flywaydb.test.annotation.FlywayTest;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,9 +21,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 @TestPropertySource(locations = "classpath:test.properties")
-@AutoConfigureEmbeddedDatabase
-@FlywayTest
-public class CourseTests {
+class CourseTests {
     @Autowired
     private MockMvc mvc;
 
@@ -35,26 +31,26 @@ public class CourseTests {
     private Course course;
 
     @Test
-    public void contextLoads() {
+    void contextLoads() {
         assertNotNull(courseRepository);
     }
 
     @Test
-    public void shouldCreateACourseObject() {
+    void shouldCreateACourseObject() {
         course = new Course("CC001FP001", "Fundamentos de Programação");
         assertNotNull(course);
         assertNotNull(course.getCode());
     }
 
     @Test
-    public void shouldCreateAndPersistACourseObject() {
+    void shouldCreateAndPersistACourseObject() {
         course = new Course("CC001FP001", "Fundamentos de Programação");
         Course persistedCourse = this.courseRepository.save(course);
         assertEquals(persistedCourse.getCode(), course.getCode());
     }
 
     @Test
-    public void shouldNotPersistACourseObjectWithSameCode() {
+    void shouldNotPersistACourseObjectWithSameCode() {
         assertThrows(org.springframework.dao.DataIntegrityViolationException.class, () -> {
             course = new Course("CC001FP001", "Fundamentos de Programação");
             this.courseRepository.save(course);
@@ -66,7 +62,7 @@ public class CourseTests {
 
     @Test
     @WithMockUser(roles = "COORDENADOR")
-    public void shouldRequestASingleCourseAndReceiveApiResponseJson() throws Exception {
+    void shouldRequestASingleCourseAndReceiveApiResponseJson() throws Exception {
         course = new Course("CC001WD001", "Web Development");
         course = this.courseRepository.save(course);
 
@@ -82,7 +78,7 @@ public class CourseTests {
 
     @Test
     @WithMockUser(roles = "COORDENADOR")
-    public void shouldAddANewCourseAndReceiveApiResponseJson() throws Exception {
+    void shouldAddANewCourseAndReceiveApiResponseJson() throws Exception {
         course = new Course("CC001WD001", "Web Development");
         mvc.perform(post("/courses")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -97,7 +93,7 @@ public class CourseTests {
 
     @Test
     @WithMockUser(roles = "COORDENADOR")
-    public void shouldUpdateACourseAndReceiveApiResponseJson() throws Exception {
+    void shouldUpdateACourseAndReceiveApiResponseJson() throws Exception {
         course = new Course("CC001WD001", "Web Development");
         course = this.courseRepository.save(course);
 
@@ -115,7 +111,7 @@ public class CourseTests {
 
     @Test
     @WithMockUser(roles = "COORDENADOR")
-    public void shouldDeleteACourseAndReceiveApiResponseJson() throws Exception {
+    void shouldDeleteACourseAndReceiveApiResponseJson() throws Exception {
         course = new Course("CC001WD001", "Web Development");
         course = this.courseRepository.save(course);
 

@@ -2,8 +2,6 @@ package br.samuelpsouza.matrizcurricular;
 
 import br.samuelpsouza.matrizcurricular.model.Major;
 import br.samuelpsouza.matrizcurricular.repository.MajorRepository;
-import io.zonky.test.db.AutoConfigureEmbeddedDatabase;
-import org.flywaydb.test.annotation.FlywayTest;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,8 +24,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 @TestPropertySource(locations="classpath:test.properties")
-@AutoConfigureEmbeddedDatabase
-@FlywayTest
 public class MajorTests {
     @Autowired
     private MockMvc mvc;

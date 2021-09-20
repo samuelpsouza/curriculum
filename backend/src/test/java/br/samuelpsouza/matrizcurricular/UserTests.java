@@ -5,8 +5,6 @@ import br.samuelpsouza.matrizcurricular.model.User;
 import br.samuelpsouza.matrizcurricular.payload.LoginRequest;
 import br.samuelpsouza.matrizcurricular.repository.RoleRepository;
 import br.samuelpsouza.matrizcurricular.repository.UserRepository;
-import io.zonky.test.db.AutoConfigureEmbeddedDatabase;
-import org.flywaydb.test.annotation.FlywayTest;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,9 +26,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 @TestPropertySource(locations = "classpath:test.properties")
-@AutoConfigureEmbeddedDatabase
-@FlywayTest
-public class UserTests {
+class UserTests {
     @Autowired
     private MockMvc mvc;
     @Autowired
@@ -39,7 +35,7 @@ public class UserTests {
     private RoleRepository roleRepository;
 
     @Test
-    public void shouldCreateAndPersistAUserObject() {
+    void shouldCreateAndPersistAUserObject() {
         List<Role> roles = this.roleRepository.findByName("ROLE_COORDENADOR");
         User user = new User("samuel123", "12345678", roles);
         User persistedUser = this.userRepository.save(user);
@@ -48,7 +44,7 @@ public class UserTests {
 
     @Test
     @WithMockUser(roles = "ADMIN")
-    public void shouldRequestUsersAndReceiveApiResponseJson() throws Exception {
+    void shouldRequestUsersAndReceiveApiResponseJson() throws Exception {
         mvc.perform(get("/users")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
@@ -61,7 +57,7 @@ public class UserTests {
 
     @Test
     @WithMockUser(roles = "ADMIN")
-    public void shouldRequestRolesAndReceiveApiResponseJson() throws Exception {
+    void shouldRequestRolesAndReceiveApiResponseJson() throws Exception {
         mvc.perform(get("/users/roles")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
@@ -74,7 +70,7 @@ public class UserTests {
 
     @Test
     @WithMockUser(roles = "ADMIN")
-    public void shouldAddANewUserAndReceiveApiResponseJson() throws Exception {
+    void shouldAddANewUserAndReceiveApiResponseJson() throws Exception {
         List<Role> roles = this.roleRepository.findByName("ROLE_COORDENADOR");
         User user = new User("samuelsouza", "abc12345678", roles);
 
@@ -91,7 +87,7 @@ public class UserTests {
 
     @Test
     @WithMockUser(roles = "ADMIN")
-    public void shouldDeleteAUserAndReceiveApiResponseJson() throws Exception {
+    void shouldDeleteAUserAndReceiveApiResponseJson() throws Exception {
         List<Role> roles = this.roleRepository.findByName("ROLE_COORDENADOR");
         User user = new User("samuel123", "12345678", roles);
         User persistedUser = this.userRepository.save(user);
@@ -108,7 +104,7 @@ public class UserTests {
 
     @Test
     @WithMockUser
-    public void shouldRequestUserInfoAndReceiveApiResponseJson() throws Exception {
+    void shouldRequestUserInfoAndReceiveApiResponseJson() throws Exception {
         List<Role> roles = this.roleRepository.findByName("ROLE_COORDENADOR");
         User user = new User("samuel123", "12345678", roles);
         this.userRepository.save(user);
@@ -124,7 +120,7 @@ public class UserTests {
     }
 
     @Test
-    public void shouldRequestInitializeAUserForDemoAndReceiveApiResponseJson() throws Exception {
+    void shouldRequestInitializeAUserForDemoAndReceiveApiResponseJson() throws Exception {
         mvc.perform(get("/init")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())

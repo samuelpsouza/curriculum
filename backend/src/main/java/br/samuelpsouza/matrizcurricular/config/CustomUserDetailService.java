@@ -11,9 +11,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class CustomUserDetailService implements UserDetailsService {
+    private final UserRepository userRepository;
 
     @Autowired
-    UserRepository userRepository;
+    public CustomUserDetailService(final UserRepository userRepository){
+        this.userRepository = userRepository;
+    }
 
     @Override
     @Transactional(readOnly = true)

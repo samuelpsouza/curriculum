@@ -4,8 +4,6 @@ import br.samuelpsouza.matrizcurricular.model.Matrix;
 import br.samuelpsouza.matrizcurricular.model.Semester;
 import br.samuelpsouza.matrizcurricular.repository.MatrixRepository;
 import br.samuelpsouza.matrizcurricular.repository.SemesterRepository;
-import io.zonky.test.db.AutoConfigureEmbeddedDatabase;
-import org.flywaydb.test.annotation.FlywayTest;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +15,6 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static br.samuelpsouza.matrizcurricular.TestUtil.convertObjectToJsonBytes;
-import static io.zonky.test.db.AutoConfigureEmbeddedDatabase.DatabaseProvider.DOCKER;
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -27,9 +24,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 @TestPropertySource(locations="classpath:test.properties")
-@AutoConfigureEmbeddedDatabase(beanName = "dataSource3", provider = DOCKER)
-@FlywayTest
-public class MatrizCurricularApplicationTests {
+class MatrizCurricularApplicationTests {
     @Autowired
     private MockMvc mvc;
 
@@ -43,33 +38,33 @@ public class MatrizCurricularApplicationTests {
     private Matrix matrix;
 
     @Test
-    public void contextLoads() {
+    void contextLoads() {
         assertNotNull(semesterRepository);
         assertNotNull(matrixRepository);
     }
 
     @Test
-    public void shouldCreateASemesterObject() {
+    void shouldCreateASemesterObject() {
         semester = new Semester("Semestre I");
         assertNotNull(semester);
         assertNotNull(semester.getDescription());
     }
 
     @Test
-    public void shouldCreateAndPersistASemesterObject() {
+    void shouldCreateAndPersistASemesterObject() {
         semester = new Semester("Semestre I");
         Semester persistedSemester = this.semesterRepository.save(semester);
         assertEquals(persistedSemester.getDescription(), semester.getDescription());
     }
 
     @Test
-    public void shouldCreateAMatrixObject() {
+    void shouldCreateAMatrixObject() {
         matrix = new Matrix();
         assertNotNull(matrix);
     }
 
     @Test
-    public void shouldCreateAndPersistAMatrixObject() {
+    void shouldCreateAndPersistAMatrixObject() {
         matrix = new Matrix();
         Matrix persistedMatrix = this.matrixRepository.save(matrix);
         assertNotNull(persistedMatrix.getId());
@@ -77,7 +72,7 @@ public class MatrizCurricularApplicationTests {
     }
 
     @Test
-    public void shouldRequestRootAndReceiveApiResponseJson() throws Exception {
+    void shouldRequestRootAndReceiveApiResponseJson() throws Exception {
         mvc.perform(get("/")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
@@ -90,7 +85,7 @@ public class MatrizCurricularApplicationTests {
 
     @Test
     @WithMockUser(roles="COORDENADOR")
-    public void shouldAddANewSemesterAndReceiveApiResponseJson() throws Exception {
+    void shouldAddANewSemesterAndReceiveApiResponseJson() throws Exception {
         semester = new Semester("Semestre I");
         mvc.perform(post("/semesters")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -105,7 +100,7 @@ public class MatrizCurricularApplicationTests {
 
     @Test
     @WithMockUser(roles="COORDENADOR")
-    public void shouldUpdateASemesterAndReceiveApiResponseJson() throws Exception {
+    void shouldUpdateASemesterAndReceiveApiResponseJson() throws Exception {
         semester = new Semester("Semestre I");
         semester = this.semesterRepository.save(semester);
 
@@ -124,7 +119,7 @@ public class MatrizCurricularApplicationTests {
 
     @Test
     @WithMockUser(roles="COORDENADOR")
-    public void shouldDeleteASemesterAndReceiveApiResponseJson() throws Exception {
+    void shouldDeleteASemesterAndReceiveApiResponseJson() throws Exception {
         semester = new Semester("Semestre I");
         semester = this.semesterRepository.save(semester);
 

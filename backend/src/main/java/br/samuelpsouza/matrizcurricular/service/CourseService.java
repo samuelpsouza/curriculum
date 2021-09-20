@@ -40,7 +40,7 @@ public class CourseService {
     public ApiResponse deleteCourse(Long id) {
         ApiResponse response = new ApiResponse(true, "Course removed");
         this.courseRepository.deleteById(id);
-        log.info("Course {} removed at ", id, LocalDateTime.now());
+        log.info("Course {} removed at {}", id, LocalDateTime.now());
         return response;
     }
 

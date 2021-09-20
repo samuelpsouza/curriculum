@@ -1,6 +1,6 @@
 package br.samuelpsouza.matrizcurricular.internal.err;
 
-public class ApiValidationError extends ApiSubError {
+public class ApiValidationError implements ApiSubError {
     private String object;
     private String field;
     private Object rejectedValue;
