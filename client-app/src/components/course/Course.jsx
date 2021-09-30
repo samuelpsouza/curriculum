@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
-import { withStyles } from '@material-ui/core';
-import { ExpansionPanel, ExpansionPanelSummary,
-    ExpansionPanelDetails, Button, Typography, Divider, 
-    ExpansionPanelActions } from '@material-ui/core';
+import { withStyles, ExpansionPanel, ExpansionPanelSummary, ExpansionPanelDetails, Button, Typography, Divider, ExpansionPanelActions } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 const styles = theme => ({
