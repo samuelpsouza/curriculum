@@ -1,17 +1,16 @@
-# Gerenciador de Matriz Curricular
+# Curriculum
 
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=samuelpsouza_matriz-curricular&metric=alert_status)](https://sonarcloud.io/dashboard?id=samuelpsouza_matriz-curricular)
 
-Aplicação web responsável por montar a matriz curricular
-de um curso
+Aplicação web responsável por montar a matriz curricular de um curso.
 
 ### Prerequisitos
-* Maven (Compilar e executar testes)
-* Spring Boot 2.1.3.RELEASE (Ultima versão disponível do framework)
-* Spring data JPA (Usado para mapear os objetos para o db)
+* Maven
+* Spring Boot 2.5.5
+* Spring data JPA
 * ReactJs
 * Material Design
-* Java JDK 1.8 (Usar, se necessario, novas features como lambda, optional entre outras)
+* Java JDK 17
 * Flyway (Usado para versionar o banco. Sempre uma boa prática utlizar um versionador de
 banco e não deixar essa resposabilidade para a dll do hibernate, e 
  assim conseguimos evitar conflitos de tipos, campos removidos, etc... em novas versões da aplicação)
@@ -19,7 +18,7 @@ banco e não deixar essa resposabilidade para a dll do hibernate, e
 ### Instalando
 git clone https://github.com/samuelpsouza/matriz-curricular.git
 
-cd matriz-curricular/
+cd curriculum/
 
 docker-compose up -d
 
