@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
-import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -88,7 +87,6 @@ class MajorTests {
     }
 
     @Test
-    @WithMockUser(roles="COORDENADOR")
     void shouldAddANewMajorAndReceiveApiResponseJson() throws Exception {
         major = new Major("CC001", "Ciencia da Computação");
         mvc.perform(post("/majors")
@@ -103,7 +101,6 @@ class MajorTests {
     }
 
     @Test
-    @WithMockUser(roles="COORDENADOR")
     void shouldUpdateAMajorAndReceiveApiResponseJson() throws Exception {
         major = new Major("CC001", "Ciencia da Computação");
         major = this.majorRepository.save(major);
@@ -124,7 +121,6 @@ class MajorTests {
     }
 
     @Test
-    @WithMockUser(roles="COORDENADOR")
     void shouldDeleteAMajorAndReceiveApiResponseJson() throws Exception {
         major = new Major("CC001", "Ciencia da Computação");
         major = this.majorRepository.save(major);

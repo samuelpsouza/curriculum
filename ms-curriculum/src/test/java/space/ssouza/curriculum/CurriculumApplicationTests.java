@@ -22,7 +22,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
-import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -97,7 +96,6 @@ class CurriculumApplicationTests {
     }
 
     @Test
-    @WithMockUser(roles="COORDENADOR")
     void shouldAddANewSemesterAndReceiveApiResponseJson() throws Exception {
         semester = new Semester("Semestre I");
         mvc.perform(post("/semesters")
@@ -112,7 +110,6 @@ class CurriculumApplicationTests {
     }
 
     @Test
-    @WithMockUser(roles="COORDENADOR")
     void shouldUpdateASemesterAndReceiveApiResponseJson() throws Exception {
         semester = new Semester("Semestre I");
         semester = this.semesterRepository.save(semester);
@@ -131,7 +128,6 @@ class CurriculumApplicationTests {
     }
 
     @Test
-    @WithMockUser(roles="COORDENADOR")
     void shouldDeleteASemesterAndReceiveApiResponseJson() throws Exception {
         semester = new Semester("Semestre I");
         semester = this.semesterRepository.save(semester);

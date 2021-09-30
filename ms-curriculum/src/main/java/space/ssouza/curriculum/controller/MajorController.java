@@ -5,7 +5,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import space.ssouza.curriculum.model.Major;
@@ -33,25 +32,21 @@ public class MajorController {
     }
 
     @PostMapping
-    @PreAuthorize("hasRole('COORDENADOR')")
     public ResponseEntity<ApiResponse> addMajor(@RequestBody @Valid Major major) {
         return ResponseEntity.ok(this.majorService.saveMajor(major));
     }
 
     @PutMapping
-    @PreAuthorize("hasRole('COORDENADOR')")
     public ResponseEntity<ApiResponse> updateMajor(@RequestBody @Valid Major major) {
         return ResponseEntity.ok(this.majorService.saveMajor(major));
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasRole('COORDENADOR')")
     public ResponseEntity<ApiResponse> deleteMajor(@PathVariable("id") Long id) {
         return ResponseEntity.ok(this.majorService.deleteMajor(id));
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasRole('COORDENADOR')")
     public ResponseEntity<ApiResponse> getSingleMajor(@PathVariable("id") Long id) {
         return ResponseEntity.ok(this.majorService.getSingleMajor(id));
     }

@@ -22,7 +22,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
-import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -75,7 +74,6 @@ class CourseTests {
     }
 
     @Test
-    @WithMockUser(roles = "COORDENADOR")
     void shouldRequestASingleCourseAndReceiveApiResponseJson() throws Exception {
         course = new Course("CC001WD001", "Web Development");
         course = this.courseRepository.save(course);
@@ -91,7 +89,6 @@ class CourseTests {
     }
 
     @Test
-    @WithMockUser(roles = "COORDENADOR")
     void shouldAddANewCourseAndReceiveApiResponseJson() throws Exception {
         course = new Course("CC001WD001", "Web Development");
         mvc.perform(post("/courses")
@@ -106,7 +103,6 @@ class CourseTests {
     }
 
     @Test
-    @WithMockUser(roles = "COORDENADOR")
     void shouldUpdateACourseAndReceiveApiResponseJson() throws Exception {
         course = new Course("CC001WD001", "Web Development");
         course = this.courseRepository.save(course);
@@ -124,7 +120,6 @@ class CourseTests {
     }
 
     @Test
-    @WithMockUser(roles = "COORDENADOR")
     void shouldDeleteACourseAndReceiveApiResponseJson() throws Exception {
         course = new Course("CC001WD001", "Web Development");
         course = this.courseRepository.save(course);
