@@ -1,6 +1,6 @@
 # Gerenciador de Matriz Curricular
 
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=samuelpsouza_matriz-curricular&metric=alert_status)](https://sonarcloud.io/dashboard?id=samuelpsouza_matriz-curricular)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=samuelpsouza_curriculum&metric=alert_status)](https://sonarcloud.io/dashboard?id=samuelpsouza_curriculum)
 
 Aplicação web responsável por montar a matriz curricular
 de um curso
