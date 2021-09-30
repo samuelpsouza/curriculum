@@ -8,16 +8,18 @@ import java.io.Serializable;
 
 @Entity
 public class Role implements Serializable {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-    private String name;
+	private static final long serialVersionUID = 2846646894947469978L;
 
-    public Role() {
-        // Empty constructor
-    }
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer id;
+	private String name;
 
-    public String getName() {
-        return name;
-    }
+	public Role() {
+		// Empty constructor
+	}
+
+	public String getName() {
+		return name;
+	}
 }

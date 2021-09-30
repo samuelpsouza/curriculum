@@ -1,7 +1,9 @@
 package space.ssouza.curriculum.exceptions;
 
 public class UserAlreadyExistException extends RuntimeException {
-    public UserAlreadyExistException() {
+	private static final long serialVersionUID = 3981233046030507295L;
+
+	public UserAlreadyExistException() {
         super();
     }
 

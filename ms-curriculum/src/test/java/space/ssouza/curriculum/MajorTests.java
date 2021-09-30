@@ -29,7 +29,7 @@ import static space.ssouza.curriculum.TestUtil.convertObjectToJsonBytes;
 @TestPropertySource(locations="classpath:test.properties")
 @AutoConfigureEmbeddedDatabase
 @FlywayTest
-public class MajorTests {
+class MajorTests {
     @Autowired
     private MockMvc mvc;
     @Autowired
@@ -38,7 +38,7 @@ public class MajorTests {
     private Major major;
 
     @Test
-    public void shouldCreateAMajorObject() {
+    void shouldCreateAMajorObject() {
         major = new Major("CC001", "Ciencia da Computação");
         assertNotNull(major);
         assertNotNull(major.getTitle());
@@ -46,14 +46,14 @@ public class MajorTests {
     }
 
     @Test
-    public void shouldCreateAndPersistAMajorObject() {
+    void shouldCreateAndPersistAMajorObject() {
         major = new Major("CC001", "Ciencia da Computação");
         Major persistedMajor = this.majorRepository.save(major);
         assertEquals(persistedMajor.getCode(), major.getCode());
     }
 
     @Test
-    public void shouldRequestMajorsAndHaveStatus200()
+    void shouldRequestMajorsAndHaveStatus200()
             throws Exception {
 
         mvc.perform(get("/majors")
@@ -64,7 +64,7 @@ public class MajorTests {
     }
 
     @Test
-    public void shouldRequestMajorAndReceiveApiResponseJsonWithContent() throws Exception {
+    void shouldRequestMajorAndReceiveApiResponseJsonWithContent() throws Exception {
         mvc.perform(get("/majors")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
@@ -76,7 +76,7 @@ public class MajorTests {
     }
 
     @Test
-    public void shouldRequestMajorAndReceiveApiResponseJson() throws Exception {
+    void shouldRequestMajorAndReceiveApiResponseJson() throws Exception {
         mvc.perform(get("/majors")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
@@ -89,7 +89,7 @@ public class MajorTests {
 
     @Test
     @WithMockUser(roles="COORDENADOR")
-    public void shouldAddANewMajorAndReceiveApiResponseJson() throws Exception {
+    void shouldAddANewMajorAndReceiveApiResponseJson() throws Exception {
         major = new Major("CC001", "Ciencia da Computação");
         mvc.perform(post("/majors")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -104,7 +104,7 @@ public class MajorTests {
 
     @Test
     @WithMockUser(roles="COORDENADOR")
-    public void shouldUpdateAMajorAndReceiveApiResponseJson() throws Exception {
+    void shouldUpdateAMajorAndReceiveApiResponseJson() throws Exception {
         major = new Major("CC001", "Ciencia da Computação");
         major = this.majorRepository.save(major);
 
@@ -125,7 +125,7 @@ public class MajorTests {
 
     @Test
     @WithMockUser(roles="COORDENADOR")
-    public void shouldDeleteAMajorAndReceiveApiResponseJson() throws Exception {
+    void shouldDeleteAMajorAndReceiveApiResponseJson() throws Exception {
         major = new Major("CC001", "Ciencia da Computação");
         major = this.majorRepository.save(major);
 
@@ -140,7 +140,7 @@ public class MajorTests {
     }
 
     @Test
-    public void shouldRequestASingleMajorAndReceiveApiResponseJson() throws Exception {
+    void shouldRequestASingleMajorAndReceiveApiResponseJson() throws Exception {
         major = new Major("CC001", "Ciencia da Computação");
         major = this.majorRepository.save(major);
 

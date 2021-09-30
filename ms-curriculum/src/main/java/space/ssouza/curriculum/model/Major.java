@@ -25,8 +25,6 @@ public class Major {
     private String description;
     @Enumerated(EnumType.STRING)
     private Period period;
-    private String duration;
-    private String registrationNumber;
     @OneToOne(cascade = CascadeType.ALL)
     private Matrix matrix = new Matrix();
 
@@ -35,13 +33,11 @@ public class Major {
         this.title = title;
     }
 
-    public Major(@NotNull @NotBlank @NotEmpty String code, @NotNull @NotBlank @NotEmpty String title, String description, Period period, String duration, String registrationNumber, Matrix matrix) {
+    public Major(@NotNull @NotBlank @NotEmpty String code, @NotNull @NotBlank @NotEmpty String title, String description, Period period, Matrix matrix) {
         this.code = code;
         this.title = title;
         this.description = description;
         this.period = period;
-        this.duration = duration;
-        this.registrationNumber = registrationNumber;
         this.matrix = matrix;
     }
 

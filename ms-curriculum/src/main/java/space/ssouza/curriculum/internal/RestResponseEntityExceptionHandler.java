@@ -33,7 +33,8 @@ import static org.springframework.http.HttpStatus.*;
 @Order(Ordered.HIGHEST_PRECEDENCE)
 @ControllerAdvice
 public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionHandler {
-    private static final Logger log = LoggerFactory.getLogger(RestResponseEntityExceptionHandler.class);
+    private static final String STATUS_CODE_200_MSG = "200 Status Code";
+	private static final Logger log = LoggerFactory.getLogger(RestResponseEntityExceptionHandler.class);
 
     @Override
     protected ResponseEntity<Object> handleMissingServletRequestParameter(
@@ -132,13 +133,13 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
 
     @ExceptionHandler(UserNotFoundException.class)
     public ResponseEntity<Object> handleUserNotFound(UserNotFoundException ex) {
-        log.error("200 Status Code", ex);
+        log.error(STATUS_CODE_200_MSG, ex);
         return buildApiResponseEntity(new ApiResponse(false, "Usuário não encontrado!"), OK);
     }
 
     @ExceptionHandler(UserAlreadyExistException.class)
     public ResponseEntity<Object> handleUserAlreadyExists(UserAlreadyExistException ex) {
-        log.error("200 Status Code", ex);
+        log.error(STATUS_CODE_200_MSG, ex);
         return buildApiResponseEntity(new ApiResponse(false, "Usuário já cadastrado."), OK);
     }
 
@@ -159,13 +160,13 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
 
     @ExceptionHandler(InvalidTokenException.class)
     public ResponseEntity<Object> handleInvalidTokenException(InvalidTokenException ex) {
-        log.error("200 Status Code", ex);
+        log.error(STATUS_CODE_200_MSG, ex);
         return buildApiResponseEntity(new ApiResponse(false, "Token inválido ou expirado"), OK);
     }
 
     @ExceptionHandler(BadCredentialsException.class)
     public ResponseEntity<Object> handleBadCredentialsException(BadCredentialsException ex) {
-        log.error("200 Status Code", ex);
+        log.error(STATUS_CODE_200_MSG, ex);
         return buildApiResponseEntity(new ApiResponse(false, "Username and/or password invalid"), OK);
     }
 

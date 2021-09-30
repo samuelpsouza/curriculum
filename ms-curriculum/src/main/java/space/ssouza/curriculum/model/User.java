@@ -1,11 +1,11 @@
 package space.ssouza.curriculum.model;
 
-import com.sun.istack.NotNull;
 import org.springframework.data.annotation.Transient;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.List;
@@ -13,7 +13,9 @@ import java.util.List;
 @Entity
 @Table(name = "users")
 public class User implements Serializable {
-    @Id
+	private static final long serialVersionUID = -6729383496407298521L;
+
+	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Size(min = 8)

@@ -1,7 +1,9 @@
 package space.ssouza.curriculum.exceptions;
 
 public class UserNotFoundException extends RuntimeException {
-    public UserNotFoundException() {
+	private static final long serialVersionUID = 1734866593060367212L;
+
+	public UserNotFoundException() {
         super();
     }
 

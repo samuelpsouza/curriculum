@@ -13,95 +13,108 @@ import java.util.List;
 import java.util.Set;
 
 public class ApiError {
-    private boolean success = false;
-    private HttpStatus status;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:mm:ss")
-    private LocalDateTime timestamp;
-    private String message;
-    private String debugMessage;
-    private List<ApiSubError> subErrors;
+	private boolean success = false;
+	private HttpStatus status;
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:mm:ss")
+	private LocalDateTime timestamp;
+	private String message;
+	private String debugMessage;
+	private List<ApiSubError> subErrors;
 
-    private ApiError() {
-        timestamp = LocalDateTime.now();
-    }
+	private ApiError() {
+		timestamp = LocalDateTime.now();
+	}
 
-    public ApiError(HttpStatus status) {
-        this();
-        this.status = status;
-    }
+	public ApiError(HttpStatus status) {
+		this();
+		this.status = status;
+	}
 
-    public ApiError(HttpStatus status, Throwable ex) {
-        this();
-        this.status = status;
-        this.message = "Unexpected error";
-        this.debugMessage = ex.getLocalizedMessage();
-    }
+	public ApiError(HttpStatus status, Throwable ex) {
+		this();
+		this.status = status;
+		this.message = "Unexpected error";
+		this.debugMessage = ex.getLocalizedMessage();
+	}
 
-    public ApiError(HttpStatus status, String message, Throwable ex) {
-        this();
-        this.status = status;
-        this.message = message;
-        this.debugMessage = ex.getLocalizedMessage();
-    }
+	public ApiError(HttpStatus status, String message, Throwable ex) {
+		this();
+		this.status = status;
+		this.message = message;
+		this.debugMessage = ex.getLocalizedMessage();
+	}
 
-    public void addSubError(ApiSubError subError) {
-        if (subErrors == null) {
-            subErrors = new ArrayList<>();
-        }
-        subErrors.add(subError);
-    }
+	public void addSubError(ApiSubError subError) {
+		if (subErrors == null) {
+			subErrors = new ArrayList<>();
+		}
+		subErrors.add(subError);
+	}
 
-    public void addValidationError(String object, String field, Object rejectedValue, String message) {
-        addSubError(new ApiValidationError(object, field, rejectedValue, message));
-    }
+	public void addValidationError(String object, String field, Object rejectedValue, String message) {
+		addSubError(new ApiValidationError(object, field, rejectedValue, message));
+	}
 
-    private void addValidationError(String object, String message) {
-        addSubError(new ApiValidationError(object, message));
-    }
+	private void addValidationError(String object, String message) {
+		addSubError(new ApiValidationError(object, message));
+	}
 
-    public void addValidationError(FieldError fieldError) {
-        this.addValidationError(
-                fieldError.getObjectName(),
-                fieldError.getField(),
-                fieldError.getRejectedValue(),
-                fieldError.getDefaultMessage());
-    }
+	public void addValidationError(FieldError fieldError) {
+		this.addValidationError(fieldError.getObjectName(), fieldError.getField(), fieldError.getRejectedValue(),
+				fieldError.getDefaultMessage());
+	}
 
-    public void addValidationErrors(List<FieldError> fieldErrors) {
-        fieldErrors.forEach(this::addValidationError);
-    }
+	public void addValidationErrors(List<FieldError> fieldErrors) {
+		fieldErrors.forEach(this::addValidationError);
+	}
 
-    public void addValidationError(ObjectError objectError) {
-        this.addValidationError(
-                objectError.getObjectName(),
-                objectError.getDefaultMessage());
-    }
+	public void addValidationError(ObjectError objectError) {
+		this.addValidationError(objectError.getObjectName(), objectError.getDefaultMessage());
+	}
 
-    public void addValidationError(List<ObjectError> globalErrors) {
-        globalErrors.forEach(this::addValidationError);
-    }
+	public void addValidationError(List<ObjectError> globalErrors) {
+		globalErrors.forEach(this::addValidationError);
+	}
 
-    public void addValidationError(ConstraintViolation<?> cv) {
-        this.addValidationError(
-                cv.getRootBeanClass().getSimpleName(),
-                ((PathImpl) cv.getPropertyPath()).getLeafNode().asString(),
-                cv.getInvalidValue(),
-                cv.getMessage());
-    }
+	public void addValidationError(ConstraintViolation<?> cv) {
+		this.addValidationError(cv.getRootBeanClass().getSimpleName(),
+				((PathImpl) cv.getPropertyPath()).getLeafNode().asString(), cv.getInvalidValue(), cv.getMessage());
+	}
 
-    public void addValidationErrors(Set<ConstraintViolation<?>> constraintViolations) {
-        constraintViolations.forEach(this::addValidationError);
-    }
+	public void addValidationErrors(Set<ConstraintViolation<?>> constraintViolations) {
+		constraintViolations.forEach(this::addValidationError);
+	}
 
-    public void setMessage(final String message) {
-        this.message = message;
-    }
+	public void setMessage(final String message) {
+		this.message = message;
+	}
 
-    public void setDebugMessage(String debugMessage) {
-        this.debugMessage = debugMessage;
-    }
+	public void setDebugMessage(String debugMessage) {
+		this.debugMessage = debugMessage;
+	}
 
-    public HttpStatus getStatus() {
-        return status;
-    }
+	public HttpStatus getStatus() {
+		return status;
+	}
+
+	public boolean isSuccess() {
+		return success;
+	}
+
+	public LocalDateTime getTimestamp() {
+		return timestamp;
+	}
+
+	public String getMessage() {
+		return message;
+	}
+
+	public String getDebugMessage() {
+		return debugMessage;
+	}
+
+	public List<ApiSubError> getSubErrors() {
+		return subErrors;
+	}
+
 }
