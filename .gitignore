@@ -1,5 +1,4 @@
-/backend/target/
-!/backend/.mvn/wrapper/maven-wrapper.jar
+/**/target/
 
 ### STS ###
 .apt_generated
@@ -11,10 +10,10 @@
 .sts4-cache
 
 ### IntelliJ IDEA ###
-/backend/.idea
-/backend/.mvn
-/backend/mvnw
-/backend/mvnw.cmd
+/**/.idea
+/**/.mvn
+/**/mvnw
+/**/mvnw.cmd
 *.iws
 *.iml
 *.ipr
