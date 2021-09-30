@@ -24,7 +24,7 @@ jobs:
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
       - name: Compile
-        run: mvn -f ms-curriculum/pom.xml -B compile -Dmaven.test.failure.ignore=true
+        run: mvn -f ms-curriculum/pom.xml -B compile test -Dmaven.test.failure.ignore=true
   sonarcloud:
     name: SonarCloud
     runs-on: ubuntu-latest
