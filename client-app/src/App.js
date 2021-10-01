@@ -1,23 +1,17 @@
-import React, { Component } from 'react';
-import AppRouter from './AppRouter';
-import './App.css';
+import React from 'react';
 
-import { Provider } from 'react-redux'
-import { PersistGate } from 'redux-persist/integration/react'
+import { GlobalStyle } from './Components/GlobalStyle';
+import Header from "./Components/Header";
+import Container from "./Components/Container";
 
-import { store, persistor } from './redux/store'
-import { history } from './redux/store'
-
-class App extends Component {
-  render() {
-    return (
-      <Provider store={store} >
-        <PersistGate loading={null} persistor={persistor}>
-          <AppRouter history={history} />
-        </PersistGate>
-      </Provider>
-    );
-  }
+function App () {
+  return (
+    <>
+      <GlobalStyle />
+      <Header />
+      <Container />
+    </>
+  );
 }
 
 export default App;
