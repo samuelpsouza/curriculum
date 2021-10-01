@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 import Title from '../Title';
 import SideBar from "../SideBar";
-import Program from "../Program";
+import Main from "../Main";
 
 const Container = styled.div`
     background-color: #f1f1f1;
@@ -26,7 +26,7 @@ export default () => {
             <Title />
             <Content>
                 <SideBar />
-                <Program />
+                <Main />
             </Content>
         </Container>
     );
