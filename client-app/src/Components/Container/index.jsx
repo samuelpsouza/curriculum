@@ -2,6 +2,8 @@ import React from "react";
 import styled from "styled-components";
 
 import Title from '../Title';
+import SideBar from "../SideBar";
+import Program from "../Program";
 
 const Container = styled.div`
     background-color: #f1f1f1;
@@ -23,7 +25,8 @@ export default () => {
         <Container>
             <Title />
             <Content>
-                Hello World
+                <SideBar />
+                <Program />
             </Content>
         </Container>
     );
