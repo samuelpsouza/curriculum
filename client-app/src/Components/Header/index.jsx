@@ -1,11 +1,14 @@
 import React from "react";
+import styled from "styled-components";
 
-const Header = () => {
+const Header = styled.div`
+
+`;
+
+export default () => {
     return (
-        <div className="header">
-
-        </div>
+        <Header>
+            Welcome!
+        </Header>
     );
-}
-
-export default Header;
+};
