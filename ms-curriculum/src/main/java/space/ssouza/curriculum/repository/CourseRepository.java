@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 import space.ssouza.curriculum.model.Course;
 
 @Repository
-public interface CourseRepository extends JpaRepository<Course, Long> {
+public interface CourseRepository extends JpaRepository<Course, Integer> {
 }

@@ -1,54 +1,42 @@
 package space.ssouza.curriculum.service;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import space.ssouza.curriculum.model.Course;
-import space.ssouza.curriculum.payload.ApiResponse;
 import space.ssouza.curriculum.repository.CourseRepository;
-
-import java.time.LocalDateTime;
 
 @Service
 public class CourseService {
-    private static final Logger log = LoggerFactory.getLogger(CourseService.class);
-    private final CourseRepository courseRepository;
+	private final CourseRepository courseRepository;
 
-    @Autowired
-    public CourseService(CourseRepository courseRepository) {
-        this.courseRepository = courseRepository;
-    }
+	@Autowired
+	public CourseService(CourseRepository courseRepository) {
+		this.courseRepository = courseRepository;
+	}
 
-    @Transactional(readOnly = true)
-    public ApiResponse getSingleCourse(Long id) {
-        ApiResponse response = new ApiResponse(true, "Course " + id + "fetched");
-        response.setData(this.courseRepository.findById(id));
-        return response;
-    }
+	@Transactional(readOnly = true)
+	public Optional<Course> getSingleCourse(final Integer id) {
+		return courseRepository.findById(id);
+	}
 
-    @Transactional
-    public ApiResponse saveCourse(Course course) {
-        ApiResponse response = new ApiResponse(true, "Course saved");
-        response.setData(this.courseRepository.save(course));
-        return response;
-    }
+	@Transactional
+	public Course saveCourse(final Course course) {
+		return courseRepository.save(course);
+	}
 
-    @Transactional
-    public ApiResponse deleteCourse(Long id) {
-        ApiResponse response = new ApiResponse(true, "Course removed");
-        this.courseRepository.deleteById(id);
-        log.info("Course {} removed -> Time: {}", id, LocalDateTime.now());
-        return response;
-    }
+	@Transactional
+	public void deleteCourse(final Integer id) {
+		courseRepository.deleteById(id);
+	}
 
-    @Transactional(readOnly = true)
-    public ApiResponse getCourses(Pageable pageable) {
-        ApiResponse response = new ApiResponse(true, "Courses fetched");
-        response.setData(this.courseRepository.findAll(pageable));
-        return response;
-    }
+	@Transactional(readOnly = true)
+	public Page<Course> getCourses(Pageable pageable) {
+		return courseRepository.findAll(pageable);
+	}
 }

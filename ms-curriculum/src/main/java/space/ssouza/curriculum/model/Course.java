@@ -7,39 +7,39 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 public class Course {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    @Column(unique = true)
-    @NotNull
-    @NotEmpty
-    @NotBlank
-    private String code;
-    @NotNull
-    @NotEmpty
-    @NotBlank
-    private String description;
-    @OneToOne
-    private Semester semester;
+	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	private Integer id;
 
-    public Course(@NotNull @NotEmpty @NotBlank String code, @NotNull @NotEmpty @NotBlank String description) {
-        this.code = code;
-        this.description = description;
-    }
+	@Column(unique = true)
+	@NotNull
+	@NotEmpty
+	@NotBlank
+	private String code;
 
-    public Course() {
-        // Empty constructor
-    }
+	@NotNull
+	@NotEmpty
+	@NotBlank
+	private String description;
 
-    public Long getId() {
-        return id;
-    }
+	public Course(@NotNull @NotEmpty @NotBlank String code, @NotNull @NotEmpty @NotBlank String description) {
+		this.code = code;
+		this.description = description;
+	}
 
-    public String getCode() {
-        return code;
-    }
+	public Course() {
+		// Empty constructor
+	}
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+	public Integer getId() {
+		return id;
+	}
+
+	public String getCode() {
+		return code;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
 }

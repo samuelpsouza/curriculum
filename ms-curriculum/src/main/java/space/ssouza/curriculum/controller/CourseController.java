@@ -3,6 +3,7 @@ package space.ssouza.curriculum.controller;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.MediaType;
@@ -17,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import space.ssouza.curriculum.model.Course;
-import space.ssouza.curriculum.payload.ApiResponse;
 import space.ssouza.curriculum.service.CourseService;
 
 @RestController
@@ -31,27 +31,28 @@ public class CourseController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ApiResponse> getSingleCourse(@PathVariable("id") Long id) {
-        return ResponseEntity.ok(courseService.getSingleCourse(id));
+    public ResponseEntity<Course> getSingleCourse(@PathVariable("id") Integer id) {
+        return ResponseEntity.ok(courseService.getSingleCourse(id).orElseGet(null));
     }
 
     @GetMapping
-    public ResponseEntity<ApiResponse> getCourses(@PageableDefault Pageable pageable) {
+    public ResponseEntity<Page<Course>> getCourses(@PageableDefault Pageable pageable) {
         return ResponseEntity.ok(courseService.getCourses(pageable));
     }
 
     @PostMapping
-    public ResponseEntity<ApiResponse> addCourse(@RequestBody @Valid Course course) {
+    public ResponseEntity<Course> addCourse(@RequestBody @Valid final Course course) {
         return ResponseEntity.ok(courseService.saveCourse(course));
     }
 
     @PutMapping
-    public ResponseEntity<ApiResponse> updateCourse(@RequestBody @Valid Course course) {
+    public ResponseEntity<Course> updateCourse(@RequestBody @Valid final Course course) {
         return ResponseEntity.ok(courseService.saveCourse(course));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<ApiResponse> deleteCourse(@PathVariable("id") final Long id) {
-        return ResponseEntity.ok(courseService.deleteCourse(id));
+    public ResponseEntity<String> deleteCourse(@PathVariable("id") final Integer id) {
+    	courseService.deleteCourse(id);
+        return ResponseEntity.ok("removed");
     }
 }

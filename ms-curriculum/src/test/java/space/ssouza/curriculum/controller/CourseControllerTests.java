@@ -1,4 +1,4 @@
-package space.ssouza.curriculum;
+package space.ssouza.curriculum.controller;
 
 import static org.hamcrest.CoreMatchers.anything;
 import static org.hamcrest.CoreMatchers.is;
@@ -34,7 +34,7 @@ import space.ssouza.curriculum.repository.CourseRepository;
 @TestPropertySource(locations = "classpath:test.properties")
 @AutoConfigureEmbeddedDatabase
 @FlywayTest
-class CourseTests {
+class CourseControllerTests {
     @Autowired
     private MockMvc mvc;
 
