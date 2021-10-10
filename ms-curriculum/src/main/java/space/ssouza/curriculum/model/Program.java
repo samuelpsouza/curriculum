@@ -42,6 +42,10 @@ public class Program {
 		this.period = period;
 	}
 
+	public Program() {
+		// Empty Constructor
+	}
+
 	public Integer getId() {
 		return id;
 	}
