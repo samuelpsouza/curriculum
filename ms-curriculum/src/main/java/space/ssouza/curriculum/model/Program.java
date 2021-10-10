@@ -8,7 +8,6 @@ import javax.validation.constraints.NotNull;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import space.ssouza.curriculum.util.Period;
 
-import java.util.List;
 import java.util.Set;
 
 @Entity
