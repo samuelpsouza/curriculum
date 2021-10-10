@@ -1,49 +1,60 @@
 package space.ssouza.curriculum.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.util.Set;
 
 @Entity
 public class Course {
-	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
-	private Integer id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private Integer id;
 
-	@Column(unique = true)
-	@NotNull
-	@NotEmpty
-	@NotBlank
-	private String code;
+    @Column(unique = true)
+    @NotNull
+    @NotEmpty
+    @NotBlank
+    private String code;
 
-	@NotNull
-	@NotEmpty
-	@NotBlank
-	private String description;
+    @NotNull
+    @NotEmpty
+    @NotBlank
+    private String description;
 
-	public Course(@NotNull @NotEmpty @NotBlank String code, @NotNull @NotEmpty @NotBlank String description) {
-		this.code = code;
-		this.description = description;
-	}
+    @ManyToMany(mappedBy = "courses")
+    @JsonIgnoreProperties("courses")
+    private Set<Program> programs;
 
-	public Course() {
-		// Empty constructor
-	}
+    public Course(@NotNull @NotEmpty @NotBlank String code, @NotNull @NotEmpty @NotBlank String description) {
+        this.code = code;
+        this.description = description;
+    }
 
-	public Integer getId() {
-		return id;
-	}
+    public Course() {
+        // Empty constructor
+    }
 
-	public String getCode() {
-		return code;
-	}
+    public Integer getId() {
+        return id;
+    }
 
-	public String getDescription() {
-		return description;
-	}
+    public String getCode() {
+        return code;
+    }
 
-	public void setDescription(final String description){
-		this.description = description;
-	}
+    public String getDescription() {
+        return description;
+    }
+
+    public Set<Program> getPrograms() {
+        return programs;
+    }
+
+    public void setDescription(final String description) {
+        this.description = description;
+    }
 }
