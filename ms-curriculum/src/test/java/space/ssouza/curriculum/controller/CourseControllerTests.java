@@ -15,7 +15,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static space.ssouza.curriculum.TestUtil.convertObjectToJsonBytes;
 
-import org.flywaydb.test.annotation.FlywayTest;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,15 +24,12 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
 
-import io.zonky.test.db.AutoConfigureEmbeddedDatabase;
 import space.ssouza.curriculum.model.Course;
 import space.ssouza.curriculum.repository.CourseRepository;
 
 @SpringBootTest
 @AutoConfigureMockMvc
 @TestPropertySource(locations = "classpath:test.properties")
-@AutoConfigureEmbeddedDatabase
-@FlywayTest
 class CourseControllerTests {
     @Autowired
     private MockMvc mvc;

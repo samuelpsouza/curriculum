@@ -39,7 +39,11 @@ public class Course {
 		return code;
 	}
 
-	public void setDescription(String description) {
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(final String description){
 		this.description = description;
 	}
 }

@@ -1,5 +1,6 @@
 package space.ssouza.curriculum.controller;
 
+import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,7 @@ import space.ssouza.curriculum.model.Course;
 import space.ssouza.curriculum.service.CourseService;
 
 @RestController
-@RequestMapping(value = "courses", consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
+@RequestMapping(value = "courses", produces = {MediaType.APPLICATION_JSON_VALUE})
 public class CourseController {
     private final CourseService courseService;
 
@@ -31,12 +32,12 @@ public class CourseController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Course> getSingleCourse(@PathVariable("id") Integer id) {
-        return ResponseEntity.ok(courseService.getSingleCourse(id).orElseGet(null));
+    public ResponseEntity<Course> getSingleCourse(@PathVariable("id") final Integer id) {
+        return ResponseEntity.ok(courseService.getSingleCourse(id).orElseThrow(EntityNotFoundException::new));
     }
 
     @GetMapping
-    public ResponseEntity<Page<Course>> getCourses(@PageableDefault Pageable pageable) {
+    public ResponseEntity<Page<Course>> getCourses(@PageableDefault final Pageable pageable) {
         return ResponseEntity.ok(courseService.getCourses(pageable));
     }
 
@@ -53,6 +54,6 @@ public class CourseController {
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteCourse(@PathVariable("id") final Integer id) {
     	courseService.deleteCourse(id);
-        return ResponseEntity.ok("removed");
+        return ResponseEntity.ok(String.format("Course %s removed", id));
     }
 }

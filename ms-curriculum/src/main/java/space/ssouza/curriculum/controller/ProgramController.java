@@ -22,9 +22,7 @@ import space.ssouza.curriculum.model.Program;
 import space.ssouza.curriculum.service.ProgramService;
 
 @RestController
-@RequestMapping(value = "programs", 
-	consumes = { MediaType.APPLICATION_JSON_VALUE }, 
-	produces = { MediaType.APPLICATION_JSON_VALUE })
+@RequestMapping(value = "programs", produces = { MediaType.APPLICATION_JSON_VALUE })
 public class ProgramController {
 	private final ProgramService programService;
 
@@ -34,7 +32,6 @@ public class ProgramController {
 	}
 
 	@GetMapping
-	@ResponseBody
 	public ResponseEntity<Page<Program>> getPrograms(@PageableDefault final Pageable page) {
 		return ResponseEntity.ok(programService.getPrograms(page));
 	}

@@ -1,3 +1,10 @@
 spring:
   main:
     banner-mode: off
+  datasource:
+    url: jdbc:h2:mem:curriculum
+    driverClassName: org.h2.Driver
+    username: curriculum
+    password: curriculum
+    jpa:
+      database-platform: org.hibernate.dialect.H2Dialect
