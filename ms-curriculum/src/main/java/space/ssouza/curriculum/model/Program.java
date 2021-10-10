@@ -7,6 +7,8 @@ import javax.validation.constraints.NotNull;
 
 import space.ssouza.curriculum.util.Period;
 
+import java.util.List;
+
 @Entity
 public class Program {
 	@Id
@@ -29,6 +31,9 @@ public class Program {
 
 	@Enumerated(EnumType.ORDINAL)
 	private Period period;
+
+	@OneToMany
+	private List<Course> courses;
 
 	public Program(final String code, final String title) {
 		this.code = code;
@@ -60,5 +65,9 @@ public class Program {
 
 	public void setTitle(String title) {
 		this.title = title;
+	}
+
+	public Period getPeriod(){
+		return period;
 	}
 }
