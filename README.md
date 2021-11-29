@@ -11,9 +11,6 @@ Aplicação web responsável por montar a matriz curricular de um curso.
 * ReactJs
 * Material Design
 * Java JDK 17
-* Flyway (Usado para versionar o banco. Sempre uma boa prática utlizar um versionador de
-banco e não deixar essa resposabilidade para a dll do hibernate, e 
- assim conseguimos evitar conflitos de tipos, campos removidos, etc... em novas versões da aplicação)
 
 ### Instalando
 git clone https://github.com/samuelpsouza/matriz-curricular.git
